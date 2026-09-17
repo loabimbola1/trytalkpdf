@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TalkPDF — Locked Scope Specification</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --surface: #131b2e;
+      --surface-border: #1e293b;
+      --surface-hover: #1c2744;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --must: #10b981;
+      --must-bg: rgba(16, 185, 129, 0.12);
+      --must-border: rgba(16, 185, 129, 0.35);
+      --lock-banner-bg: rgba(239, 68, 68, 0.12);
+      --lock-banner-border: rgba(239, 68, 68, 0.4);
+      --card-radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      line-height: 1.6;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* Top Mandatory Scope Lock Line */
+    .top-lock-statement {
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: #f87171;
+      background: #181119;
+      border: 1px dashed var(--lock-banner-border);
+      padding: 8px 16px;
+      border-radius: 6px;
+      margin-bottom: 24px;
+      display: inline-block;
+    }
+
+    .lock-banner {
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(15, 23, 42, 0.95));
+      border: 1px solid var(--lock-banner-border);
+      border-left: 6px solid #ef4444;
+      border-radius: var(--card-radius);
+      padding: 20px 24px;
+      margin-bottom: 32px;
+    }
+
+    .lock-banner h2 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .lock-banner p {
+      font-size: 0.92rem;
+      color: #fca5a5;
+      margin: 0;
+    }
+
+    header {
+      border-bottom: 1px solid var(--surface-border);
+      padding-bottom: 24px;
+      margin-bottom: 32px;
+    }
+
+    .badge-doc {
+      display: inline-block;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid var(--must-border);
+      color: var(--must);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 800px;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+      padding: 18px;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--card-radius);
+      font-size: 0.875rem;
+    }
+
+    .meta-item strong {
+      display: block;
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 3px;
+    }
+
+    .meta-item span {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    /* Table Styling */
+    .table-wrapper {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--card-radius);
+      overflow-x: auto;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+      margin-bottom: 36px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.88rem;
+    }
+
+    thead {
+      background: rgba(15, 23, 42, 0.9);
+      border-bottom: 2px solid var(--surface-border);
+    }
+
+    th {
+      padding: 14px 18px;
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    td {
+      padding: 18px;
+      border-bottom: 1px solid var(--surface-border);
+      vertical-align: top;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background-color: var(--surface-hover);
+    }
+
+    .feature-name {
+      font-weight: 700;
+      color: #ffffff;
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+    }
+
+    .source-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      color: var(--accent);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+
+    .desc-text {
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      line-height: 1.55;
+    }
+
+    .reason-text {
+      color: #94a3b8;
+      font-size: 0.85rem;
+      line-height: 1.55;
+    }
+
+    .tag-must {
+      display: inline-block;
+      background: var(--must-bg);
+      color: var(--must);
+      border: 1px solid var(--must-border);
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 4px 12px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    /* Boundary Notes */
+    .boundary-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--card-radius);
+      padding: 20px 24px;
+      margin-top: 24px;
+    }
+
+    .boundary-card h3 {
+      font-size: 1rem;
+      color: #ffffff;
+      margin-bottom: 10px;
+    }
+
+    .boundary-card ul {
+      padding-left: 20px;
+      color: #cbd5e1;
+      font-size: 0.88rem;
+    }
+
+    .boundary-card li {
+      margin-bottom: 8px;
+    }
+
+    footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid var(--surface-border);
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="top-lock-statement">Locked scope: no changes until Section 12.</div>
+
+    <div class="lock-banner">
+      <h2>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+        </svg>
+        Locked Scope Contract (5-Day Team Build)
+      </h2>
+      <p>Locked scope: no changes until Section 12. The 6 features below constitute the sole deliverables for this sprint.</p>
+    </div>
+
+    <header>
+      <span class="badge-doc">Official Build Specification</span>
+      <h1>TalkPDF — Locked Scope Specification</h1>
+      <p class="subtitle">
+        Strict Must-Have feature commitment for the 5-day team build sprint. No additions or changes are permitted prior to Section 12 review.
+      </p>
+
+      <div class="meta-grid">
+        <div class="meta-item">
+          <strong>Date</strong>
+          <span>16 September 2026</span>
+        </div>
+        <div class="meta-item">
+          <strong>Sprint Budget</strong>
+          <span>5-Day Team Build</span>
+        </div>
+        <div class="meta-item">
+          <strong>Scope Status</strong>
+          <span>Locked (Max 6 Features)</span>
+        </div>
+        <div class="meta-item">
+          <strong>Target Milestone</strong>
+          <span>Core Learning-Resolution Loop</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 25%;">Feature</th>
+            <th style="width: 33%;">Description</th>
+            <th style="width: 14%;">MoSCoW Category</th>
+            <th style="width: 28%;">Reason</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="feature-name">Curriculum-Linked Diagnostic Assessment</div>
+              <span class="source-tag">FR-01 • SCR-01, SCR-02</span>
+            </td>
+            <td class="desc-text">5-question past-exam diagnostic quiz linked to WAEC/JAMB syllabus objectives with topic selection and pre-tagged misconception answer options.</td>
+            <td><span class="tag-must">Must have</span></td>
+            <td class="reason-text">The product is broken without it. Without targeted questions mapped to curriculum objectives, the system cannot detect where a student's conceptual misunderstanding lies.</td>
+          </tr>
+
+          <tr>
+            <td>
+              <div class="feature-name">Root-Cause Misconception Diagnosis</div>
+              <span class="source-tag">FR-02 • SCR-03</span>
+            </td>
+            <td class="desc-text">Automatically isolates and presents the probable conceptual gap when an incorrect option is chosen, framed as a likely misconception rather than a definitive claim.</td>
+            <td><span class="tag-must">Must have</span></td>
+            <td class="reason-text">Core value differentiator. Standard drill software only tells a student <em>what</em> is wrong; identifying <em>why</em> (the specific misconception) is the prerequisite for targeted remediation.</td>
+          </tr>
+
+          <tr>
+            <td>
+              <div class="feature-name">Targeted Conceptual Micro-Intervention</div>
+              <span class="source-tag">FR-03 • SCR-03</span>
+            </td>
+            <td class="desc-text">Delivers a focused, 60–90 second plain-English explanation targeted strictly at the diagnosed misconception, featuring core formula/law key takeaway boxes.</td>
+            <td><span class="tag-must">Must have</span></td>
+            <td class="reason-text">The product is pointless without remediation. If the student is diagnosed but not given a concise, bite-sized conceptual explanation to fix their mental model, no learning takes place.</td>
+          </tr>
+
+          <tr>
+            <td>
+              <div class="feature-name">Explain-Back Active Recall Input</div>
+              <span class="source-tag">FR-04 • SCR-04</span>
+            </td>
+            <td class="desc-text">Text input interface prompting students to explain the concept back in their own simple words (Feynman technique) with word-count guidance (min. 20 words).</td>
+            <td><span class="tag-must">Must have</span></td>
+            <td class="reason-text">Heart of active learning. Passive reading does not verify comprehension; forcing active recall synthesis is required to expose whether the student truly understands the rule.</td>
+          </tr>
+
+          <tr>
+            <td>
+              <div class="feature-name">AI Explain-Back Evaluation & 1-Retry Loop</div>
+              <span class="source-tag">FR-05 • SCR-04</span>
+            </td>
+            <td class="desc-text">Automated evaluation checking student explanation against predefined required understanding points; returns <code>UNDERSTOOD</code> or <code>NEEDS_CLARIFICATION</code> with 1 targeted hint and 1 retry.</td>
+            <td><span class="tag-must">Must have</span></td>
+            <td class="reason-text">Closes the comprehension feedback loop. Without automated evaluation and guided correction, the student has no feedback on whether their explanation was accurate.</td>
+          </tr>
+
+          <tr>
+            <td>
+              <div class="feature-name">Parallel Reassessment Verification</div>
+              <span class="source-tag">FR-06, FR-11 • SCR-05, SCR-06</span>
+            </td>
+            <td class="desc-text">Serves 1 fresh parallel past-exam question testing the identical objective; marks gap as <code>PROVISIONALLY_RESOLVED</code> if passed or <code>PERSISTENT_GAP` if failed.</td>
+            <td><span class="tag-must">Must have</span></td>
+            <td class="reason-text">Provides empirical proof of gap closure. Without testing on a fresh question, neither the student nor the parent can verify whether the intervention transferred to exam problem-solving.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="boundary-card">
+      <h3>Scope Boundary & Commitment Rules</h3>
+      <ul>
+        <li><strong>Strict Cap:</strong> Exactly 6 features are authorized for engineering execution in this 5-day cycle.</li>
+        <li><strong>Change Freeze:</strong> Locked scope: no changes until Section 12.</li>
+        <li><strong>Deferred Capabilities:</strong> Parent Web Reports (FR-07), Automated WhatsApp dispatch (FR-09), Voice Dictation (FR-12), and streaks (FR-14) are frozen until initial milestone sign-off.</li>
+      </ul>
+    </div>
+
+    <footer>
+      TalkPDF Engineering & Product Specifications • Locked Scope • 16 September 2026
+    </footer>
+  </div>
+</body>
+</html>

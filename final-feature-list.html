@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TalkPDF — Final Feature List & MoSCoW Prioritization</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --surface: #131b2e;
+      --surface-border: #1e293b;
+      --surface-hover: #1c2744;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --must: #10b981;
+      --must-bg: rgba(16, 185, 129, 0.12);
+      --must-border: rgba(16, 185, 129, 0.35);
+      --should: #0284c7;
+      --should-bg: rgba(2, 132, 199, 0.12);
+      --should-border: rgba(2, 132, 199, 0.35);
+      --could: #eab308;
+      --could-bg: rgba(234, 179, 8, 0.12);
+      --could-border: rgba(234, 179, 8, 0.35);
+      --wont: #ef4444;
+      --wont-bg: rgba(239, 68, 68, 0.12);
+      --wont-border: rgba(239, 68, 68, 0.35);
+      --card-radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      line-height: 1.6;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    header {
+      border-bottom: 1px solid var(--surface-border);
+      padding-bottom: 28px;
+      margin-bottom: 32px;
+    }
+
+    .badge-doc {
+      display: inline-block;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 800px;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+      padding: 18px;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--card-radius);
+      font-size: 0.875rem;
+    }
+
+    .meta-item strong {
+      display: block;
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 3px;
+    }
+
+    .meta-item span {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    /* Stat Badges */
+    .stat-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin: 28px 0;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--card-radius);
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+    }
+
+    .stat-card.must { border-top: 4px solid var(--must); }
+    .stat-card.should { border-top: 4px solid var(--should); }
+    .stat-card.could { border-top: 4px solid var(--could); }
+    .stat-card.wont { border-top: 4px solid var(--wont); }
+
+    .stat-count {
+      font-size: 1.85rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .stat-card.must .stat-count { color: var(--must); }
+    .stat-card.should .stat-count { color: var(--should); }
+    .stat-card.could .stat-count { color: var(--could); }
+    .stat-card.wont .stat-count { color: var(--wont); }
+
+    .stat-label {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Analysis Box */
+    .triage-card {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.9));
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      border-left: 5px solid var(--accent);
+      border-radius: var(--card-radius);
+      padding: 24px;
+      margin: 32px 0;
+    }
+
+    .triage-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .triage-card p {
+      font-size: 0.92rem;
+      color: #cbd5e1;
+      margin-bottom: 10px;
+    }
+
+    .triage-cuts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .cut-box {
+      background: rgba(11, 15, 25, 0.75);
+      border: 1px solid var(--surface-border);
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+
+    .cut-box strong {
+      display: block;
+      color: #f8fafc;
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+    }
+
+    .cut-box.primary {
+      border-color: rgba(239, 68, 68, 0.4);
+      background: rgba(239, 68, 68, 0.05);
+    }
+    .cut-box.primary strong {
+      color: #f87171;
+    }
+
+    /* Controls / Filter Buttons */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 30px 0 18px 0;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .filter-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .filter-btn {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      color: var(--text-muted);
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      color: #ffffff;
+      border-color: var(--accent);
+      background: var(--surface-hover);
+    }
+
+    .filter-btn.active[data-cat="must"] {
+      border-color: var(--must);
+      background: var(--must-bg);
+      color: var(--must);
+    }
+
+    .filter-btn.active[data-cat="should"] {
+      border-color: var(--should);
+      background: var(--should-bg);
+      color: var(--should);
+    }
+
+    .filter-btn.active[data-cat="could"] {
+      border-color: var(--could);
+      background: var(--could-bg);
+      color: var(--could);
+    }
+
+    .filter-btn.active[data-cat="wont"] {
+      border-color: var(--wont);
+      background: var(--wont-bg);
+      color: var(--wont);
+    }
+
+    .search-input {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      color: #ffffff;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      width: 240px;
+      outline: none;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent);
+    }
+
+    /* Table Styling */
+    .table-wrapper {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--card-radius);
+      overflow-x: auto;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.88rem;
+    }
+
+    thead {
+      background: rgba(15, 23, 42, 0.8);
+      border-bottom: 2px solid var(--surface-border);
+    }
+
+    th {
+      padding: 14px 18px;
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    td {
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--surface-border);
+      vertical-align: top;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background-color: var(--surface-hover);
+    }
+
+    /* Badge Pills */
+    .tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 4px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .tag-must {
+      background: var(--must-bg);
+      color: var(--must);
+      border: 1px solid var(--must-border);
+    }
+
+    .tag-should {
+      background: var(--should-bg);
+      color: var(--should);
+      border: 1px solid var(--should-border);
+    }
+
+    .tag-could {
+      background: var(--could-bg);
+      color: var(--could);
+      border: 1px solid var(--could-border);
+    }
+
+    .tag-wont {
+      background: var(--wont-bg);
+      color: var(--wont);
+      border: 1px solid var(--wont-border);
+    }
+
+    .feature-name {
+      font-weight: 700;
+      color: #ffffff;
+      font-size: 0.93rem;
+      margin-bottom: 4px;
+    }
+
+    .source-tag {
+      display: inline-block;
+      font-size: 0.68rem;
+      color: var(--accent);
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+
+    .desc-text {
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+
+    .reason-text {
+      color: #94a3b8;
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
+    footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid var(--surface-border);
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    @media (max-width: 768px) {
+      body { padding: 20px 12px; }
+      h1 { font-size: 1.75rem; }
+      .meta-grid { grid-template-columns: 1fr; }
+      .filter-bar { flex-direction: column; align-items: stretch; }
+      .search-input { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="badge-doc">Build Planning Artifact</span>
+      <h1>TalkPDF — Final Feature List & MoSCoW Prioritization</h1>
+      <p class="subtitle">
+        Curated feature prioritization and scope boundary document for the 5-day team sprint targeting the Minimum Viable Learning-Resolution Loop.
+      </p>
+
+      <div class="meta-grid">
+        <div class="meta-item">
+          <strong>Document Version</strong>
+          <span>1.0.0 (Approved for Sprint)</span>
+        </div>
+        <div class="meta-item">
+          <strong>Sprint Budget</strong>
+          <span>5-Day Team Build</span>
+        </div>
+        <div class="meta-item">
+          <strong>Target Milestone</strong>
+          <span>SS3 WAEC/JAMB Learning Loop</span>
+        </div>
+        <div class="meta-item">
+          <strong>Must-Have Constraint</strong>
+          <span>Max 6 Features Enforced</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Top Statistics Cards -->
+    <div class="stat-bar">
+      <div class="stat-card must">
+        <span class="stat-count">6</span>
+        <span class="stat-label">Must Have (Max 6)</span>
+      </div>
+      <div class="stat-card should">
+        <span class="stat-count">5</span>
+        <span class="stat-label">Should Have</span>
+      </div>
+      <div class="stat-card could">
+        <span class="stat-count">5</span>
+        <span class="stat-label">Could Have</span>
+      </div>
+      <div class="stat-card wont">
+        <span class="stat-count">10</span>
+        <span class="stat-label">Won't Have (Scope Shield)</span>
+      </div>
+    </div>
+
+    <!-- Triage & Cut Analysis Callout -->
+    <div class="triage-card">
+      <div class="triage-title">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--accent);">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+        5-Day Build Triage: Managing the 6 Must-Have Maximum
+      </div>
+      <p>
+        The initial PRD specified <strong>7 features</strong> marked as "Must". To protect the 5-day team build velocity and guarantee working software on day 5, exactly <strong>one feature had to be cut immediately</strong> from Must-Have to Should-Have.
+      </p>
+      <div class="triage-cuts">
+        <div class="cut-box primary">
+          <strong>Cut #1 Applied: Parent Detailed Web Evidence Report (FR-07 / SCR-08)</strong>
+          <p style="margin: 0; font-size: 0.83rem; color: #cbd5e1;">
+            <strong>Moved to Should-Have.</strong> If the student learning-resolution loop cannot isolate and close gaps, parent reports display meaningless data. In a 5-day validation sprint, parent visibility can be handled via manual/semi-automated WhatsApp messages, deferring tokenized web report development to Phase 2.
+          </p>
+        </div>
+        <div class="cut-box">
+          <strong>Contingency Cut #2: Explain-Back Guided 1-Retry Loop (FR-05 Sub-feature)</strong>
+          <p style="margin: 0; font-size: 0.83rem; color: #94a3b8;">
+            If team velocity drops below 6 features, simplify FR-05 into a <em>single-pass AI evaluation</em> (Understood vs. Needs Review), eliminating dynamic hint prompt engineering and retry state management.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interactive Filters -->
+    <div class="filter-bar">
+      <div class="filter-buttons">
+        <button class="filter-btn active" data-cat="all">All (26)</button>
+        <button class="filter-btn" data-cat="must">Must Have (6)</button>
+        <button class="filter-btn" data-cat="should">Should Have (5)</button>
+        <button class="filter-btn" data-cat="could">Could Have (5)</button>
+        <button class="filter-btn" data-cat="wont">Won't Have (10)</button>
+      </div>
+      <input type="text" id="searchInput" class="search-input" placeholder="Search feature, code, or keyword...">
+    </div>
+
+    <!-- Features Table -->
+    <div class="table-wrapper">
+      <table id="featureTable">
+        <thead>
+          <tr>
+            <th style="width: 24%;">Feature</th>
+            <th style="width: 34%;">Description</th>
+            <th style="width: 14%;">MoSCoW Category</th>
+            <th style="width: 28%;">Reason</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- MUST HAVES (6) -->
+          <tr data-cat="must">
+            <td>
+              <div class="feature-name">Curriculum-Linked Diagnostic Assessment</div>
+              <span class="source-tag">FR-01 • SCR-01, SCR-02</span>
+            </td>
+            <td class="desc-text">5-question past-exam diagnostic quiz linked to WAEC/JAMB syllabus objectives with topic selection and pre-tagged misconception answer options.</td>
+            <td><span class="tag tag-must">Must have</span></td>
+            <td class="reason-text">The product is broken without it. Without targeted questions mapped to curriculum objectives, the system cannot detect where a student's conceptual misunderstanding lies.</td>
+          </tr>
+
+          <tr data-cat="must">
+            <td>
+              <div class="feature-name">Root-Cause Misconception Diagnosis</div>
+              <span class="source-tag">FR-02 • SCR-03</span>
+            </td>
+            <td class="desc-text">Automatically isolates and presents the probable conceptual gap when an incorrect option is chosen, framed as a likely misconception rather than a definitive claim.</td>
+            <td><span class="tag tag-must">Must have</span></td>
+            <td class="reason-text">Core value differentiator. Standard drill software only tells a student <em>what</em> is wrong; identifying <em>why</em> (the specific misconception) is the prerequisite for targeted remediation.</td>
+          </tr>
+
+          <tr data-cat="must">
+            <td>
+              <div class="feature-name">Targeted Conceptual Micro-Intervention</div>
+              <span class="source-tag">FR-03 • SCR-03</span>
+            </td>
+            <td class="desc-text">Delivers a focused, 60–90 second plain-English explanation targeted strictly at the diagnosed misconception, featuring core formula/law key takeaway boxes.</td>
+            <td><span class="tag tag-must">Must have</span></td>
+            <td class="reason-text">The product is pointless without remediation. If the student is diagnosed but not given a concise, bite-sized conceptual explanation to fix their mental model, no learning takes place.</td>
+          </tr>
+
+          <tr data-cat="must">
+            <td>
+              <div class="feature-name">Explain-Back Active Recall Input</div>
+              <span class="source-tag">FR-04 • SCR-04</span>
+            </td>
+            <td class="desc-text">Text input interface prompting students to explain the concept back in their own simple words (Feynman technique) with word-count guidance (min. 20 words).</td>
+            <td><span class="tag tag-must">Must have</span></td>
+            <td class="reason-text">Heart of active learning. Passive reading does not verify comprehension; forcing active recall synthesis is required to expose whether the student truly understands the rule.</td>
+          </tr>
+
+          <tr data-cat="must">
+            <td>
+              <div class="feature-name">AI Explain-Back Evaluation & 1-Retry Loop</div>
+              <span class="source-tag">FR-05 • SCR-04</span>
+            </td>
+            <td class="desc-text">Automated evaluation checking student explanation against predefined required understanding points; returns <code>UNDERSTOOD</code> or <code>NEEDS_CLARIFICATION</code> with 1 targeted hint and 1 retry.</td>
+            <td><span class="tag tag-must">Must have</span></td>
+            <td class="reason-text">Closes the comprehension feedback loop. Without automated evaluation and guided correction, the student has no feedback on whether their explanation was accurate.</td>
+          </tr>
+
+          <tr data-cat="must">
+            <td>
+              <div class="feature-name">Parallel Reassessment Verification</div>
+              <span class="source-tag">FR-06, FR-11 • SCR-05, SCR-06</span>
+            </td>
+            <td class="desc-text">Serves 1 fresh parallel past-exam question testing the identical objective; marks gap as <code>PROVISIONALLY_RESOLVED</code> if passed or <code>PERSISTENT_GAP</code> if failed.</td>
+            <td><span class="tag tag-must">Must have</span></td>
+            <td class="reason-text">Provides empirical proof of gap closure. Without testing on a fresh question, neither the student nor the parent can verify whether the intervention transferred to exam problem-solving.</td>
+          </tr>
+
+          <!-- SHOULD HAVES (5) -->
+          <tr data-cat="should">
+            <td>
+              <div class="feature-name">Parent Detailed Web Evidence Report</div>
+              <span class="source-tag">FR-07 • SCR-08</span>
+            </td>
+            <td class="desc-text">Secure, non-guessable, read-only tokenized web report displaying audit trail of failed questions, student explanation, AI scores, and tutor advice without requiring parent login.</td>
+            <td><span class="tag tag-should">Should have</span></td>
+            <td class="reason-text">Critical for parental visibility and willingness to pay, but the student-facing learning loop can function and be validated in a 5-day test without the standalone web dashboard.</td>
+          </tr>
+
+          <tr data-cat="should">
+            <td>
+              <div class="feature-name">WhatsApp Progress Summary Delivery</div>
+              <span class="source-tag">FR-07, FR-09 • SCR-07</span>
+            </td>
+            <td class="desc-text">Automated dispatch of structured exam readiness alerts directly to the parent's WhatsApp with key metrics (gaps identified, resolved, persistent) and web report link.</td>
+            <td><span class="tag tag-should">Should have</span></td>
+            <td class="reason-text">Highest-engagement parent channel in Nigeria, but can be semi-automated or sent manually via templated messages during a 5-day prototype test.</td>
+          </tr>
+
+          <tr data-cat="should">
+            <td>
+              <div class="feature-name">Low-Bandwidth / Text-First Mode</div>
+              <span class="source-tag">FR-08 • SCR-01, SCR-02</span>
+            </td>
+            <td class="desc-text">Global toggle switch and text-only fallback stripping non-essential diagrams and media to operate smoothly on slow 2G/3G mobile data without data drain.</td>
+            <td><span class="tag tag-should">Should have</span></td>
+            <td class="reason-text">Essential for data-conscious Nigerian candidates, but the core learning loop remains functional on standard connectivity if initial web assets are kept lightweight.</td>
+          </tr>
+
+          <tr data-cat="should">
+            <td>
+              <div class="feature-name">Asynchronous Session Recovery & Local Caching</div>
+              <span class="source-tag">FR-10 • SCR-01, SCR-04</span>
+            </td>
+            <td class="desc-text">Auto-saves active quiz progress and Explain-Back drafts to browser <code>localStorage</code> to prevent data loss during network drops or accidental page reloads.</td>
+            <td><span class="tag tag-should">Should have</span></td>
+            <td class="reason-text">Important for device and network resilience, but a student completing a continuous 5-to-7-minute session does not strictly depend on persistence.</td>
+          </tr>
+
+          <tr data-cat="should">
+            <td>
+              <div class="feature-name">Secondary Formative Rubric Scoring & Badges</div>
+              <span class="source-tag">FR-05 • SCR-04, SCR-08</span>
+            </td>
+            <td class="desc-text">Formative feedback cards showing scores for Simplicity (/10), Conceptual Accuracy (/10), Analogies (/10), Composite (/100), and Gold/Silver/Bronze tiers.</td>
+            <td><span class="tag tag-should">Should have</span></td>
+            <td class="reason-text">Helpful motivation and granular feedback, but binary <code>UNDERSTOOD</code> vs <code>NEEDS_CLARIFICATION</code> drives the actual progression logic.</td>
+          </tr>
+
+          <!-- COULD HAVES (5) -->
+          <tr data-cat="could">
+            <td>
+              <div class="feature-name">Audio Voice Snippet Player in Micro-Lesson</div>
+              <span class="source-tag">FR-03 • SCR-03</span>
+            </td>
+            <td class="desc-text">Embedded 45-second pre-recorded audio snippet player providing a spoken alternative to reading the conceptual micro-lesson.</td>
+            <td><span class="tag tag-could">Could have</span></td>
+            <td class="reason-text">Beneficial for auditory learners or fatigued students, but the plain-text micro-lesson achieves the identical conceptual outcome.</td>
+          </tr>
+
+          <tr data-cat="could">
+            <td>
+              <div class="feature-name">Audio Voice-Note Dictation for Explain-Back</div>
+              <span class="source-tag">FR-12 • SCR-04</span>
+            </td>
+            <td class="desc-text">Speech-to-text recording interface allowing students to dictate their Explain-Back response via voice note instead of typing on a virtual keyboard.</td>
+            <td><span class="tag tag-could">Could have</span></td>
+            <td class="reason-text">High convenience on mobile devices, but text area input is already universal, functional, and simpler to evaluate reliably.</td>
+          </tr>
+
+          <tr data-cat="could">
+            <td>
+              <div class="feature-name">Human Tutor Escalation Prompt</div>
+              <span class="source-tag">FR-13 • SCR-06, SCR-08</span>
+            </td>
+            <td class="desc-text">One-click CTA button on persistent gaps allowing students or parents to dispatch a tutoring request with the exact diagnostic record pre-attached.</td>
+            <td><span class="tag tag-could">Could have</span></td>
+            <td class="reason-text">High commercial monetization potential, but requires external human tutor network operations not required to validate the AI learning loop.</td>
+          </tr>
+
+          <tr data-cat="could">
+            <td>
+              <div class="feature-name">Gamified Mastery Streaks & Milestone Badges</div>
+              <span class="source-tag">FR-14 • SCR-01, SCR-06</span>
+            </td>
+            <td class="desc-text">Persistent streak counter displaying consecutive closed gaps (e.g., "🔥 3 Gaps Closed") to incentivize daily student study stamina.</td>
+            <td><span class="tag tag-could">Could have</span></td>
+            <td class="reason-text">Boosts long-term retention and engagement, but adds zero value to fixing the immediate conceptual misunderstanding during the 5-day build.</td>
+          </tr>
+
+          <tr data-cat="could">
+            <td>
+              <div class="feature-name">PDF Scorecard Export / Download</div>
+              <span class="source-tag">SCR-08</span>
+            </td>
+            <td class="desc-text">Client-side button enabling parents to save or print a clean 1-page PDF summary of the web evidence report.</td>
+            <td><span class="tag tag-could">Could have</span></td>
+            <td class="reason-text">Convenient for offline record-keeping, but parents can already bookmark or view the live web link directly on their smartphones.</td>
+          </tr>
+
+          <!-- WON'T HAVES (10) -->
+          <tr data-cat="wont">
+            <td>
+              <div class="feature-name">Automated Recurring Card Subscriptions</div>
+              <span class="source-tag">FR-15</span>
+            </td>
+            <td class="desc-text">Automated recurring monthly credit/debit card billing infrastructure via Paystack or Flutterwave.</td>
+            <td><span class="tag tag-wont">Won't have</span></td>
+            <td class="reason-text">Explicitly out of scope; initial validation will use manual bank transfers, one-off diagnostic tokens (₦1,000), or flat exam fees before building billing engines.</td>
+          </tr>
+
+          <tr data-cat="wont">
+            <td>
+              <div class="feature-name">School / Institutional Multi-Teacher Portal</div>
+              <span class="source-tag">FR-16</span>
+            </td>
+            <td class="desc-text">B2B administrative dashboards, teacher grading tools, classroom roster synchronization, or PTA school reporting.</td>
+            <td><span class="tag tag-wont">Won't have</span></td>
+            <td class="reason-text">Explicitly out of scope; selling to schools introduces long sales cycles; product is strictly direct-to-consumer (students & parents).</td>
+          </tr>
+
+          <tr data-cat="wont">
+            <td>
+              <div class="feature-name">Comprehensive Full-Length Mock CBT Simulation Engine</div>
+              <span class="source-tag">FR-17</span>
+            </td>
+            <td class="desc-text">400-question timed mock exam simulation with negative marking and countdown timers.</td>
+            <td><span class="tag tag-wont">Won't have</span></td>
+            <td class="reason-text">Explicitly out of scope; incumbents like TestDriller own offline drill; TalkPDF is an active intervention tool triggered after questions are failed.</td>
+          </tr>
+
+          <tr data-cat="wont">
+            <td>
+              <div class="feature-name">Extensive Video Lesson Library</div>
+              <span class="source-tag">FR-18</span>
+            </td>
+            <td class="desc-text">Heavy multi-hour animated lecture series, video library streaming, and high-bandwidth multimedia courses.</td>
+            <td><span class="tag tag-wont">Won't have</span></td>
+            <td class="reason-text">Explicitly out of scope; incumbents like uLesson and YouTube dominate video; TalkPDF is lightweight, text-first, diagnostic, and active-recall focused.</td>
+          </tr>
+
+          <tr data-cat="wont">
+            <td>
+              <div class="feature-name">Generic Document Chat / PDF Q&A</div>
+              <span class="source-tag">FR-19</span>
+            </td>
+            <td class="desc-text">Arbitrary PDF textbook upload and free-form chatbot Q&A.</td>
+            <td><span class="tag tag-wont">Won't have</span></td>
+            <td class="reason-text">Explicitly out of scope; despite the legacy name, interactions must be strictly curriculum-anchored against official WAEC/JAMB syllabus objectives.</td>
+          </tr>
+
+          <tr data-cat="wont">
+            <td>
+              <div class="feature-name">Native iOS Mobile Application</div>
+              <span class="source-tag">PRD §5.5</span>
+            </td>
+            <td class="desc-text">Native Swift/iOS mobile application distributed via the Apple App Store.</td>
+            <td><span class="tag tag-wont">Won't have</span></td>
+            <td class="reason-text">Explicitly out of scope; >95% of target Nigerian secondary students operate on Android or mobile web.</td>
+          </tr>
+
+          <tr data-cat="wont">
+            <td>
+              <div class="feature-name">Dynamic / Speculative AI Misconception Generation</div>
+              <span class="source-tag">PRD §5.7</span>
+            </td>
+            <td class="desc-text">Unconstrained LLM hallucination of student errors or claiming definitive misconception confirmation from one tap.</td>
+            <td><span class="tag tag-wont">Won't have</span></td>
+            <td class="reason-text">Explicitly out of scope; answer options must be pre-tagged to vetted syllabus misconceptions to guarantee academic accuracy and avoid hallucinations.</td>
+          </tr>
+
+          <tr data-cat="wont">
+            <td>
+              <div class="feature-name">Multi-Turn Conversational AI Chatbot / Unlimited Retries</div>
+              <span class="source-tag">PRD §5.8</span>
+            </td>
+            <td class="desc-text">Open-ended Socratic dialogue, multi-turn conversational tutoring, or unrestricted Explain-Back retry loops.</td>
+            <td><span class="tag tag-wont">Won't have</span></td>
+            <td class="reason-text">Explicitly out of scope; the interaction is strictly bounded to 1 targeted hint and 1 retry to keep tokens, latency, and session times tightly controlled.</td>
+          </tr>
+
+          <tr data-cat="wont">
+            <td>
+              <div class="feature-name">Parent Account Registration & Password Authentication</div>
+              <span class="source-tag">PRD §5.11</span>
+            </td>
+            <td class="desc-text">User sign-up, login, password resets, and session management for parents.</td>
+            <td><span class="tag tag-wont">Won't have</span></td>
+            <td class="reason-text">Explicitly out of scope; eliminates onboarding friction by utilizing secure, non-guessable, read-only tokenized web links.</td>
+          </tr>
+
+          <tr data-cat="wont">
+            <td>
+              <div class="feature-name">Permanent Mastery Certification from a Single Question</div>
+              <span class="source-tag">PRD §5.10</span>
+            </td>
+            <td class="desc-text">Certifying permanent topic mastery after one correct parallel reassessment answer.</td>
+            <td><span class="tag tag-wont">Won't have</span></td>
+            <td class="reason-text">Explicitly out of scope; pedagogy dictates classifying as <code>PROVISIONALLY_RESOLVED</code> pending scheduled 7-day spaced reassessment.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <footer>
+      TalkPDF Engineering & Product Specifications • Approved for 5-Day Learning Loop Sprint • September 2026
+    </footer>
+  </div>
+
+  <script>
+    // Filter and search logic
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const searchInput = document.getElementById('searchInput');
+    const tableRows = document.querySelectorAll('#featureTable tbody tr');
+
+    let activeFilter = 'all';
+
+    function filterRows() {
+      const query = searchInput.value.toLowerCase().trim();
+
+      tableRows.forEach(row => {
+        const cat = row.getAttribute('data-cat');
+        const text = row.innerText.toLowerCase();
+
+        const matchesFilter = (activeFilter === 'all' || cat === activeFilter);
+        const matchesQuery = !query || text.includes(query);
+
+        if (matchesFilter && matchesQuery) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeFilter = btn.getAttribute('data-cat');
+        filterRows();
+      });
+    });
+
+    searchInput.addEventListener('input', filterRows);
+  </script>
+</body>
+</html>

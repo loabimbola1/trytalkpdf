@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TalkPDF — Data Structure Specification</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --surface: #131b2e;
+      --surface-border: #1e293b;
+      --surface-hover: #1c2744;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --must: #10b981;
+      --should: #0284c7;
+      --could: #eab308;
+      --wont: #ef4444;
+      --card-radius: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      line-height: 1.65;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+
+    header {
+      border-bottom: 1px solid var(--surface-border);
+      padding-bottom: 24px;
+      margin-bottom: 36px;
+    }
+
+    .badge-doc {
+      display: inline-block;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+      padding: 16px;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--card-radius);
+      font-size: 0.875rem;
+    }
+
+    .meta-item strong {
+      display: block;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin: 40px 0 16px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h2::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 1.1em;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    p {
+      margin-bottom: 14px;
+      color: #cbd5e1;
+    }
+
+    /* Inventory Cards */
+    .inventory-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 14px;
+      margin: 20px 0;
+    }
+
+    .inventory-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--card-radius);
+      padding: 16px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .inv-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 0.8rem;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+
+    .inv-title {
+      font-weight: 700;
+      color: #ffffff;
+      font-size: 0.95rem;
+      margin-bottom: 2px;
+    }
+
+    .inv-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Entity Detailed Card */
+    .entity-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--card-radius);
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .entity-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding-bottom: 12px;
+    }
+
+    .entity-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .entity-desc {
+      font-size: 0.875rem;
+      color: #cbd5e1;
+      margin-bottom: 16px;
+      font-style: italic;
+    }
+
+    /* Table Styles */
+    .table-wrapper {
+      overflow-x: auto;
+      border: 1px solid var(--surface-border);
+      border-radius: 8px;
+      background: #0b0f19;
+      margin: 12px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.85rem;
+    }
+
+    th {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 10px 14px;
+      font-weight: 600;
+      border-bottom: 1px solid var(--surface-border);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--surface-border);
+      color: #cbd5e1;
+      vertical-align: top;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    code {
+      background: #0f172a;
+      border: 1px solid var(--surface-border);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      color: #38bdf8;
+      font-family: Consolas, Monaco, "Courier New", monospace;
+    }
+
+    .field-name {
+      font-family: Consolas, Monaco, "Courier New", monospace;
+      color: #38bdf8;
+      font-weight: 700;
+    }
+
+    .field-type {
+      color: #facc15;
+      font-size: 0.75rem;
+      font-family: Consolas, Monaco, "Courier New", monospace;
+    }
+
+    /* Mermaid */
+    .mermaid-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--card-radius);
+      padding: 24px;
+      margin: 20px 0;
+    }
+
+    .mermaid {
+      background: #0b0f19;
+      border: 1px solid var(--surface-border);
+      border-radius: 8px;
+      padding: 20px;
+      overflow-x: auto;
+      display: flex;
+      justify-content: center;
+    }
+
+    footer {
+      margin-top: 50px;
+      border-top: 1px solid var(--surface-border);
+      padding-top: 20px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'dark',
+      themeVariables: {
+        darkMode: true,
+        background: '#0b0f19',
+        primaryColor: '#1e293b',
+        primaryTextColor: '#f1f5f9',
+        primaryBorderColor: '#38bdf8',
+        lineColor: '#38bdf8'
+      }
+    });
+  </script>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <div class="badge-doc">Data Structure Specification v1.0.0</div>
+    <h1>TalkPDF — Data Structure Specification</h1>
+    <div class="subtitle">Complete catalog of every entity ("thing") TalkPDF must remember and the fields/facts stored</div>
+
+    <div class="meta-grid">
+      <div class="meta-item">
+        <strong>Total Entities</strong>
+        13 Core Data Entities
+      </div>
+      <div class="meta-item">
+        <strong>Domain</strong>
+        WAEC/JAMB Learning Loop
+      </div>
+      <div class="meta-item">
+        <strong>Storage Pattern</strong>
+        Relational & Document Cache
+      </div>
+      <div class="meta-item">
+        <strong>Reference</strong>
+        requirements.md v1.1.0
+      </div>
+    </div>
+  </header>
+
+  <!-- Section 1: Entity Inventory -->
+  <section>
+    <h2>1. Entity Inventory (The 13 "Things")</h2>
+    <p>TalkPDF tracks 13 distinct concepts to power diagnosis, micro-interventions, active recall evaluation, and parent reporting:</p>
+
+    <div class="inventory-grid">
+      <div class="inventory-card">
+        <div class="inv-number">1</div>
+        <div>
+          <div class="inv-title">Student</div>
+          <div class="inv-desc">SS3 candidate taking diagnostic tests and closing gaps.</div>
+        </div>
+      </div>
+
+      <div class="inventory-card">
+        <div class="inv-number">2</div>
+        <div>
+          <div class="inv-title">Parent</div>
+          <div class="inv-desc">Paying sponsor receiving WhatsApp summaries & reports.</div>
+        </div>
+      </div>
+
+      <div class="inventory-card">
+        <div class="inv-number">3</div>
+        <div>
+          <div class="inv-title">Curriculum Objective</div>
+          <div class="inv-desc">WAEC/JAMB syllabus topic, rule & required concepts.</div>
+        </div>
+      </div>
+
+      <div class="inventory-card">
+        <div class="inv-number">4</div>
+        <div>
+          <div class="inv-title">Diagnostic Question</div>
+          <div class="inv-desc">5 past-exam questions linked to syllabus objectives.</div>
+        </div>
+      </div>
+
+      <div class="inventory-card">
+        <div class="inv-number">5</div>
+        <div>
+          <div class="inv-title">Question Option</div>
+          <div class="inv-desc">Multiple-choice options pre-tagged with misconceptions.</div>
+        </div>
+      </div>
+
+      <div class="inventory-card">
+        <div class="inv-number">6</div>
+        <div>
+          <div class="inv-title">Micro-Intervention</div>
+          <div class="inv-desc">60–90 second plain-English conceptual lesson.</div>
+        </div>
+      </div>
+
+      <div class="inventory-card">
+        <div class="inv-number">7</div>
+        <div>
+          <div class="inv-title">Learning Session</div>
+          <div class="inv-desc">Tracks active study lifecycle from quiz to completion.</div>
+        </div>
+      </div>
+
+      <div class="inventory-card">
+        <div class="inv-number">8</div>
+        <div>
+          <div class="inv-title">Diagnostic Response</div>
+          <div class="inv-desc">Student's answers and mapped likely gaps.</div>
+        </div>
+      </div>
+
+      <div class="inventory-card">
+        <div class="inv-number">9</div>
+        <div>
+          <div class="inv-title">Explain-Back Record</div>
+          <div class="inv-desc">Student's explanation, AI evaluation & rubric scores.</div>
+        </div>
+      </div>
+
+      <div class="inventory-card">
+        <div class="inv-number">10</div>
+        <div>
+          <div class="inv-title">Parallel Question</div>
+          <div class="inv-desc">Fresh question testing identical concept to verify closure.</div>
+        </div>
+      </div>
+
+      <div class="inventory-card">
+        <div class="inv-number">11</div>
+        <div>
+          <div class="inv-title">Learning-Gap Status</div>
+          <div class="inv-desc">PROVISIONALLY_RESOLVED or PERSISTENT_GAP state.</div>
+        </div>
+      </div>
+
+      <div class="inventory-card">
+        <div class="inv-number">12</div>
+        <div>
+          <div class="inv-title">Parent Progress Report</div>
+          <div class="inv-desc">WhatsApp payload & secure, read-only revocable link.</div>
+        </div>
+      </div>
+
+      <div class="inventory-card">
+        <div class="inv-number">13</div>
+        <div>
+          <div class="inv-title">Tutor Escalation Ticket</div>
+          <div class="inv-desc">Human tutoring request for unresolved persistent gaps.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Detailed Entity Specifications -->
+  <section>
+    <h2>2. Detailed Facts & Fields to Store per Entity</h2>
+
+    <!-- 1. Student -->
+    <div class="entity-card">
+      <div class="entity-header">
+        <div class="entity-name">1. Student (Candidate Profile)</div>
+        <code>Entity: Student</code>
+      </div>
+      <div class="entity-desc">Represents the SS3 secondary school candidate preparing for WAEC or JAMB.</div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="field-name">student_id</td><td class="field-type">UUID / String</td><td>Primary unique identifier.</td></tr>
+            <tr><td class="field-name">full_name</td><td class="field-type">String</td><td>Candidate's full name (e.g., Samuel Okon).</td></tr>
+            <tr><td class="field-name">target_exam</td><td class="field-type">Enum</td><td>WAEC, JAMB, or BOTH.</td></tr>
+            <tr><td class="field-name">class_level</td><td class="field-type">String</td><td>Academic level (default: SS3).</td></tr>
+            <tr><td class="field-name">phone_number</td><td class="field-type">String</td><td>Mobile phone number or shared family device number.</td></tr>
+            <tr><td class="field-name">parent_id</td><td class="field-type">UUID / String</td><td>Foreign key to the linked Parent entity.</td></tr>
+            <tr><td class="field-name">current_streak_count</td><td class="field-type">Integer</td><td>Consecutive gaps provisionally resolved (FR-14).</td></tr>
+            <tr><td class="field-name">low_bandwidth_enabled</td><td class="field-type">Boolean</td><td>Preference flag for text-first low data mode (FR-08).</td></tr>
+            <tr><td class="field-name">created_at</td><td class="field-type">Timestamp</td><td>Account creation timestamp.</td></tr>
+            <tr><td class="field-name">last_active_at</td><td class="field-type">Timestamp</td><td>Timestamp of latest study session.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 2. Parent -->
+    <div class="entity-card">
+      <div class="entity-header">
+        <div class="entity-name">2. Parent (Economic Buyer / Guardian)</div>
+        <code>Entity: Parent</code>
+      </div>
+      <div class="entity-desc">The family sponsor financing exam fees and receiving objective accountability updates.</div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="field-name">parent_id</td><td class="field-type">UUID / String</td><td>Primary unique identifier.</td></tr>
+            <tr><td class="field-name">full_name</td><td class="field-type">String</td><td>Parent or guardian's full name.</td></tr>
+            <tr><td class="field-name">whatsapp_number</td><td class="field-type">String</td><td>E.164 formatted number for WhatsApp dispatch (FR-09).</td></tr>
+            <tr><td class="field-name">sms_number</td><td class="field-type">String</td><td>Fallback SMS mobile number.</td></tr>
+            <tr><td class="field-name">relationship</td><td class="field-type">String</td><td>Relationship (Mother, Father, Guardian).</td></tr>
+            <tr><td class="field-name">notification_opt_in</td><td class="field-type">Boolean</td><td>Consent to receive WhatsApp progress reports.</td></tr>
+            <tr><td class="field-name">linked_student_ids</td><td class="field-type">List&lt;UUID&gt;</td><td>Array of student accounts under this parent.</td></tr>
+            <tr><td class="field-name">created_at</td><td class="field-type">Timestamp</td><td>Registration timestamp.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 3. CurriculumObjective -->
+    <div class="entity-card">
+      <div class="entity-header">
+        <div class="entity-name">3. Curriculum Objective</div>
+        <code>Entity: CurriculumObjective</code>
+      </div>
+      <div class="entity-desc">Granular syllabus objective from the official WAEC/JAMB curriculum scheme.</div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="field-name">objective_id</td><td class="field-type">String</td><td>Objective code (e.g., PHY-EM-001).</td></tr>
+            <tr><td class="field-name">exam_type</td><td class="field-type">Enum</td><td>WAEC or JAMB.</td></tr>
+            <tr><td class="field-name">subject</td><td class="field-type">String</td><td>Subject name (Physics, Chemistry, etc.).</td></tr>
+            <tr><td class="field-name">topic</td><td class="field-type">String</td><td>Broad syllabus topic (e.g., Electromagnetism).</td></tr>
+            <tr><td class="field-name">subtopic_title</td><td class="field-type">String</td><td>Specific concept (Faraday's Law of Induction).</td></tr>
+            <tr><td class="field-name">objective_statement</td><td class="field-type">String</td><td>Formal syllabus learning goal statement.</td></tr>
+            <tr><td class="field-name">required_understanding_points</td><td class="field-type">List&lt;String&gt;</td><td>Human-defined key concepts AI checks during Explain-Back (FR-05).</td></tr>
+            <tr><td class="field-name">created_at</td><td class="field-type">Timestamp</td><td>Authoring timestamp.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 4. DiagnosticQuestion -->
+    <div class="entity-card">
+      <div class="entity-header">
+        <div class="entity-name">4. Diagnostic Question</div>
+        <code>Entity: DiagnosticQuestion</code>
+      </div>
+      <div class="entity-desc">Past-exam question linked to an objective, part of the 5-question diagnostic quiz.</div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="field-name">question_id</td><td class="field-type">UUID / String</td><td>Primary unique identifier.</td></tr>
+            <tr><td class="field-name">objective_id</td><td class="field-type">String</td><td>Foreign key to Curriculum Objective.</td></tr>
+            <tr><td class="field-name">exam_source</td><td class="field-type">String</td><td>Past-exam reference (WASSCE 2022 Question 14).</td></tr>
+            <tr><td class="field-name">question_text</td><td class="field-type">Text</td><td>Full question problem text.</td></tr>
+            <tr><td class="field-name">diagram_url</td><td class="field-type">String (Optional)</td><td>URL for schematics, circuits, or diagrams.</td></tr>
+            <tr><td class="field-name">correct_option</td><td class="field-type">Char(1)</td><td>Correct option letter (A, B, C, or D).</td></tr>
+            <tr><td class="field-name">created_at</td><td class="field-type">Timestamp</td><td>Authoring timestamp.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 5. QuestionOption -->
+    <div class="entity-card">
+      <div class="entity-header">
+        <div class="entity-name">5. Question Option & Misconception Tag</div>
+        <code>Entity: QuestionOption</code>
+      </div>
+      <div class="entity-desc">Individual multiple-choice options pre-tagged at authoring time with likely misconceptions.</div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="field-name">option_id</td><td class="field-type">UUID / String</td><td>Primary unique identifier.</td></tr>
+            <tr><td class="field-name">question_id</td><td class="field-type">UUID / String</td><td>Foreign key to Diagnostic Question.</td></tr>
+            <tr><td class="field-name">option_letter</td><td class="field-type">Char(1)</td><td>Option letter (A, B, C, or D).</td></tr>
+            <tr><td class="field-name">option_text</td><td class="field-type">Text</td><td>Option text or formula string.</td></tr>
+            <tr><td class="field-name">is_correct</td><td class="field-type">Boolean</td><td>True if this is the correct answer.</td></tr>
+            <tr><td class="field-name">likely_misconception_title</td><td class="field-type">String</td><td>Associated likely learning gap title (FR-01, FR-02).</td></tr>
+            <tr><td class="field-name">likely_misconception_explanation</td><td class="field-type">Text</td><td>Explanation of why this incorrect logic occurs.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 6. MicroIntervention -->
+    <div class="entity-card">
+      <div class="entity-header">
+        <div class="entity-name">6. Targeted Micro-Intervention</div>
+        <code>Entity: MicroIntervention</code>
+      </div>
+      <div class="entity-desc">Bite-sized 60–90 second conceptual lesson resolving the diagnosed misconception.</div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="field-name">intervention_id</td><td class="field-type">UUID / String</td><td>Primary unique identifier.</td></tr>
+            <tr><td class="field-name">objective_id</td><td class="field-type">String</td><td>Foreign key to Curriculum Objective.</td></tr>
+            <tr><td class="field-name">targeted_misconception_title</td><td class="field-type">String</td><td>The exact likely learning gap addressed (FR-03).</td></tr>
+            <tr><td class="field-name">explanation_text</td><td class="field-type">Text</td><td>60–90 second plain-English explanation.</td></tr>
+            <tr><td class="field-name">key_formula_or_rule</td><td class="field-type">String</td><td>Core formula or rule summary.</td></tr>
+            <tr><td class="field-name">audio_snippet_url</td><td class="field-type">String (Optional)</td><td>URL for audio voice snippet playback (FR-03).</td></tr>
+            <tr><td class="field-name">created_at</td><td class="field-type">Timestamp</td><td>Authoring timestamp.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 7. LearningSession -->
+    <div class="entity-card">
+      <div class="entity-header">
+        <div class="entity-name">7. Learning Session</div>
+        <code>Entity: LearningSession</code>
+      </div>
+      <div class="entity-desc">Lifecycle record tracking a student's active diagnostic and resolution cycle.</div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="field-name">session_id</td><td class="field-type">UUID / String</td><td>Primary unique identifier.</td></tr>
+            <tr><td class="field-name">student_id</td><td class="field-type">UUID / String</td><td>Foreign key to Student.</td></tr>
+            <tr><td class="field-name">objective_id</td><td class="field-type">String</td><td>Foreign key to Curriculum Objective.</td></tr>
+            <tr><td class="field-name">status</td><td class="field-type">Enum</td><td>DIAGNOSTIC_ACTIVE, EXPLAIN_BACK_PENDING, PARALLEL_ACTIVE, COMPLETED.</td></tr>
+            <tr><td class="field-name">low_data_mode</td><td class="field-type">Boolean</td><td>True if text-first lightweight mode was used (FR-08).</td></tr>
+            <tr><td class="field-name">local_cache_key</td><td class="field-type">String</td><td>Local storage cache key for async session recovery (FR-10).</td></tr>
+            <tr><td class="field-name">started_at</td><td class="field-type">Timestamp</td><td>Session start timestamp.</td></tr>
+            <tr><td class="field-name">completed_at</td><td class="field-type">Timestamp</td><td>Session completion timestamp.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 8. DiagnosticResponse -->
+    <div class="entity-card">
+      <div class="entity-header">
+        <div class="entity-name">8. Diagnostic Response</div>
+        <code>Entity: DiagnosticResponse</code>
+      </div>
+      <div class="entity-desc">The student's answer selection on a diagnostic question.</div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="field-name">response_id</td><td class="field-type">UUID / String</td><td>Primary unique identifier.</td></tr>
+            <tr><td class="field-name">session_id</td><td class="field-type">UUID / String</td><td>Foreign key to Learning Session.</td></tr>
+            <tr><td class="field-name">question_id</td><td class="field-type">UUID / String</td><td>Foreign key to Diagnostic Question.</td></tr>
+            <tr><td class="field-name">selected_option_letter</td><td class="field-type">Char(1)</td><td>Selected letter (A, B, C, D).</td></tr>
+            <tr><td class="field-name">is_correct</td><td class="field-type">Boolean</td><td>True if answer was correct.</td></tr>
+            <tr><td class="field-name">isolated_gap_title</td><td class="field-type">String</td><td>Pre-tagged likely misconception if incorrect (FR-02).</td></tr>
+            <tr><td class="field-name">time_spent_seconds</td><td class="field-type">Integer</td><td>Time elapsed answering the question.</td></tr>
+            <tr><td class="field-name">answered_at</td><td class="field-type">Timestamp</td><td>Submission timestamp.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 9. ExplainBackRecord -->
+    <div class="entity-card">
+      <div class="entity-header">
+        <div class="entity-name">9. Explain-Back Record</div>
+        <code>Entity: ExplainBackRecord</code>
+      </div>
+      <div class="entity-desc">Student's own-words active recall submission, AI evaluation, and secondary feedback.</div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="field-name">explain_back_id</td><td class="field-type">UUID / String</td><td>Primary unique identifier.</td></tr>
+            <tr><td class="field-name">session_id</td><td class="field-type">UUID / String</td><td>Foreign key to Learning Session.</td></tr>
+            <tr><td class="field-name">student_id</td><td class="field-type">UUID / String</td><td>Foreign key to Student.</td></tr>
+            <tr><td class="field-name">attempt_number</td><td class="field-type">Integer</td><td>1 for initial attempt, 2 for single retry (FR-04).</td></tr>
+            <tr><td class="field-name">input_format</td><td class="field-type">Enum</td><td>TEXT or AUDIO_VOICE_NOTE (FR-12).</td></tr>
+            <tr><td class="field-name">raw_submission_text</td><td class="field-type">Text</td><td>Student's own-words explanation or audio transcript.</td></tr>
+            <tr><td class="field-name">audio_file_url</td><td class="field-type">String (Optional)</td><td>Audio recording URL if voice dictation was used.</td></tr>
+            <tr><td class="field-name">primary_evaluation_result</td><td class="field-type">Enum</td><td>UNDERSTOOD or NEEDS_CLARIFICATION (FR-05).</td></tr>
+            <tr><td class="field-name">matched_understanding_points</td><td class="field-type">List&lt;String&gt;</td><td>Predefined points identified in explanation.</td></tr>
+            <tr><td class="field-name">missing_understanding_points</td><td class="field-type">List&lt;String&gt;</td><td>Predefined points missing.</td></tr>
+            <tr><td class="field-name">targeted_hint_issued</td><td class="field-type">Text (Optional)</td><td>Targeted hint delivered for retry on clarification (FR-05).</td></tr>
+            <tr><td class="field-name">secondary_simplicity_score</td><td class="field-type">Integer</td><td>Score out of 10 (FR-05).</td></tr>
+            <tr><td class="field-name">secondary_accuracy_score</td><td class="field-type">Integer</td><td>Score out of 10 (FR-05).</td></tr>
+            <tr><td class="field-name">secondary_analogies_score</td><td class="field-type">Integer</td><td>Score out of 10 (FR-05).</td></tr>
+            <tr><td class="field-name">secondary_overall_score</td><td class="field-type">Integer</td><td>Composite score out of 100 (FR-05).</td></tr>
+            <tr><td class="field-name">secondary_badge_awarded</td><td class="field-type">Enum</td><td>GOLD, SILVER, or BRONZE.</td></tr>
+            <tr><td class="field-name">evaluated_at</td><td class="field-type">Timestamp</td><td>AI evaluation timestamp.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 10. ParallelQuestion -->
+    <div class="entity-card">
+      <div class="entity-header">
+        <div class="entity-name">10. Parallel Reassessment Question</div>
+        <code>Entity: ParallelQuestion</code>
+      </div>
+      <div class="entity-desc">A fresh past-exam question testing the identical syllabus objective to verify gap closure.</div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="field-name">parallel_question_id</td><td class="field-type">UUID / String</td><td>Primary unique identifier.</td></tr>
+            <tr><td class="field-name">objective_id</td><td class="field-type">String</td><td>Foreign key to Curriculum Objective.</td></tr>
+            <tr><td class="field-name">diagnostic_question_ref</td><td class="field-type">UUID / String</td><td>Reference to initial diagnostic question failed.</td></tr>
+            <tr><td class="field-name">exam_source</td><td class="field-type">String</td><td>Past-exam metadata (JAMB UTME 2021 Question 28).</td></tr>
+            <tr><td class="field-name">question_text</td><td class="field-type">Text</td><td>Complete parallel problem text.</td></tr>
+            <tr><td class="field-name">diagram_url</td><td class="field-type">String (Optional)</td><td>Optional image schematic.</td></tr>
+            <tr><td class="field-name">option_a, option_b, etc.</td><td class="field-type">Text</td><td>Option choices text.</td></tr>
+            <tr><td class="field-name">correct_option</td><td class="field-type">Char(1)</td><td>Correct option key (A, B, C, or D).</td></tr>
+            <tr><td class="field-name">created_at</td><td class="field-type">Timestamp</td><td>Authoring timestamp.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 11. LearningGapResolution -->
+    <div class="entity-card">
+      <div class="entity-header">
+        <div class="entity-name">11. Learning-Gap Resolution Record</div>
+        <code>Entity: LearningGapResolution</code>
+      </div>
+      <div class="entity-desc">The definitive empirical outcome: PROVISIONALLY_RESOLVED vs. PERSISTENT_GAP.</div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="field-name">gap_resolution_id</td><td class="field-type">UUID / String</td><td>Primary unique identifier.</td></tr>
+            <tr><td class="field-name">session_id</td><td class="field-type">UUID / String</td><td>Foreign key to Learning Session.</td></tr>
+            <tr><td class="field-name">student_id</td><td class="field-type">UUID / String</td><td>Foreign key to Student.</td></tr>
+            <tr><td class="field-name">objective_id</td><td class="field-type">String</td><td>Foreign key to Curriculum Objective.</td></tr>
+            <tr><td class="field-name">diagnosed_gap_title</td><td class="field-type">String</td><td>The misconception addressed.</td></tr>
+            <tr><td class="field-name">parallel_question_id</td><td class="field-type">UUID / String</td><td>Foreign key to Parallel Question.</td></tr>
+            <tr><td class="field-name">selected_option</td><td class="field-type">Char(1)</td><td>Option picked by student.</td></tr>
+            <tr><td class="field-name">is_parallel_correct</td><td class="field-type">Boolean</td><td>True if parallel question was answered correctly.</td></tr>
+            <tr><td class="field-name">final_gap_status</td><td class="field-type">Enum</td><td>PROVISIONALLY_RESOLVED or PERSISTENT_GAP (FR-06, FR-11).</td></tr>
+            <tr><td class="field-name">permanent_mastery_confirmed</td><td class="field-type">Boolean</td><td>Always false at initial test; pending future reassessment.</td></tr>
+            <tr><td class="field-name">scheduled_reassessment_date</td><td class="field-type">Date (Optional)</td><td>Date queued for confirmation reassessment.</td></tr>
+            <tr><td class="field-name">tutor_escalation_status</td><td class="field-type">Enum</td><td>NONE, PROMPTED, REQUESTED, RESOLVED (FR-13).</td></tr>
+            <tr><td class="field-name">resolved_at</td><td class="field-type">Timestamp</td><td>Resolution timestamp.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 12. ParentReport -->
+    <div class="entity-card">
+      <div class="entity-header">
+        <div class="entity-name">12. Parent Progress Report & Secure Token</div>
+        <code>Entity: ParentReport</code>
+      </div>
+      <div class="entity-desc">Parent deliverables: WhatsApp summary payload and non-guessable, read-only private web link.</div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="field-name">report_id</td><td class="field-type">UUID / String</td><td>Primary unique identifier.</td></tr>
+            <tr><td class="field-name">session_id</td><td class="field-type">UUID / String</td><td>Foreign key to Learning Session.</td></tr>
+            <tr><td class="field-name">student_id</td><td class="field-type">UUID / String</td><td>Foreign key to Student.</td></tr>
+            <tr><td class="field-name">parent_id</td><td class="field-type">UUID / String</td><td>Foreign key to Parent.</td></tr>
+            <tr><td class="field-name">topics_assessed_count</td><td class="field-type">Integer</td><td>Number of syllabus topics tested.</td></tr>
+            <tr><td class="field-name">gaps_identified_count</td><td class="field-type">Integer</td><td>Number of likely learning gaps identified.</td></tr>
+            <tr><td class="field-name">gaps_provisionally_resolved_count</td><td class="field-type">Integer</td><td>Number of gaps marked PROVISIONALLY_RESOLVED.</td></tr>
+            <tr><td class="field-name">persistent_gaps_count</td><td class="field-type">Integer</td><td>Number of gaps marked PERSISTENT_GAP.</td></tr>
+            <tr><td class="field-name">pre_readiness_score</td><td class="field-type">Integer (%)</td><td>Initial readiness index (e.g. 62%).</td></tr>
+            <tr><td class="field-name">post_readiness_score</td><td class="field-type">Integer (%)</td><td>Updated readiness index (e.g. 74%).</td></tr>
+            <tr><td class="field-name">whatsapp_summary_text</td><td class="field-type">Text</td><td>Message body dispatched via WhatsApp (FR-09).</td></tr>
+            <tr><td class="field-name">whatsapp_dispatch_status</td><td class="field-type">Enum</td><td>PENDING, SENT, DELIVERED, FAILED.</td></tr>
+            <tr><td class="field-name">secure_web_token</td><td class="field-type">String</td><td>Cryptographic non-guessable token (FR-07).</td></tr>
+            <tr><td class="field-name">secure_report_url</td><td class="field-type">String</td><td>Private read-only URL without parent login.</td></tr>
+            <tr><td class="field-name">is_token_revoked</td><td class="field-type">Boolean</td><td>True if URL has been revoked (FR-07).</td></tr>
+            <tr><td class="field-name">token_expires_at</td><td class="field-type">Timestamp</td><td>Expiration date/time (e.g., 30 days).</td></tr>
+            <tr><td class="field-name">generated_at</td><td class="field-type">Timestamp</td><td>Report generation timestamp.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 13. TutorEscalationTicket -->
+    <div class="entity-card">
+      <div class="entity-header">
+        <div class="entity-name">13. Tutor Escalation Ticket</div>
+        <code>Entity: TutorEscalationTicket</code>
+      </div>
+      <div class="entity-desc">Escalation ticket generated when an unresolved persistent gap requests human tutoring.</div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="field-name">ticket_id</td><td class="field-type">UUID / String</td><td>Primary unique identifier.</td></tr>
+            <tr><td class="field-name">gap_resolution_id</td><td class="field-type">UUID / String</td><td>Foreign key to Learning-Gap Resolution.</td></tr>
+            <tr><td class="field-name">student_id</td><td class="field-type">UUID / String</td><td>Foreign key to Student.</td></tr>
+            <tr><td class="field-name">parent_id</td><td class="field-type">UUID / String</td><td>Foreign key to Parent.</td></tr>
+            <tr><td class="field-name">objective_id</td><td class="field-type">String</td><td>Foreign key to Curriculum Objective.</td></tr>
+            <tr><td class="field-name">diagnosed_gap_summary</td><td class="field-type">Text</td><td>Pre-attached diagnosis detailing misconception & failed question.</td></tr>
+            <tr><td class="field-name">student_explain_back_snippet</td><td class="field-type">Text</td><td>Student's explanation attempt and missing points.</td></tr>
+            <tr><td class="field-name">ticket_status</td><td class="field-type">Enum</td><td>NEW, ASSIGNED_TO_TUTOR, LESSON_SCHEDULED, RESOLVED.</td></tr>
+            <tr><td class="field-name">created_at</td><td class="field-type">Timestamp</td><td>Ticket creation timestamp.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Section 3: Entity Relationships Diagram -->
+  <section>
+    <h2>3. Entity Relationship Diagram</h2>
+    <div class="mermaid-card">
+      <div class="mermaid">
+erDiagram
+    STUDENT ||--o{ LEARNING_SESSION : conducts
+    STUDENT }|--|| PARENT : belongs_to
+    CURRICULUM_OBJECTIVE ||--o{ DIAGNOSTIC_QUESTION : contains
+    CURRICULUM_OBJECTIVE ||--o{ MICRO_INTERVENTION : provides
+    CURRICULUM_OBJECTIVE ||--o{ PARALLEL_QUESTION : contains
+    DIAGNOSTIC_QUESTION ||--|{ QUESTION_OPTION : has
+    LEARNING_SESSION ||--o{ DIAGNOSTIC_RESPONSE : records
+    LEARNING_SESSION ||--o{ EXPLAIN_BACK_RECORD : evaluates
+    LEARNING_SESSION ||--o{ LEARNING_GAP_RESOLUTION : resolves
+    LEARNING_SESSION ||--|| PARENT_REPORT : generates
+    LEARNING_GAP_RESOLUTION ||--o| TUTOR_ESCALATION_TICKET : escalates
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    TalkPDF Data Structure v1.0.0 &bull; Derived from requirements.md v1.1.0 &bull; TalkPDF Product Team
+  </footer>
+
+</div>
+
+</body>
+</html>

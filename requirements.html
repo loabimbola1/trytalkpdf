@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TalkPDF — Product Requirements Document (PRD)</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --surface: #131b2e;
+      --surface-border: #1e293b;
+      --surface-hover: #1c2744;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --must: #10b981;
+      --should: #0284c7;
+      --could: #eab308;
+      --wont: #ef4444;
+      --card-radius: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      line-height: 1.65;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    header {
+      border-bottom: 1px solid var(--surface-border);
+      padding-bottom: 24px;
+      margin-bottom: 36px;
+    }
+
+    .badge-doc {
+      display: inline-block;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+      padding: 16px;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--card-radius);
+      font-size: 0.875rem;
+    }
+
+    .meta-item strong {
+      display: block;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin: 40px 0 16px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h2::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 1.1em;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    p {
+      margin-bottom: 14px;
+      color: #cbd5e1;
+    }
+
+    .callout {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.06) 0%, rgba(30, 41, 59, 0.4) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-left: 4px solid var(--accent);
+      padding: 20px 24px;
+      border-radius: 0 var(--card-radius) var(--card-radius) 0;
+      margin: 20px 0;
+      font-size: 1.05rem;
+      color: #f1f5f9;
+      line-height: 1.7;
+    }
+
+    /* Core Flow */
+    .flow-wrapper {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--card-radius);
+      padding: 20px;
+      margin: 24px 0;
+    }
+
+    .flow-header {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    .flow-chain {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .flow-node {
+      background: #0f172a;
+      border: 1px solid var(--surface-border);
+      color: #e2e8f0;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 8px 12px;
+      border-radius: 6px;
+      letter-spacing: 0.03em;
+    }
+
+    .flow-node.highlight {
+      border-color: rgba(56, 189, 248, 0.5);
+      color: var(--accent);
+      background: rgba(56, 189, 248, 0.08);
+    }
+
+    .flow-node.status {
+      border-color: rgba(16, 185, 129, 0.5);
+      color: #34d399;
+      background: rgba(16, 185, 129, 0.08);
+    }
+
+    .flow-arrow {
+      color: var(--text-muted);
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    /* Persona cards */
+    .persona-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin: 20px 0;
+    }
+
+    .persona-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--card-radius);
+      padding: 24px;
+    }
+
+    .persona-role {
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .persona-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+
+    .persona-jtbd {
+      background: #0f172a;
+      border: 1px solid var(--surface-border);
+      padding: 12px 14px;
+      border-radius: 6px;
+      margin-top: 14px;
+      font-size: 0.875rem;
+      color: #e2e8f0;
+      font-style: italic;
+    }
+
+    /* Table Styles */
+    .table-wrapper {
+      overflow-x: auto;
+      border: 1px solid var(--surface-border);
+      border-radius: var(--card-radius);
+      background: var(--surface);
+      margin: 20px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    th {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 14px 16px;
+      font-weight: 600;
+      border-bottom: 1px solid var(--surface-border);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--surface-border);
+      color: #cbd5e1;
+      vertical-align: middle;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    code {
+      background: #0f172a;
+      border: 1px solid var(--surface-border);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.82rem;
+      color: #38bdf8;
+      font-family: Consolas, Monaco, "Courier New", monospace;
+    }
+
+    .priority-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 3px 8px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    .badge-must { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); }
+    .badge-should { background: rgba(2, 132, 199, 0.15); color: #38bdf8; border: 1px solid rgba(2, 132, 199, 0.4); }
+    .badge-could { background: rgba(234, 179, 8, 0.15); color: #facc15; border: 1px solid rgba(234, 179, 8, 0.4); }
+    .badge-wont { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.4); }
+
+    .tag-founder {
+      display: inline-block;
+      color: #38bdf8;
+      font-weight: 600;
+      font-size: 0.825rem;
+      margin-left: 4px;
+    }
+
+    /* Stories Grid */
+    .story-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .story-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--card-radius);
+      padding: 16px 20px;
+    }
+
+    .story-id {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .story-content {
+      font-size: 0.95rem;
+      color: #e2e8f0;
+    }
+
+    .story-content span.highlight {
+      color: #38bdf8;
+      font-weight: 600;
+    }
+
+    /* Out of scope */
+    .oos-card {
+      background: rgba(239, 68, 68, 0.04);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      border-radius: var(--card-radius);
+      padding: 24px;
+      margin: 20px 0;
+    }
+
+    .oos-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .oos-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .oos-icon {
+      color: var(--wont);
+      font-weight: 800;
+      font-size: 1.1rem;
+      line-height: 1.2;
+    }
+
+    .oos-title {
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 2px;
+      font-size: 0.95rem;
+    }
+
+    .oos-desc {
+      font-size: 0.875rem;
+      color: #94a3b8;
+    }
+
+    /* Resolved notice */
+    .resolved-box {
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-left: 4px solid var(--must);
+      padding: 16px 20px;
+      border-radius: 0 var(--card-radius) var(--card-radius) 0;
+      margin: 16px 0;
+      color: #e2e8f0;
+      font-size: 0.95rem;
+    }
+
+    .date-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      font-style: italic;
+    }
+
+    footer {
+      margin-top: 50px;
+      border-top: 1px solid var(--surface-border);
+      padding-top: 20px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <div class="badge-doc">Official PRD v1.1.0</div>
+    <h1>TalkPDF — Product Requirements Document</h1>
+    <div class="subtitle">Specifications for the Minimum Viable Learning-Resolution Loop (SS3 WAEC/JAMB)</div>
+
+    <div class="meta-grid">
+      <div class="meta-item">
+        <strong>Target Exam</strong>
+        WAEC / WASSCE & JAMB (UTME)
+      </div>
+      <div class="meta-item">
+        <strong>Primary Persona</strong>
+        SS3 Candidate & Paying Parent
+      </div>
+      <div class="meta-item">
+        <strong>Target Milestone</strong>
+        Concierge & PWA Wedge
+      </div>
+      <div class="meta-item">
+        <strong>Status</strong>
+        Approved for Implementation
+      </div>
+    </div>
+  </header>
+
+  <!-- Problem Statement -->
+  <section>
+    <h2>1. Problem Statement</h2>
+    <div class="callout">
+      Nigerian secondary school students preparing for high-stakes WAEC/WASSCE and JAMB exams face severe exam anxiety and the risk of losing a full gap year, yet standard revision tools (past-question booklets, offline CBT drill software, and uncalibrated evening lesson centers) only deliver passive "Question → Answer" scoring. They tell a student <em>what</em> they got wrong, but never isolate the underlying conceptual misconception, force active comprehension, or verify whether the gap was actually closed. Concurrently, parents spend substantial household income on exam fees and private lessons with zero objective visibility into their child's real subject mastery, discovering unresolved learning gaps only after failure results are published.
+    </div>
+
+    <!-- Core MVP Flow -->
+    <div class="flow-wrapper">
+      <div class="flow-header">Core MVP Learning-Resolution Loop Flow</div>
+      <div class="flow-chain">
+        <span class="flow-node">ASSESS</span>
+        <span class="flow-arrow">&rarr;</span>
+        <span class="flow-node">IDENTIFY LIKELY GAP</span>
+        <span class="flow-arrow">&rarr;</span>
+        <span class="flow-node">TARGETED INTERVENTION</span>
+        <span class="flow-arrow">&rarr;</span>
+        <span class="flow-node">EXPLAIN-BACK</span>
+        <span class="flow-arrow">&rarr;</span>
+        <span class="flow-node">AI EVALUATION</span>
+        <span class="flow-arrow">&rarr;</span>
+        <span class="flow-node highlight">ONE RETRY IF NEEDED</span>
+        <span class="flow-arrow">&rarr;</span>
+        <span class="flow-node">PARALLEL QUESTION</span>
+        <span class="flow-arrow">&rarr;</span>
+        <span class="flow-node status">PROVISIONALLY RESOLVED / PERSISTENT GAP</span>
+        <span class="flow-arrow">&rarr;</span>
+        <span class="flow-node">PARENT UPDATE</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Target Users -->
+  <section>
+    <h2>2. Target Users</h2>
+    <div class="persona-grid">
+      <div class="persona-card">
+        <div class="persona-role">Primary End User</div>
+        <div class="persona-title">SS3 Exam Candidate (Student)</div>
+        <p>A 15–18-year-old Nigerian senior secondary student studying under intense pressure for WAEC and JAMB. Operates on an entry-level smartphone with metered mobile data, dealing with noisy homes and severe evening fatigue.</p>
+        <div class="persona-jtbd">
+          <strong>JTBD:</strong> "When I get a past question wrong, help me quickly understand the exact concept I missed and verify that I know it so I don't fail that topic on exam day."
+        </div>
+      </div>
+
+      <div class="persona-card">
+        <div class="persona-role">Primary Economic Buyer</div>
+        <div class="persona-title">Anxious Parent / Guardian</div>
+        <p>The family decision-maker who finances exam registration (₦35,000+), extra lessons, and data bundles. Highly skeptical of smartphone distraction and demands tangible proof of academic improvement.</p>
+        <div class="persona-jtbd">
+          <strong>JTBD:</strong> "Give me verifiable, clear proof that my child is actively studying, resolving their weak areas, and actually prepared to pass their exams."
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Functional Requirements -->
+  <section>
+    <h2>3. Functional Requirements (FR) Table</h2>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 80px;">ID</th>
+            <th style="width: 200px;">Feature</th>
+            <th>Description</th>
+            <th style="width: 90px;">Priority</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>FR-01</strong></td>
+            <td>Curriculum Diagnostic</td>
+            <td>Short, 5-question diagnostic assessments linked to specific WAEC/JAMB syllabus objectives (e.g., Physics: Electromagnetism; Chemistry: Organic reactions), where each incorrect answer option is pre-tagged with a likely misconception. <span class="tag-founder">[Founder decision]</span></td>
+            <td><span class="priority-badge badge-must">Must</span></td>
+          </tr>
+          <tr>
+            <td><strong>FR-02</strong></td>
+            <td>Misconception Diagnosis</td>
+            <td>When a student selects an incorrect answer option, the system identifies the associated likely learning gap (framed as a probable misconception rather than definitively confirmed). <span class="tag-founder">[Founder decision]</span></td>
+            <td><span class="priority-badge badge-must">Must</span></td>
+          </tr>
+          <tr>
+            <td><strong>FR-03</strong></td>
+            <td>Targeted Micro-Intervention</td>
+            <td>Delivers a bite-sized, 60–90 second plain-English conceptual explanation or voice snippet targeted strictly at the identified likely misconception.</td>
+            <td><span class="priority-badge badge-must">Must</span></td>
+          </tr>
+          <tr>
+            <td><strong>FR-04</strong></td>
+            <td>Explain-Back Input</td>
+            <td>Prompts the learner to explain the concept back in their own words via text input (with optional audio voice-note upload), allowing one retry with a targeted hint if clarification is needed. <span class="tag-founder">[Founder decision]</span></td>
+            <td><span class="priority-badge badge-must">Must</span></td>
+          </tr>
+          <tr>
+            <td><strong>FR-05</strong></td>
+            <td>Explain-Back AI Evaluation</td>
+            <td>Hybrid human-defined + AI evaluation checks student explanation against predefined required-understanding points for that objective; returns <code>UNDERSTOOD</code> or <code>NEEDS_CLARIFICATION</code> with 1 targeted hint and 1 retry on clarification. Preserves Simplicity /10, Accuracy /10, Analogies /10, Overall /100, and Gold/Silver/Bronze badges as secondary feedback signals (not used alone to determine mastery). <span class="tag-founder">[Founder decision]</span></td>
+            <td><span class="priority-badge badge-must">Must</span></td>
+          </tr>
+          <tr>
+            <td><strong>FR-06</strong></td>
+            <td>Reassessment Verification</td>
+            <td>Serves one fresh parallel question targeting the same learning objective: if answered correctly, gap is marked <code>PROVISIONALLY_RESOLVED</code> (allowing future reassessment to confirm or reopen); if incorrect, marked <code>PERSISTENT_GAP</code>. Does not claim permanent mastery from a single question. <span class="tag-founder">[Founder decision]</span></td>
+            <td><span class="priority-badge badge-must">Must</span></td>
+          </tr>
+          <tr>
+            <td><strong>FR-07</strong></td>
+            <td>Parent Readiness Scorecard & Report</td>
+            <td>Generates parent visibility deliverables: a concise WhatsApp progress summary (showing gaps identified, gaps provisionally resolved, gaps requiring further support, and reassessment progress) and an optional private, non-guessable, read-only, revocable web report with detailed evidence, without exposing unnecessary student data or requiring parent login. <span class="tag-founder">[Founder decision]</span></td>
+            <td><span class="priority-badge badge-must">Must</span></td>
+          </tr>
+          <tr>
+            <td><strong>FR-08</strong></td>
+            <td>Low-Bandwidth Mode</td>
+            <td>Fully functional text-only fallback for all prompts, micro-lessons, and Explain-Back inputs to operate seamlessly on slow 2G/3G networks without data drain.</td>
+            <td><span class="priority-badge badge-should">Should</span></td>
+          </tr>
+          <tr>
+            <td><strong>FR-09</strong></td>
+            <td>WhatsApp Progress Summary Delivery</td>
+            <td>Sends a short progress update directly through WhatsApp (gaps identified, provisionally resolved, requiring further support, reassessment progress) with an optional secure, read-only link to the detailed web report. <span class="tag-founder">[Founder decision]</span></td>
+            <td><span class="priority-badge badge-should">Should</span></td>
+          </tr>
+          <tr>
+            <td><strong>FR-10</strong></td>
+            <td>Session Auto-Recovery</td>
+            <td>Automatically caches incomplete Explain-Back sessions locally so a student does not lose progress if the network drops or the browser closes.</td>
+            <td><span class="priority-badge badge-should">Should</span></td>
+          </tr>
+          <tr>
+            <td><strong>FR-11</strong></td>
+            <td>Persistent Gap Flagging</td>
+            <td>Flags learning gaps as <code>PERSISTENT_GAP</code> when the fresh parallel reassessment question is answered incorrectly, routing them for further targeted human/tutor support. <span class="tag-founder">[Founder decision]</span></td>
+            <td><span class="priority-badge badge-should">Should</span></td>
+          </tr>
+          <tr>
+            <td><strong>FR-12</strong></td>
+            <td>Voice-Note Dictation</td>
+            <td>Speech-to-text integration allowing students to record a quick audio voice note for their Explain-Back response when typing is inconvenient.</td>
+            <td><span class="priority-badge badge-could">Could</span></td>
+          </tr>
+          <tr>
+            <td><strong>FR-13</strong></td>
+            <td>Tutor Escalation Prompt</td>
+            <td>A simple button on persistent gaps allowing the parent/student to request human tutor assistance with the exact diagnosis pre-attached.</td>
+            <td><span class="priority-badge badge-could">Could</span></td>
+          </tr>
+          <tr>
+            <td><strong>FR-14</strong></td>
+            <td>Gamified Mastery Streaks</td>
+            <td>Simple badges or streaks celebrating consecutive learning gaps closed to incentivize daily student stamina.</td>
+            <td><span class="priority-badge badge-could">Could</span></td>
+          </tr>
+          <tr>
+            <td><strong>FR-15</strong></td>
+            <td>Recurring Card Subscriptions</td>
+            <td>Recurring monthly debit card billing integration via Paystack/Flutterwave.</td>
+            <td><span class="priority-badge badge-wont">Won't</span></td>
+          </tr>
+          <tr>
+            <td><strong>FR-16</strong></td>
+            <td>School / Multi-Teacher B2B</td>
+            <td>Institutional B2B administrative dashboards, classroom roster sync, or PTA reporting.</td>
+            <td><span class="priority-badge badge-wont">Won't</span></td>
+          </tr>
+          <tr>
+            <td><strong>FR-17</strong></td>
+            <td>Full Timed CBT Simulator</td>
+            <td>400-question timed mock exam simulation engines (students continue using TestDriller for timed drill).</td>
+            <td><span class="priority-badge badge-wont">Won't</span></td>
+          </tr>
+          <tr>
+            <td><strong>FR-18</strong></td>
+            <td>Heavy Video Lecture Library</td>
+            <td>Heavy animated lecture libraries and multi-hour video courses (students continue using uLesson/YouTube).</td>
+            <td><span class="priority-badge badge-wont">Won't</span></td>
+          </tr>
+          <tr>
+            <td><strong>FR-19</strong></td>
+            <td>Generic Arbitrary PDF Chat</td>
+            <td>Unstructured arbitrary PDF file upload and free-form chatbot Q&A.</td>
+            <td><span class="priority-badge badge-wont">Won't</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- User Stories -->
+  <section>
+    <h2>4. User Stories</h2>
+    <div class="story-list">
+      <div class="story-card">
+        <div class="story-id">US-01 &bull; Student Diagnostic</div>
+        <div class="story-content">As an SS3 student preparing for WAEC, I want to <span class="highlight">take a short 5-question topic diagnostic</span>, so that I can pinpoint exactly what concept I am confusing instead of solving 50 questions blindly.</div>
+      </div>
+      <div class="story-card">
+        <div class="story-id">US-02 &bull; Student Intervention</div>
+        <div class="story-content">As an SS3 student who failed a question, I want the system to <span class="highlight">identify my likely misconception and provide a concise explanation</span> of the rule I missed, so that I can immediately correct my thinking.</div>
+      </div>
+      <div class="story-card">
+        <div class="story-id">US-03 &bull; Student Explain-Back</div>
+        <div class="story-content">As an SS3 student, I want to <span class="highlight">explain the concept back in my own words and receive an UNDERSTOOD / NEEDS_CLARIFICATION evaluation</span> against required understanding points (with secondary feedback scores and a hint/retry if needed), so that I know if I truly grasp the concept.</div>
+      </div>
+      <div class="story-card">
+        <div class="story-id">US-04 &bull; Student Data-Resilience</div>
+        <div class="story-content">As a student on limited mobile data, I want to <span class="highlight">complete the loop in lightweight text mode</span>, so that I don't burn through my data bundle while studying.</div>
+      </div>
+      <div class="story-card">
+        <div class="story-id">US-05 &bull; Student Reassessment</div>
+        <div class="story-content">As an SS3 student, I want to <span class="highlight">immediately answer a fresh parallel past question</span>, so that I can mark the gap as PROVISIONALLY_RESOLVED or identify it as a PERSISTENT_GAP requiring further support.</div>
+      </div>
+      <div class="story-card">
+        <div class="story-id">US-06 &bull; Parent Accountability</div>
+        <div class="story-content">As an anxious parent paying exam fees, I want to <span class="highlight">receive a concise WhatsApp progress summary</span> (showing gaps identified, provisionally resolved, requiring further support, and reassessment progress) with an optional private web report link, so that I have verifiable proof without needing a login account.</div>
+      </div>
+      <div class="story-card">
+        <div class="story-id">US-07 &bull; Parent Targeted Tutoring</div>
+        <div class="story-content">As a parent considering hiring a lesson teacher, I want <span class="highlight">to see the specific PERSISTENT_GAP topics my child cannot resolve with AI</span>, so that I can instruct a tutor to focus strictly on those topics instead of paying for unnecessary hours.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Out of Scope -->
+  <section>
+    <h2>5. Explicit Out-of-Scope List</h2>
+    <div class="oos-card">
+      <div class="oos-item">
+        <div class="oos-icon">&times;</div>
+        <div>
+          <div class="oos-title">No Institutional School B2B Software</div>
+          <div class="oos-desc">No teacher management portals, no principal oversight dashboards, no school fee integration, and no classroom roster synchronization. We sell exclusively to consumer parents and learners.</div>
+        </div>
+      </div>
+      <div class="oos-item">
+        <div class="oos-icon">&times;</div>
+        <div>
+          <div class="oos-title">No Arbitrary PDF Document Chatting</div>
+          <div class="oos-desc">Despite the legacy name "TalkPDF", the product will NOT be a generic "upload any textbook PDF and chat with it" tool. All interactions are structured against the official WAEC/JAMB curriculum objectives.</div>
+        </div>
+      </div>
+      <div class="oos-item">
+        <div class="oos-icon">&times;</div>
+        <div>
+          <div class="oos-title">No Heavy Animated Video Production</div>
+          <div class="oos-desc">We will not spend time or capital filming or animating multi-hour lecture series. Incumbents like uLesson already do this. Our focus is purely diagnostic, micro-intervention, and active-recall verification.</div>
+        </div>
+      </div>
+      <div class="oos-item">
+        <div class="oos-icon">&times;</div>
+        <div>
+          <div class="oos-title">No Full 400-Question Timed Mock CBT Engines</div>
+          <div class="oos-desc">We are not building a full-length mock exam simulator with timers and negative marking. Incumbents like TestDriller own offline drill; we take the student <em>after</em> they fail a question.</div>
+        </div>
+      </div>
+      <div class="oos-item">
+        <div class="oos-icon">&times;</div>
+        <div>
+          <div class="oos-title">No Native iOS App</div>
+          <div class="oos-desc">Over 95% of the target demographic in Nigeria operates on Android or mobile web. We will build exclusively for Mobile Web / PWA / WhatsApp.</div>
+        </div>
+      </div>
+      <div class="oos-item">
+        <div class="oos-icon">&times;</div>
+        <div>
+          <div class="oos-title">No Automated Recurring Card Subscription Infrastructure</div>
+          <div class="oos-desc">No complex recurring debit subscription architecture. Initial pilots will validate willingness to pay via manual bank transfers, one-off diagnostic tokens (₦1,000), or flat exam-pass fees (₦5,000) before building automated billing engines.</div>
+        </div>
+      </div>
+      <div class="oos-item">
+        <div class="oos-icon">&times;</div>
+        <div>
+          <div class="oos-title">No Dynamic / Speculative AI Misconception Generation & No Claim of Definitive Confirmation</div>
+          <div class="oos-desc">Incorrect options are pre-mapped to likely misconceptions at authoring time; the system identifies the associated likely learning gap rather than dynamically inferring or claiming a misconception is definitively confirmed.</div>
+        </div>
+      </div>
+      <div class="oos-item">
+        <div class="oos-icon">&times;</div>
+        <div>
+          <div class="oos-title">No Multi-Turn Conversational AI Tutoring or Unlimited Retries</div>
+          <div class="oos-desc">Explain-Back evaluation is strictly structured against predefined required-understanding points with a maximum of one retry and a targeted hint. No open-ended conversational chatbot or multi-turn Socratic dialogue in this build.</div>
+        </div>
+      </div>
+      <div class="oos-item">
+        <div class="oos-icon">&times;</div>
+        <div>
+          <div class="oos-title">No Determining Mastery Exclusively from Secondary Scores</div>
+          <div class="oos-desc">Secondary Explain-Back rubric scores (Simplicity /10, Accuracy /10, Analogies /10, Overall /100, Gold/Silver/Bronze) are for formative feedback only and must not be used alone to determine learning gap closure.</div>
+        </div>
+      </div>
+      <div class="oos-item">
+        <div class="oos-icon">&times;</div>
+        <div>
+          <div class="oos-title">No Permanent Mastery Guarantee from a Single Question</div>
+          <div class="oos-desc">A single fresh parallel question only classifies a gap as PROVISIONALLY_RESOLVED or PERSISTENT_GAP. The system will not certify permanent topic mastery from one question; future reassessment is required to confirm or reopen the gap.</div>
+        </div>
+      </div>
+      <div class="oos-item">
+        <div class="oos-icon">&times;</div>
+        <div>
+          <div class="oos-title">No Parent Account Creation / Authentication Portals & No Guessable Public Reports</div>
+          <div class="oos-desc">No parent user accounts, passwords, or authentication portals. Private web report links must be non-guessable, read-only, revocable, and must not expose unnecessary student personal data.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 6: Blocking Information -->
+  <section>
+    <h2>6. Unclear or Missing Information (Blocking Must-Haves)</h2>
+    <div class="resolved-box">
+      <strong>All Blocking Items Formalized for MVP:</strong> All previously identified architectural and workflow questions have been formalized into the MVP specification via founder decisions (see Section 7: Founder Decisions Log). No blocking unclear items remain for this milestone.
+    </div>
+  </section>
+
+  <!-- Section 7: Founder Decisions Log -->
+  <section>
+    <h2>7. Founder Decisions Log</h2>
+    <div class="date-label">Logged on 15 September 2026</div>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 50px;">#</th>
+            <th style="width: 220px;">Question</th>
+            <th>Decision</th>
+            <th style="width: 140px;">Applies to</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1</strong></td>
+            <td><strong>Learning-Gap Diagnosis:</strong> How does the system map an incorrect option to a specific misconception?</td>
+            <td>Pre-tagged likely misconceptions attached to answer options (Option A). When an incorrect answer is selected, system flags the associated likely learning gap rather than claiming the misconception is definitively confirmed. Dynamic AI generation is out of scope.</td>
+            <td><code>FR-01</code>, <code>FR-02</code></td>
+          </tr>
+          <tr>
+            <td><strong>2</strong></td>
+            <td><strong>Explain-Back Evaluation:</strong> What threshold or evaluation logic determines whether a student's explanation is accepted?</td>
+            <td>Hybrid human-defined + AI evaluation (Option B + A). For each objective, predefined required-understanding points are evaluated by AI, returning <code>UNDERSTOOD</code> or <code>NEEDS_CLARIFICATION</code> with 1 targeted hint and 1 retry. Secondary scores (Simplicity /10, Accuracy /10, Analogies /10, Overall /100, Gold/Silver/Bronze) are preserved as feedback signals but do not alone determine mastery.</td>
+            <td><code>FR-04</code>, <code>FR-05</code></td>
+          </tr>
+          <tr>
+            <td><strong>3</strong></td>
+            <td><strong>Gap-Closure Verification:</strong> When is a learning gap considered fixed, and does a single parallel question suffice?</td>
+            <td>One fresh parallel question (Option A). If correct &rarr; <code>PROVISIONALLY_RESOLVED</code>. If wrong &rarr; <code>PERSISTENT_GAP</code>. Does not claim permanent mastery from one correct answer; allows future reassessment to confirm or reopen the gap.</td>
+            <td><code>FR-06</code>, <code>FR-11</code></td>
+          </tr>
+          <tr>
+            <td><strong>4</strong></td>
+            <td><strong>Parent Scorecard Distribution:</strong> How does a parent access the scorecard without a full parent account/authentication system?</td>
+            <td>WhatsApp summary + private web report (Option B + A). WhatsApp summary shows: gaps identified, gaps provisionally resolved, gaps requiring further support, and reassessment progress. Private web report link must be non-guessable, read-only, revocable, and expose no unnecessary student information.</td>
+            <td><code>FR-07</code>, <code>FR-09</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    TalkPDF PRD v1.1.0 &bull; Derived from YC Office Hours Session &bull; TalkPDF Product Team
+  </footer>
+
+</div>
+
+</body>
+</html>

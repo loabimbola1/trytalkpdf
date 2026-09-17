@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TalkPDF — End-to-End User Flow</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --surface: #131b2e;
+      --surface-border: #1e293b;
+      --surface-hover: #1c2744;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --must: #10b981;
+      --should: #0284c7;
+      --could: #eab308;
+      --wont: #ef4444;
+      --card-radius: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      line-height: 1.65;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    header {
+      border-bottom: 1px solid var(--surface-border);
+      padding-bottom: 24px;
+      margin-bottom: 36px;
+    }
+
+    .badge-doc {
+      display: inline-block;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+      padding: 16px;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--card-radius);
+      font-size: 0.875rem;
+    }
+
+    .meta-item strong {
+      display: block;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin: 40px 0 16px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h2::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 1.1em;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #f8fafc;
+      margin: 28px 0 14px 0;
+    }
+
+    p {
+      margin-bottom: 14px;
+      color: #cbd5e1;
+    }
+
+    /* Visual Pipeline Flow */
+    .flow-pipeline {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--card-radius);
+      padding: 24px;
+      margin: 24px 0;
+    }
+
+    .pipeline-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .pipeline-steps {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .pipeline-node {
+      background: #0f172a;
+      border: 1px solid var(--surface-border);
+      color: #f1f5f9;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 8px 12px;
+      border-radius: 6px;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+
+    .pipeline-node.accent {
+      background: rgba(56, 189, 248, 0.1);
+      border-color: rgba(56, 189, 248, 0.4);
+      color: var(--accent);
+    }
+
+    .pipeline-node.warning {
+      background: rgba(234, 179, 8, 0.1);
+      border-color: rgba(234, 179, 8, 0.4);
+      color: #facc15;
+    }
+
+    .pipeline-node.success {
+      background: rgba(16, 185, 129, 0.1);
+      border-color: rgba(16, 185, 129, 0.4);
+      color: #34d399;
+    }
+
+    .pipeline-arrow {
+      color: var(--text-muted);
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    /* Phase Containers & Step Cards */
+    .phase-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #94a3b8;
+      background: #0f172a;
+      border: 1px solid var(--surface-border);
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+
+    .step-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--card-radius);
+      padding: 24px;
+      margin-bottom: 18px;
+      position: relative;
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 12px;
+    }
+
+    .step-number-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 0.9rem;
+      border-radius: 8px;
+    }
+
+    .step-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .step-actor {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 4px 8px;
+      border-radius: 4px;
+      background: #0f172a;
+      border: 1px solid var(--surface-border);
+      color: #94a3b8;
+    }
+
+    .step-actor.student { color: #38bdf8; border-color: rgba(56, 189, 248, 0.3); }
+    .step-actor.system { color: #a78bfa; border-color: rgba(167, 139, 250, 0.3); }
+    .step-actor.parent { color: #34d399; border-color: rgba(16, 185, 129, 0.3); }
+
+    .step-body {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      font-size: 0.925rem;
+    }
+
+    .step-field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .step-field strong {
+      color: #94a3b8;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .step-field span, .step-field div {
+      color: #cbd5e1;
+    }
+
+    .status-tag {
+      display: inline-block;
+      font-family: Consolas, Monaco, "Courier New", monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: #0f172a;
+      border: 1px solid var(--surface-border);
+    }
+
+    .status-tag.resolved { color: #34d399; border-color: rgba(16, 185, 129, 0.4); background: rgba(16, 185, 129, 0.08); }
+    .status-tag.persistent { color: #f87171; border-color: rgba(239, 68, 68, 0.4); background: rgba(239, 68, 68, 0.08); }
+    .status-tag.active { color: #38bdf8; border-color: rgba(56, 189, 248, 0.4); background: rgba(56, 189, 248, 0.08); }
+
+    /* Table Styles */
+    .table-wrapper {
+      overflow-x: auto;
+      border: 1px solid var(--surface-border);
+      border-radius: var(--card-radius);
+      background: var(--surface);
+      margin: 20px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    th {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 14px 16px;
+      font-weight: 600;
+      border-bottom: 1px solid var(--surface-border);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--surface-border);
+      color: #cbd5e1;
+      vertical-align: middle;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    code {
+      background: #0f172a;
+      border: 1px solid var(--surface-border);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.82rem;
+      color: #38bdf8;
+      font-family: Consolas, Monaco, "Courier New", monospace;
+    }
+
+    /* Edge Cases Grid */
+    .edge-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin: 20px 0;
+    }
+
+    .edge-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--card-radius);
+      padding: 18px;
+    }
+
+    .edge-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .edge-title::before {
+      content: "!";
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(234, 179, 8, 0.15);
+      border: 1px solid rgba(234, 179, 8, 0.4);
+      color: #facc15;
+      font-size: 0.75rem;
+      font-weight: 800;
+    }
+
+    .edge-desc {
+      font-size: 0.85rem;
+      color: #94a3b8;
+      line-height: 1.5;
+    }
+
+    footer {
+      margin-top: 50px;
+      border-top: 1px solid var(--surface-border);
+      padding-top: 20px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <div class="badge-doc">User Flow Specification v1.0.0</div>
+    <h1>TalkPDF — End-to-End User Flow</h1>
+    <div class="subtitle">Complete step-by-step user journey from diagnostic entry to parent verified completion</div>
+
+    <div class="meta-grid">
+      <div class="meta-item">
+        <strong>Target Exam</strong>
+        SS3 WAEC & JAMB
+      </div>
+      <div class="meta-item">
+        <strong>Actors</strong>
+        Candidate & Paying Parent
+      </div>
+      <div class="meta-item">
+        <strong>Total Steps</strong>
+        11 Sequential Steps
+      </div>
+      <div class="meta-item">
+        <strong>Reference</strong>
+        requirements.md v1.1.0
+      </div>
+    </div>
+  </header>
+
+  <!-- Section 1: Architecture -->
+  <section>
+    <h2>1. Flow Architecture & Core Loop</h2>
+    <p>The TalkPDF MVP operationalizes the learning-resolution loop to isolate conceptual misconceptions, force active comprehension via Explain-Back, and verify gap closure through empirical past-question testing.</p>
+
+    <div class="flow-pipeline">
+      <div class="pipeline-title">Linear Resolution Pipeline</div>
+      <div class="pipeline-steps">
+        <span class="pipeline-node accent">1. ASSESS</span>
+        <span class="pipeline-arrow">&rarr;</span>
+        <span class="pipeline-node">2. IDENTIFY LIKELY GAP</span>
+        <span class="pipeline-arrow">&rarr;</span>
+        <span class="pipeline-node">3. TARGETED INTERVENTION</span>
+        <span class="pipeline-arrow">&rarr;</span>
+        <span class="pipeline-node">4. EXPLAIN-BACK</span>
+        <span class="pipeline-arrow">&rarr;</span>
+        <span class="pipeline-node">5. AI EVALUATION</span>
+        <span class="pipeline-arrow">&rarr;</span>
+        <span class="pipeline-node warning">6. ONE RETRY IF NEEDED</span>
+        <span class="pipeline-arrow">&rarr;</span>
+        <span class="pipeline-node">7. PARALLEL QUESTION</span>
+        <span class="pipeline-arrow">&rarr;</span>
+        <span class="pipeline-node success">8. RESOLVED / PERSISTENT</span>
+        <span class="pipeline-arrow">&rarr;</span>
+        <span class="pipeline-node accent">9. PARENT UPDATE</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Step-by-Step Flow -->
+  <section>
+    <h2>2. Step-by-Step User Flow</h2>
+
+    <!-- Phase 1 -->
+    <div class="phase-badge">Phase 1: Diagnostic Assessment</div>
+
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-number-title">
+          <div class="step-number">1</div>
+          <div class="step-title">Entry & Syllabus Objective Selection</div>
+        </div>
+        <span class="step-actor student">Student</span>
+      </div>
+      <div class="step-body">
+        <div class="step-field">
+          <strong>User Action:</strong>
+          <span>Student opens TalkPDF mobile web/PWA on an entry-level smartphone. Selects target exam (WAEC or JAMB), subject (e.g., Physics), and a specific syllabus objective (e.g., Electromagnetism: Faraday's Law).</span>
+        </div>
+        <div class="step-field">
+          <strong>System Logic:</strong>
+          <span>Loads 5-question curriculum diagnostic module (<code>FR-01</code>). Initializes local storage cache for offline/asynchronous session recovery (<code>FR-10</code>).</span>
+        </div>
+        <div class="step-field">
+          <strong>State:</strong>
+          <span class="status-tag active">SESSION_INITIALIZED &rarr; DIAGNOSTIC_ACTIVE</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-number-title">
+          <div class="step-number">2</div>
+          <div class="step-title">Diagnostic Quiz Completion</div>
+        </div>
+        <span class="step-actor student">Student</span>
+      </div>
+      <div class="step-body">
+        <div class="step-field">
+          <strong>User Action:</strong>
+          <span>Student answers 5 multiple-choice past-exam questions linked directly to the chosen syllabus objective.</span>
+        </div>
+        <div class="step-field">
+          <strong>System Logic:</strong>
+          <span>Records selected options against pre-tagged question metadata. Text-only lightweight payload guarantees zero data lag on 2G/3G networks (<code>FR-08</code>).</span>
+        </div>
+        <div class="step-field">
+          <strong>State:</strong>
+          <span class="status-tag active">DIAGNOSTIC_SUBMITTED</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 2 -->
+    <div class="phase-badge">Phase 2: Diagnosis & Micro-Intervention</div>
+
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-number-title">
+          <div class="step-number">3</div>
+          <div class="step-title">Likely Learning-Gap Identification</div>
+        </div>
+        <span class="step-actor system">System</span>
+      </div>
+      <div class="step-body">
+        <div class="step-field">
+          <strong>System Action:</strong>
+          <span>When a student picks an incorrect option, system instantly isolates the pre-tagged misconception attached to that option (<code>FR-02</code>).</span>
+        </div>
+        <div class="step-field">
+          <strong>Presentation:</strong>
+          <span>Displays Question Result (Incorrect) and identifies the associated <em>likely learning gap</em> (framed as a probable misconception, not a definitive claim). Example: <em>"Likely Gap Identified: Confusing magnetic flux with rate of change of magnetic flux."</em></span>
+        </div>
+        <div class="step-field">
+          <strong>State:</strong>
+          <span class="status-tag active">LIKELY_GAP_IDENTIFIED</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-number-title">
+          <div class="step-number">4</div>
+          <div class="step-title">Targeted Micro-Intervention</div>
+        </div>
+        <span class="step-actor student">Student</span>
+      </div>
+      <div class="step-body">
+        <div class="step-field">
+          <strong>User Action:</strong>
+          <span>Student reads or listens to a bite-sized, 60–90 second plain-English conceptual micro-lesson focused strictly on the identified misconception (<code>FR-03</code>).</span>
+        </div>
+        <div class="step-field">
+          <strong>System Logic:</strong>
+          <span>Rendered as lightweight plain text and key diagram formulas with optional voice snippet. No multi-hour videos or unstructured PDF dumps (<code>FR-08</code>, <code>FR-18</code>, <code>FR-19</code>).</span>
+        </div>
+        <div class="step-field">
+          <strong>State:</strong>
+          <span class="status-tag active">INTERVENTION_CONSUMED</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 3 -->
+    <div class="phase-badge">Phase 3: Active Recall (Explain-Back Loop)</div>
+
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-number-title">
+          <div class="step-number">5</div>
+          <div class="step-title">Explain-Back Active Recall Input</div>
+        </div>
+        <span class="step-actor student">Student</span>
+      </div>
+      <div class="step-body">
+        <div class="step-field">
+          <strong>User Action:</strong>
+          <span>Student is prompted: <em>"Explain this concept in your own words so an SS1 student could understand."</em> Student types their explanation into the text box or uses audio voice-note dictation (<code>FR-04</code>, <code>FR-12</code>).</span>
+        </div>
+        <div class="step-field">
+          <strong>System Logic:</strong>
+          <span>Real-time local storage caching ensures no drafted explanations are lost if data connection drops (<code>FR-10</code>).</span>
+        </div>
+        <div class="step-field">
+          <strong>State:</strong>
+          <span class="status-tag active">EXPLAIN_BACK_SUBMITTED</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-number-title">
+          <div class="step-number">6</div>
+          <div class="step-title">Hybrid Human-Defined + AI Evaluation</div>
+        </div>
+        <span class="step-actor system">System</span>
+      </div>
+      <div class="step-body">
+        <div class="step-field">
+          <strong>System Action:</strong>
+          <span>AI evaluates student explanation against human-curated required-understanding points for that specific objective (<code>FR-05</code>).</span>
+        </div>
+        <div class="step-field">
+          <strong>Outputs:</strong>
+          <span>
+            1. <strong>Primary Mastery Gate:</strong> Evaluates to either <code>UNDERSTOOD</code> or <code>NEEDS_CLARIFICATION</code>.<br>
+            2. <strong>Secondary Feedback Scores:</strong> Simplicity /10, Accuracy /10, Analogies /10, Overall /100, Badge (Gold/Silver/Bronze) — preserved as formative feedback signals.
+          </span>
+        </div>
+        <div class="step-field">
+          <strong>Branching:</strong>
+          <span>If <code>UNDERSTOOD</code> &rarr; Advance to Step 8. If <code>NEEDS_CLARIFICATION</code> &rarr; Trigger Step 7 (Retry).</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-number-title">
+          <div class="step-number">7</div>
+          <div class="step-title">Targeted Hint & Single Retry (Conditional)</div>
+        </div>
+        <span class="step-actor student">Student</span>
+      </div>
+      <div class="step-body">
+        <div class="step-field">
+          <strong>Condition:</strong>
+          <span>Triggered only when evaluation returns <code>NEEDS_CLARIFICATION</code>.</span>
+        </div>
+        <div class="step-field">
+          <strong>User Action:</strong>
+          <span>Student receives 1 targeted conceptual hint pointing out missing required-understanding elements. Student submits exactly 1 refined retry (<code>FR-04</code>, <code>FR-05</code>).</span>
+        </div>
+        <div class="step-field">
+          <strong>System Logic:</strong>
+          <span>Evaluates retry. Regardless of second score, flow immediately advances to empirical testing (Step 8) to prevent endless chatbot loops.</span>
+        </div>
+        <div class="step-field">
+          <strong>State:</strong>
+          <span class="status-tag active">RETRY_EVALUATED &rarr; READY_FOR_PARALLEL</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 4 -->
+    <div class="phase-badge">Phase 4: Empirical Reassessment & Gap Closure</div>
+
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-number-title">
+          <div class="step-number">8</div>
+          <div class="step-title">Parallel Reassessment Past Question</div>
+        </div>
+        <span class="step-actor student">Student</span>
+      </div>
+      <div class="step-body">
+        <div class="step-field">
+          <strong>User Action:</strong>
+          <span>Student is presented with 1 fresh, parallel past-exam question testing the identical syllabus objective (<code>FR-06</code>). Student solves and submits.</span>
+        </div>
+        <div class="step-field">
+          <strong>System Logic:</strong>
+          <span>Grades answer instantaneously against verified WAEC/JAMB marking scheme.</span>
+        </div>
+        <div class="step-field">
+          <strong>State:</strong>
+          <span class="status-tag active">PARALLEL_ANSWER_SUBMITTED</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-number-title">
+          <div class="step-number">9</div>
+          <div class="step-title">Learning-Gap Status Resolution</div>
+        </div>
+        <span class="step-actor system">System</span>
+      </div>
+      <div class="step-body">
+        <div class="step-field">
+          <strong>Resolution Branches:</strong>
+          <div>
+            <span class="status-tag resolved">PROVISIONALLY_RESOLVED</span> If parallel answer is correct &rarr; Gap marked provisionally closed, streak updated (<code>FR-14</code>), queued for longitudinal confirmation.<br><br>
+            <span class="status-tag persistent">PERSISTENT_GAP</span> If parallel answer is incorrect &rarr; Gap flagged as unresolved (<code>FR-11</code>), system displays human tutor escalation prompt (<code>FR-13</code>) with diagnosis pre-attached.
+          </div>
+        </div>
+        <div class="step-field">
+          <strong>Mastery Integrity:</strong>
+          <span>No single question claims permanent mastery; future reassessment confirms or reopens the gap.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase 5 -->
+    <div class="phase-badge">Phase 5: Parent Visibility & Accountability</div>
+
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-number-title">
+          <div class="step-number">10</div>
+          <div class="step-title">Scorecard & Parent Deliverables Generation</div>
+        </div>
+        <span class="step-actor system">System</span>
+      </div>
+      <div class="step-body">
+        <div class="step-field">
+          <strong>System Action:</strong>
+          <span>Generates dual parent deliverables (<code>FR-07</code>, <code>FR-09</code>):</span>
+        </div>
+        <div class="step-field">
+          <strong>1. WhatsApp Summary:</strong>
+          <span>Short text update detailing gaps identified, provisionally resolved, requiring support, and readiness change ($X \to Y$).</span>
+        </div>
+        <div class="step-field">
+          <strong>2. Private Web Report:</strong>
+          <span>Secure, non-guessable, read-only, revocable link with detailed evidence and zero parent login barriers.</span>
+        </div>
+        <div class="step-field">
+          <strong>State:</strong>
+          <span class="status-tag active">PARENT_REPORT_GENERATED</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-number-title">
+          <div class="step-number">11</div>
+          <div class="step-title">Parent Review & Tutoring Action</div>
+        </div>
+        <span class="step-actor parent">Parent</span>
+      </div>
+      <div class="step-body">
+        <div class="step-field">
+          <strong>User Action:</strong>
+          <span>Parent receives WhatsApp summary on their phone. Sees tangible proof of study time and closed gaps. Taps private link for full evidence.</span>
+        </div>
+        <div class="step-field">
+          <strong>Outcome:</strong>
+          <span>If persistent gaps are flagged, parent directs evening lesson tutor strictly to those topics, eliminating wasted tuition spend. Both student and parent goals achieved!</span>
+        </div>
+        <div class="step-field">
+          <strong>State:</strong>
+          <span class="status-tag resolved">CYCLE_COMPLETE</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Section 3: State Transition Table -->
+  <section>
+    <h2>3. State Transition Matrix</h2>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Current State</th>
+            <th>Event / Action</th>
+            <th>Next State</th>
+            <th>Screen / Deliverable</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>IDLE</code></td>
+            <td>Select exam & objective</td>
+            <td><code>DIAGNOSTIC_ACTIVE</code></td>
+            <td>5-Question Quiz Screen</td>
+          </tr>
+          <tr>
+            <td><code>DIAGNOSTIC_ACTIVE</code></td>
+            <td>Submit incorrect option</td>
+            <td><code>LIKELY_GAP_IDENTIFIED</code></td>
+            <td>Likely Gap Diagnosis Card</td>
+          </tr>
+          <tr>
+            <td><code>LIKELY_GAP_IDENTIFIED</code></td>
+            <td>Complete 60–90s reading</td>
+            <td><code>INTERVENTION_CONSUMED</code></td>
+            <td>Explain-Back Prompt Screen</td>
+          </tr>
+          <tr>
+            <td><code>INTERVENTION_CONSUMED</code></td>
+            <td>Submit explanation</td>
+            <td><code>AI_EVALUATED</code></td>
+            <td>Understood / Needs Clarification</td>
+          </tr>
+          <tr>
+            <td><code>AI_EVALUATED (Clarify)</code></td>
+            <td>Read hint & submit retry</td>
+            <td><code>RETRY_COMPLETE</code></td>
+            <td>Transition to Parallel Test</td>
+          </tr>
+          <tr>
+            <td><code>AI_EVALUATED (Understood)</code></td>
+            <td>Auto-advance</td>
+            <td><code>PARALLEL_ACTIVE</code></td>
+            <td>Fresh Parallel Question Screen</td>
+          </tr>
+          <tr>
+            <td><code>PARALLEL_ACTIVE</code></td>
+            <td>Answer correctly</td>
+            <td><code>PROVISIONALLY_RESOLVED</code></td>
+            <td>Provisional Resolution Badge & Streak</td>
+          </tr>
+          <tr>
+            <td><code>PARALLEL_ACTIVE</code></td>
+            <td>Answer incorrectly</td>
+            <td><code>PERSISTENT_GAP</code></td>
+            <td>Persistent Gap Alert & Tutor Link</td>
+          </tr>
+          <tr>
+            <td><code>STATUS_RESOLVED</code></td>
+            <td>Session complete</td>
+            <td><code>PARENT_NOTIFIED</code></td>
+            <td>WhatsApp Summary & Private Link</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Section 4: Edge Cases -->
+  <section>
+    <h2>4. Edge Cases & Resilient Fallbacks</h2>
+    <div class="edge-grid">
+      <div class="edge-card">
+        <div class="edge-title">Intermittent Network Drop</div>
+        <div class="edge-desc">Explain-Back drafting is continuously cached in browser local storage. Students reconnect and continue without lost progress (<code>FR-10</code>).</div>
+      </div>
+      <div class="edge-card">
+        <div class="edge-title">Unintelligible Audio Dictation</div>
+        <div class="edge-desc">If noisy environment corrupts speech-to-text, system seamlessly falls back to text input without failing the active cycle (<code>FR-08</code>, <code>FR-12</code>).</div>
+      </div>
+      <div class="edge-card">
+        <div class="edge-title">Repeated Retry Failure</div>
+        <div class="edge-desc">No infinite chatbot loops. After 1 hint and 1 retry, student directly takes the parallel question. If failed, cleanly flagged as <code>PERSISTENT_GAP</code> (<code>FR-11</code>).</div>
+      </div>
+      <div class="edge-card">
+        <div class="edge-title">Expired / Revoked Link</div>
+        <div class="edge-desc">Private report URLs are non-guessable and revocable. Expired links present a secure prompt to request a fresh link via registered WhatsApp.</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    TalkPDF User Flow v1.0.0 &bull; Derived from requirements.md v1.1.0 &bull; TalkPDF Product Team
+  </footer>
+
+</div>
+
+</body>
+</html>

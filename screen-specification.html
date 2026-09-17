@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TalkPDF — Screen Specifications</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --surface: #131b2e;
+      --surface-border: #1e293b;
+      --surface-hover: #1c2744;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --must: #10b981;
+      --should: #0284c7;
+      --could: #eab308;
+      --wont: #ef4444;
+      --card-radius: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      line-height: 1.65;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+
+    header {
+      border-bottom: 1px solid var(--surface-border);
+      padding-bottom: 24px;
+      margin-bottom: 36px;
+    }
+
+    .badge-doc {
+      display: inline-block;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+      padding: 16px;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--card-radius);
+      font-size: 0.875rem;
+    }
+
+    .meta-item strong {
+      display: block;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin: 40px 0 16px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h2::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 1.1em;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    p {
+      margin-bottom: 14px;
+      color: #cbd5e1;
+    }
+
+    /* Screen Cards */
+    .screen-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--card-radius);
+      padding: 24px;
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .screen-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding-bottom: 12px;
+    }
+
+    .screen-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .screen-badge {
+      display: inline-block;
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: var(--accent);
+      font-family: Consolas, Monaco, "Courier New", monospace;
+      font-weight: 800;
+      font-size: 0.75rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    .purpose-callout {
+      background: rgba(56, 189, 248, 0.05);
+      border-left: 3px solid var(--accent);
+      padding: 10px 14px;
+      border-radius: 0 6px 6px 0;
+      font-size: 0.9rem;
+      color: #e2e8f0;
+      margin-bottom: 18px;
+    }
+
+    .purpose-callout strong {
+      color: var(--accent);
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .section-subtitle {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #94a3b8;
+      margin: 16px 0 8px 0;
+    }
+
+    .element-list {
+      list-style-type: none;
+      padding-left: 0;
+      margin-bottom: 16px;
+    }
+
+    .element-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      font-size: 0.88rem;
+      color: #cbd5e1;
+    }
+
+    .element-item:last-child {
+      border-bottom: none;
+    }
+
+    .element-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #0f172a;
+      border: 1px solid var(--surface-border);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .interaction-box {
+      background: #0b0f19;
+      border: 1px solid var(--surface-border);
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-top: 10px;
+      font-size: 0.85rem;
+      color: #cbd5e1;
+    }
+
+    .interaction-box ul {
+      padding-left: 18px;
+      margin-top: 6px;
+    }
+
+    .interaction-box li {
+      margin-bottom: 6px;
+    }
+
+    .interaction-box li:last-child {
+      margin-bottom: 0;
+    }
+
+    code {
+      background: #0f172a;
+      border: 1px solid var(--surface-border);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      color: #38bdf8;
+      font-family: Consolas, Monaco, "Courier New", monospace;
+    }
+
+    /* Mermaid */
+    .mermaid-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--card-radius);
+      padding: 24px;
+      margin: 20px 0;
+    }
+
+    .mermaid {
+      background: #0b0f19;
+      border: 1px solid var(--surface-border);
+      border-radius: 8px;
+      padding: 20px;
+      overflow-x: auto;
+      display: flex;
+      justify-content: center;
+    }
+
+    footer {
+      margin-top: 50px;
+      border-top: 1px solid var(--surface-border);
+      padding-top: 20px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'dark',
+      themeVariables: {
+        darkMode: true,
+        background: '#0b0f19',
+        primaryColor: '#1e293b',
+        primaryTextColor: '#f1f5f9',
+        primaryBorderColor: '#38bdf8',
+        lineColor: '#38bdf8'
+      }
+    });
+  </script>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <div class="badge-doc">Screen Specification v1.0.0</div>
+    <h1>TalkPDF — Screen Specifications</h1>
+    <div class="subtitle">Complete technical specification for the 8 essential screens of the TalkPDF MVP</div>
+
+    <div class="meta-grid">
+      <div class="meta-item">
+        <strong>Total Screens</strong>
+        8 Essential Screens
+      </div>
+      <div class="meta-item">
+        <strong>Platform</strong>
+        Mobile Web / PWA & WhatsApp
+      </div>
+      <div class="meta-item">
+        <strong>Device Target</strong>
+        Entry-Level Android (Tecno, Infinix)
+      </div>
+      <div class="meta-item">
+        <strong>Reference</strong>
+        user-flow.md v1.0.0
+      </div>
+    </div>
+  </header>
+
+  <!-- Section 1: Overview & Navigation Map -->
+  <section>
+    <h2>1. Screen Architecture & State Navigation Map</h2>
+    <p>To preserve data bundles on slow 2G/3G connections and eliminate cognitive overload, the flow is consolidated into exactly 8 focused screens:</p>
+
+    <div class="mermaid-card">
+      <div class="mermaid">
+stateDiagram-v2
+    [*] --> SCR_01: Student Enters App
+    SCR_01 --> SCR_02: Start 5-Question Quiz
+    SCR_02 --> SCR_03: Incorrect Option Selected (Gap Diagnosed)
+    SCR_03 --> SCR_04: I Understand (Ready to Explain)
+    SCR_04 --> SCR_04: Needs Clarification (1 Retry Loop)
+    SCR_04 --> SCR_05: Understood / Retry Complete
+    SCR_05 --> SCR_06: Submit Reassessment Answer
+    SCR_06 --> SCR_01: Practice Next Topic
+    SCR_06 --> SCR_07: Automated WhatsApp Trigger
+    SCR_07 --> SCR_08: Parent Taps Secure Link
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Detailed Screen Specifications -->
+  <section>
+    <h2>2. Detailed Screen Specifications (SCR-01 to SCR-08)</h2>
+
+    <!-- SCR-01 -->
+    <div class="screen-card">
+      <div class="screen-header">
+        <div class="screen-title">Topic Selection & Diagnostic Setup</div>
+        <span class="screen-badge">SCR-01</span>
+      </div>
+      <div class="purpose-callout">
+        <strong>Purpose</strong>
+        Lets the student select their target exam, subject, and specific syllabus objective to launch a 5-question diagnostic quiz.
+      </div>
+      <div class="section-subtitle">Elements on the Screen (Top to Bottom, Left to Right)</div>
+      <ul class="element-list">
+        <li class="element-item">
+          <span class="element-num">1</span>
+          <span><strong>Top Bar:</strong> TalkPDF logo, Student Name ("Samuel O."), and current mastery streak badge ("🔥 3 Gaps Closed").</span>
+        </li>
+        <li class="element-item">
+          <span class="element-num">2</span>
+          <span><strong>Data-Saver Indicator:</strong> "Low-Data Text Mode: Active" with a toggle switch (FR-08).</span>
+        </li>
+        <li class="element-item">
+          <span class="element-num">3</span>
+          <span><strong>Exam Selector Tabs:</strong> Two toggle buttons for <code>WAEC / WASSCE</code> and <code>JAMB (UTME)</code>.</span>
+        </li>
+        <li class="element-item">
+          <span class="element-num">4</span>
+          <span><strong>Subject Dropdown Selector:</strong> Menu listing secondary subjects (Physics, Chemistry, Biology, Mathematics).</span>
+        </li>
+        <li class="element-item">
+          <span class="element-num">5</span>
+          <span><strong>Syllabus Topic Search & List:</strong> Search input followed by selectable syllabus topics with objective codes (e.g., <code>PHY-EM-01: Electromagnetism — Faraday's Law</code>).</span>
+        </li>
+        <li class="element-item">
+          <span class="element-num">6</span>
+          <span><strong>Launch Action Button:</strong> Full-width primary button labeled <code>"Start 5-Question Diagnostic"</code>.</span>
+        </li>
+      </ul>
+      <div class="section-subtitle">Element Interactions & Triggers</div>
+      <div class="interaction-box">
+        <ul>
+          <li><strong>Tapping Exam Tabs:</strong> Filters the syllabus list to WAEC or JAMB specific objectives.</li>
+          <li><strong>Tapping Subject Dropdown:</strong> Refreshes the topics list for the selected subject.</li>
+          <li><strong>Tapping a Syllabus Topic:</strong> Highlights the target objective and activates the launch button.</li>
+          <li><strong>Tapping Low-Data Toggle:</strong> Disables non-essential graphics for extreme bandwidth efficiency.</li>
+          <li><strong>Tapping "Start 5-Question Diagnostic":</strong> Caches questions in local storage (FR-10) and transitions to <code>SCR-02</code>.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SCR-02 -->
+    <div class="screen-card">
+      <div class="screen-header">
+        <div class="screen-title">5-Question Diagnostic Quiz</div>
+        <span class="screen-badge">SCR-02</span>
+      </div>
+      <div class="purpose-callout">
+        <strong>Purpose</strong>
+        Lets the student complete 5 curriculum-linked past-exam questions in a text-first interface to isolate conceptual learning gaps.
+      </div>
+      <div class="section-subtitle">Elements on the Screen (Top to Bottom, Left to Right)</div>
+      <ul class="element-list">
+        <li class="element-item">
+          <span class="element-num">1</span>
+          <span><strong>Progress Header:</strong> Question counter ("Question 2 of 5"), visual progress bar (40%), and topic badge ("Physics: Faraday's Law").</span>
+        </li>
+        <li class="element-item">
+          <span class="element-num">2</span>
+          <span><strong>Question Problem Card:</strong> Source citation ("WASSCE 2022 Q14"), problem text, and optional lightweight diagram.</span>
+        </li>
+        <li class="element-item">
+          <span class="element-num">3</span>
+          <span><strong>Option Selection List:</strong> Four vertical option cards (<code>A</code>, <code>B</code>, <code>C</code>, <code>D</code>) with clear typography.</span>
+        </li>
+        <li class="element-item">
+          <span class="element-num">4</span>
+          <span><strong>Navigation Footer:</strong> Secondary button ("Previous") and primary button ("Submit Answer" / "Next Question").</span>
+        </li>
+      </ul>
+      <div class="section-subtitle">Element Interactions & Triggers</div>
+      <div class="interaction-box">
+        <ul>
+          <li><strong>Tapping an Option Card:</strong> Selects that option with an accent cyan highlight border.</li>
+          <li><strong>Tapping Next Question:</strong> Saves selection locally and transitions to the next question.</li>
+          <li><strong>Tapping Submit Final Answer:</strong> Submits quiz. If any answer is incorrect, system isolates the pre-tagged misconception (FR-02) and transitions to <code>SCR-03</code>.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SCR-03 -->
+    <div class="screen-card">
+      <div class="screen-header">
+        <div class="screen-title">Likely Gap Diagnosis & Micro-Intervention</div>
+        <span class="screen-badge">SCR-03</span>
+      </div>
+      <div class="purpose-callout">
+        <strong>Purpose</strong>
+        Shows the student their identified likely learning gap and delivers a concise 60–90 second plain-English conceptual lesson.
+      </div>
+      <div class="section-subtitle">Elements on the Screen (Top to Bottom, Left to Right)</div>
+      <ul class="element-list">
+        <li class="element-item">
+          <span class="element-num">1</span>
+          <span><strong>Diagnosis Alert Banner:</strong> Misconception icon and label: "Likely Learning Gap Identified" (probable, not definitive).</span>
+        </li>
+        <li class="element-item">
+          <span class="element-num">2</span>
+          <span><strong>Misconception Card:</strong> Shows question failed, option picked, and the underlying rule confused.</span>
+        </li>
+        <li class="element-item">
+          <span class="element-num">3</span>
+          <span><strong>Micro-Intervention Card (60–90s Read):</strong> 3-paragraph plain-English explanation, key formula box, and optional 45s audio snippet player (FR-03).</span>
+        </li>
+        <li class="element-item">
+          <span class="element-num">4</span>
+          <span><strong>Action Button:</strong> Sticky bottom button: <code>"I Understand — Let Me Explain It Back"</code>.</span>
+        </li>
+      </ul>
+      <div class="section-subtitle">Element Interactions & Triggers</div>
+      <div class="interaction-box">
+        <ul>
+          <li><strong>Tapping Audio Player:</strong> Plays the bite-sized 45-second voice snippet for students with reading fatigue.</li>
+          <li><strong>Tapping "I Understand — Let Me Explain It Back":</strong> Logs intervention completed and transitions directly to <code>SCR-04</code>.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SCR-04 -->
+    <div class="screen-card">
+      <div class="screen-header">
+        <div class="screen-title">Explain-Back Active Recall & Evaluation</div>
+        <span class="screen-badge">SCR-04</span>
+      </div>
+      <div class="purpose-callout">
+        <strong>Purpose</strong>
+        Lets the student explain the concept in their own words, receive AI evaluation (UNDERSTOOD vs. NEEDS_CLARIFICATION), and access a targeted hint with one retry if needed.
+      </div>
+      <div class="section-subtitle">Elements on the Screen (Top to Bottom, Left to Right)</div>
+      <ul class="element-list">
+        <li class="element-item">
+          <span class="element-num">1</span>
+          <span><strong>Prompt Header:</strong> Challenge statement: "Explain Faraday's Law in your own simple words so an SS1 student could understand."</span>
+        </li>
+        <li class="element-item">
+          <span class="element-num">2</span>
+          <span><strong>Input Area:</strong> Multi-line text box (with live local storage auto-save indicator, FR-10) and microphone voice dictation button (FR-12).</span>
+        </li>
+        <li class="element-item">
+          <span class="element-num">3</span>
+          <span><strong>Primary Action CTA:</strong> Button labeled <code>"Check My Explanation"</code>.</span>
+        </li>
+        <li class="element-item">
+          <span class="element-num">4</span>
+          <span><strong>Evaluation Feedback Panel (Appears post-submission):</strong> Shows primary badge (<code>UNDERSTOOD</code> or <code>NEEDS_CLARIFICATION</code>), targeted hint box (if clarification needed), and secondary rubric scores (Simplicity, Accuracy, Analogies, Composite /100, Badge).</span>
+        </li>
+        <li class="element-item">
+          <span class="element-num">5</span>
+          <span><strong>Progression Action:</strong> <code>"Proceed to Verification Question"</code> (if understood) OR <code>"Try 1 Revision (Hint Applied)"</code> (if clarification needed).</span>
+        </li>
+      </ul>
+      <div class="section-subtitle">Element Interactions & Triggers</div>
+      <div class="interaction-box">
+        <ul>
+          <li><strong>Typing in Input Box:</strong> Persists text instantly to browser cache on each keystroke.</li>
+          <li><strong>Tapping "Check My Explanation":</strong> AI evaluates against required understanding points (FR-05); displays Feedback Panel.</li>
+          <li><strong>Tapping "Try 1 Revision":</strong> Opens retry input with hint pinned; after retry, advances to <code>SCR-05</code>.</li>
+          <li><strong>Tapping "Proceed to Verification Question":</strong> Transitions directly to <code>SCR-05</code>.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SCR-05 -->
+    <div class="screen-card">
+      <div class="screen-header">
+        <div class="screen-title">Parallel Reassessment Question</div>
+        <span class="screen-badge">SCR-05</span>
+      </div>
+      <div class="purpose-callout">
+        <strong>Purpose</strong>
+        Lets the student solve one fresh parallel past-exam question testing the identical learning objective to empirically verify gap closure.
+      </div>
+      <div class="section-subtitle">Elements on the Screen (Top to Bottom, Left to Right)</div>
+      <ul class="element-list">
+        <li class="element-item">
+          <span class="element-num">1</span>
+          <span><strong>Reassessment Header:</strong> Banner: "Final Verification: Prove You've Got It".</span>
+        </li>
+        <li class="element-item">
+          <span class="element-num">2</span>
+          <span><strong>Objective & Source Tag:</strong> Syllabus objective code and past-exam reference ("JAMB UTME 2021 Q28").</span>
+        </li>
+        <li class="element-item">
+          <span class="element-num">3</span>
+          <span><strong>Parallel Question Card:</strong> Fresh problem statement and diagram testing the exact rule.</span>
+        </li>
+        <li class="element-item">
+          <span class="element-num">4</span>
+          <span><strong>Option Cards (A, B, C, D):</strong> Four selectable answer choices.</span>
+        </li>
+        <li class="element-item">
+          <span class="element-num">5</span>
+          <span><strong>Verification Action Button:</strong> Primary button labeled <code>"Submit & Verify Gap Closure"</code>.</span>
+        </li>
+      </ul>
+      <div class="section-subtitle">Element Interactions & Triggers</div>
+      <div class="interaction-box">
+        <ul>
+          <li><strong>Tapping an Option Card:</strong> Selects the option with highlight border.</li>
+          <li><strong>Tapping "Submit & Verify Gap Closure":</strong> Validates answer against marking scheme, writes status to DB, and transitions to <code>SCR-06</code>.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SCR-06 -->
+    <div class="screen-card">
+      <div class="screen-header">
+        <div class="screen-title">Gap Resolution & Status Outcome</div>
+        <span class="screen-badge">SCR-06</span>
+      </div>
+      <div class="purpose-callout">
+        <strong>Purpose</strong>
+        Displays the empirical learning-gap outcome (PROVISIONALLY_RESOLVED vs. PERSISTENT_GAP), updates mastery streaks, and provides next-step actions.
+      </div>
+      <div class="section-subtitle">Elements on the Screen (Top to Bottom, Left to Right)</div>
+      <ul class="element-list">
+        <li class="element-item">
+          <span class="element-num">1</span>
+          <span><strong>Status Hero Banner:</strong> Green celebration card with <code>PROVISIONALLY_RESOLVED</code> badge (if passed) OR Red alert card with <code>PERSISTENT_GAP</code> badge (if failed).</span>
+        </li>
+        <li class="element-item">
+          <span class="element-num">2</span>
+          <span><strong>Mastery Streak Box:</strong> Updated count ("🔥 4 Gaps Closed", FR-14) and note that future reassessment will confirm permanent mastery.</span>
+        </li>
+        <li class="element-item">
+          <span class="element-num">3</span>
+          <span><strong>Tutor Escalation Card (Only on PERSISTENT_GAP):</strong> Callout with button <code>"Request Tutor Help for this Topic"</code> (FR-13).</span>
+        </li>
+        <li class="element-item">
+          <span class="element-num">4</span>
+          <span><strong>Parent Notification Notice:</strong> Text: "A progress scorecard has been dispatched to your parent via WhatsApp."</span>
+        </li>
+        <li class="element-item">
+          <span class="element-num">5</span>
+          <span><strong>Next Topic CTA:</strong> Primary button labeled <code>"Practice Next Topic"</code>.</span>
+        </li>
+      </ul>
+      <div class="section-subtitle">Element Interactions & Triggers</div>
+      <div class="interaction-box">
+        <ul>
+          <li><strong>Tapping "Request Tutor Help":</strong> Pre-attaches diagnostic record and dispatches escalation ticket to human tutor.</li>
+          <li><strong>Tapping "Practice Next Topic":</strong> Resets session and navigates back to <code>SCR-01</code>.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SCR-07 -->
+    <div class="screen-card">
+      <div class="screen-header">
+        <div class="screen-title">Parent WhatsApp Progress Summary</div>
+        <span class="screen-badge">SCR-07</span>
+      </div>
+      <div class="purpose-callout">
+        <strong>Purpose</strong>
+        Displays the structured progress message received by the parent directly in their WhatsApp app, providing verifiable proof of study and gap closure.
+      </div>
+      <div class="section-subtitle">Elements on the Screen (Top to Bottom, Left to Right)</div>
+      <ul class="element-list">
+        <li class="element-item">
+          <span class="element-num">1</span>
+          <span><strong>WhatsApp Header:</strong> Contact banner: "TalkPDF Study Bot" with official verification badge.</span>
+        </li>
+        <li class="element-item">
+          <span class="element-num">2</span>
+          <span><strong>Incoming Message Bubble:</strong>
+            <br>&bull; Header: "📊 TalkPDF Exam Readiness Alert"
+            <br>&bull; Student & Subject: "Samuel Okon | WAEC Physics"
+            <br>&bull; Topic: "Electromagnetism: Faraday's Law"
+            <br>&bull; Key Metrics: Gaps Identified (1), Provisionally Resolved (1), Persistent Gaps (0), Readiness Index (62% ➔ 74%)
+            <br>&bull; Secure Web Link: <code>https://talkpdf.app/r/sec-9a7d8e21c4</code>
+          </span>
+        </li>
+        <li class="element-item">
+          <span class="element-num">3</span>
+          <span><strong>Reply Bar:</strong> Native WhatsApp input field for parent replies.</span>
+        </li>
+      </ul>
+      <div class="section-subtitle">Element Interactions & Triggers</div>
+      <div class="interaction-box">
+        <ul>
+          <li><strong>Tapping Secure Web Link:</strong> Opens mobile browser directly to <code>SCR-08</code> with no username, password, or login required (FR-07).</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SCR-08 -->
+    <div class="screen-card">
+      <div class="screen-header">
+        <div class="screen-title">Parent Detailed Web Evidence Report</div>
+        <span class="screen-badge">SCR-08</span>
+      </div>
+      <div class="purpose-callout">
+        <strong>Purpose</strong>
+        Lets the parent view the full, read-only evidence report (questions failed, Explain-Back evaluation, parallel result, and tutor recommendations) via a secure, non-guessable link without logging in.
+      </div>
+      <div class="section-subtitle">Elements on the Screen (Top to Bottom, Left to Right)</div>
+      <ul class="element-list">
+        <li class="element-item">
+          <span class="element-num">1</span>
+          <span><strong>Report Header:</strong> Verified badge, Candidate Name ("Samuel Okon"), Target Exam, and Date Generated.</span>
+        </li>
+        <li class="element-item">
+          <span class="element-num">2</span>
+          <span><strong>Privacy Security Notice:</strong> "Private, read-only link. No student personal data exposed."</span>
+        </li>
+        <li class="element-item">
+          <span class="element-num">3</span>
+          <span><strong>Readiness Gauge:</strong> Visual percentage progress dial showing readiness growth (62% to 74%).</span>
+        </li>
+        <li class="element-item">
+          <span class="element-num">4</span>
+          <span><strong>Audit Trail Timeline:</strong>
+            <br>&bull; Step 1 Diagnostic: Failed question, student answer, and likely misconception.
+            <br>&bull; Step 2 Explain-Back: Student's own explanation transcript & AI UNDERSTOOD rating.
+            <br>&bull; Step 3 Reassessment: Parallel question empirical pass result.
+          </span>
+        </li>
+        <li class="element-item">
+          <span class="element-num">5</span>
+          <span><strong>Tutor Action Guidance:</strong> Recommendation note advising whether paid tutoring is required or if the concept is mastered.</span>
+        </li>
+        <li class="element-item">
+          <span class="element-num">6</span>
+          <span><strong>Footer Actions:</strong> "Download 1-Page PDF Summary" and TalkPDF Academic Advisor WhatsApp button.</span>
+        </li>
+      </ul>
+      <div class="section-subtitle">Element Interactions & Triggers</div>
+      <div class="interaction-box">
+        <ul>
+          <li><strong>Tapping "Download 1-Page PDF Summary":</strong> Generates downloadable PDF certificate of progress.</li>
+          <li><strong>Tapping Academic Advisor Button:</strong> Launches WhatsApp conversation with TalkPDF tutor support.</li>
+        </ul>
+      </div>
+    </div>
+
+  </section>
+
+  <footer>
+    TalkPDF Screen Specifications v1.0.0 &bull; Derived from user-flow.md v1.0.0 &bull; TalkPDF Product Team
+  </footer>
+
+</div>
+
+</body>
+</html>
