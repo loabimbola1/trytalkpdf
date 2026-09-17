@@ -8,7 +8,1882 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/app.css">
+  <style id="inlined-app-css">
+/* TalkPDF — Application Design System & Styles */
+/* Inspired by EduLe: Clean, Modern, Premium EdTech Design System */
+/* Color Palette: Emerald Forest Green, Soft Mint Washes, Crisp White Cards, Charcoal Typography */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* Brand Colors */
+  --primary-green: #309255;
+  --primary-green-hover: #237443;
+  --primary-green-light: #e8f8f0;
+  --primary-green-mint: #f0fdf4;
+  --primary-green-border: #bbf7d0;
+
+  /* Neutrals & Surfaces */
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --surface-alt: #f4fbf7;
+  --surface-border: #e2e8f0;
+  --surface-border-subtle: #f1f5f9;
+  --surface-hover: #f0fdf4;
+
+  /* Typography Colors */
+  --text-main: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --text-light: #94a3b8;
+
+  /* Accents & Status */
+  --accent: #309255;
+  --accent-glow: rgba(48, 146, 85, 0.22);
+  --must: #10b981;
+  --must-bg: #ecfdf5;
+  --must-border: #a7f3d0;
+  --amber: #f59e0b;
+  --amber-bg: #fef3c7;
+  --amber-border: #fde68a;
+  --red: #ef4444;
+  --red-bg: #fee2e2;
+  --red-border: #fecdd3;
+
+  /* Elevation & Geometry */
+  --card-radius: 14px;
+  --pill-radius: 30px;
+  --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 6px 20px rgba(15, 23, 42, 0.06);
+  --shadow-lg: 0 12px 30px rgba(48, 146, 85, 0.12);
+  --shadow-green: 0 8px 20px rgba(48, 146, 85, 0.25);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg);
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(232, 248, 240, 0.7) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(240, 253, 244, 0.8) 0px, transparent 50%);
+  background-attachment: fixed;
+  color: var(--text-secondary);
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-container {
+  width: 100%;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 24px 18px 48px 18px;
+  flex: 1;
+}
+
+/* =========================================
+   Top Announcement Bar (EduLe Style)
+   ========================================= */
+.top-announcement-bar {
+  background: #0f172a;
+  color: #cbd5e1;
+  font-size: 0.8rem;
+  padding: 8px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.announcement-inner {
+  max-width: 880px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.announcement-badge {
+  color: #34d399;
+  font-weight: 700;
+}
+
+.announcement-text {
+  font-weight: 500;
+}
+
+.announcement-contact {
+  color: #94a3b8;
+  font-size: 0.75rem;
+}
+
+/* =========================================
+   Top Bar / Global Header (SCR-01 & SCR-02)
+   ========================================= */
+.top-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--card-radius);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 28px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-badge {
+  background: linear-gradient(135deg, #309255, #227844);
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 1.05rem;
+  padding: 8px 14px;
+  border-radius: 10px;
+  letter-spacing: -0.02em;
+  box-shadow: 0 4px 12px rgba(48, 146, 85, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.brand-title {
+  font-size: 1.12rem;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.02em;
+}
+
+.brand-title::after {
+  content: " •";
+  color: var(--primary-green);
+  font-weight: 900;
+}
+
+.user-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.student-chip {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  background: var(--bg);
+  border: 1px solid var(--surface-border);
+  padding: 5px 12px;
+  border-radius: var(--pill-radius);
+}
+
+.student-chip strong {
+  color: var(--text-main);
+}
+
+.streak-badge {
+  background: var(--amber-bg);
+  border: 1px solid var(--amber-border);
+  color: #b45309;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: var(--pill-radius);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.data-saver-toggle-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  padding: 5px 12px;
+  border-radius: var(--pill-radius);
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease;
+}
+
+.data-saver-toggle-wrapper:hover {
+  border-color: var(--primary-green);
+  color: var(--primary-green);
+}
+
+.toggle-switch {
+  position: relative;
+  width: 32px;
+  height: 18px;
+  background: #cbd5e1;
+  border-radius: 12px;
+  transition: background-color 0.2s;
+  display: inline-block;
+}
+
+.toggle-switch::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #ffffff;
+  transition: transform 0.2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+
+.data-saver-toggle-wrapper.active .toggle-switch {
+  background: var(--primary-green);
+}
+
+.data-saver-toggle-wrapper.active .toggle-switch::after {
+  transform: translateX(14px);
+}
+
+/* =========================================
+   Screen 1: Setup & Topic Selection (SCR-01)
+   ========================================= */
+.view-section {
+  display: none;
+}
+
+.view-section.active {
+  display: block;
+  animation: fadeIn 0.25s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* EduLe Style Hero Banner */
+.section-hero {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--card-radius);
+  padding: 30px 26px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.section-hero::before {
+  content: "";
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: rgba(48, 146, 85, 0.08);
+  pointer-events: none;
+}
+
+.hero-pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--primary-green-light);
+  color: var(--primary-green);
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: var(--pill-radius);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.section-hero h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.03em;
+  margin-bottom: 8px;
+  line-height: 1.25;
+}
+
+/* Curved Green Brush Highlight */
+.brush-highlight {
+  position: relative;
+  display: inline-block;
+  color: var(--primary-green);
+}
+
+.brush-svg {
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 100%;
+  height: 12px;
+  pointer-events: none;
+}
+
+.section-hero p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  max-width: 600px;
+  line-height: 1.55;
+  margin-bottom: 16px;
+}
+
+.hero-stats-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-top: 14px;
+  border-top: 1px solid var(--surface-border-subtle);
+}
+
+.floating-stat-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #f8fafc;
+  border: 1px solid var(--surface-border);
+  padding: 5px 12px;
+  border-radius: var(--pill-radius);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.floating-stat-chip.rating {
+  background: var(--amber-bg);
+  border-color: var(--amber-border);
+  color: #b45309;
+}
+
+/* Exam Tabs (Pill Filter Bar) */
+.exam-tabs {
+  display: flex;
+  gap: 10px;
+  background: transparent;
+  padding: 0;
+  border: none;
+  margin-bottom: 20px;
+}
+
+.exam-tab-btn {
+  flex: 1;
+  background: var(--surface);
+  border: 1.5px solid var(--surface-border);
+  color: var(--text-muted);
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.92rem;
+  padding: 12px 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.exam-tab-btn:hover {
+  border-color: var(--primary-green);
+  color: var(--primary-green);
+}
+
+.exam-tab-btn.active {
+  background: var(--primary-green-light);
+  border-color: var(--primary-green);
+  color: var(--primary-green);
+  box-shadow: 0 4px 14px rgba(48, 146, 85, 0.15);
+}
+
+/* Form Controls */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-main);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 8px;
+}
+
+.select-control,
+.search-control {
+  width: 100%;
+  background: var(--surface);
+  border: 1.5px solid var(--surface-border);
+  border-radius: 10px;
+  color: var(--text-main);
+  font-family: inherit;
+  font-size: 0.94rem;
+  padding: 13px 16px;
+  outline: none;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.select-control:focus,
+.search-control:focus {
+  border-color: var(--primary-green);
+  box-shadow: 0 0 0 3px rgba(48, 146, 85, 0.15);
+}
+
+.search-control::placeholder {
+  color: var(--text-light);
+}
+
+/* Topic Cards List (EduLe Course Card System) */
+.topic-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.topic-card {
+  background: var(--surface);
+  border: 1.5px solid var(--surface-border);
+  border-radius: var(--card-radius);
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+}
+
+.topic-card:hover {
+  border-color: #86efac;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.topic-card.selected {
+  border-color: var(--primary-green);
+  background: var(--primary-green-mint);
+  box-shadow: var(--shadow-lg);
+}
+
+.topic-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.code-pill {
+  font-size: 0.74rem;
+  font-weight: 800;
+  background: #f1f5f9;
+  color: var(--text-secondary);
+  padding: 3px 10px;
+  border-radius: 6px;
+}
+
+.exam-pill {
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: var(--primary-green-light);
+  color: var(--primary-green);
+  padding: 3px 10px;
+  border-radius: 6px;
+}
+
+.topic-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 6px;
+  line-height: 1.35;
+}
+
+.topic-statement {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* Topic Card Footer (Course Card Meta) */
+.topic-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--surface-border-subtle);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.topic-meta-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.badge-free {
+  background: var(--primary-green-light);
+  color: var(--primary-green);
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+/* Primary & Secondary Buttons */
+.btn-primary {
+  width: 100%;
+  background: var(--primary-green);
+  color: #ffffff;
+  border: none;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 15px 22px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-green);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--primary-green-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(48, 146, 85, 0.35);
+}
+
+.btn-primary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.btn-secondary {
+  background: var(--surface);
+  border: 1.5px solid var(--surface-border);
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.92rem;
+  padding: 12px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  border-color: var(--primary-green);
+  color: var(--primary-green);
+  background: var(--surface-hover);
+}
+
+.btn-secondary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* =========================================
+   Screen 2: 5-Question Diagnostic Quiz (SCR-02)
+   ========================================= */
+.quiz-header {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--card-radius);
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+.quiz-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  gap: 8px;
+}
+
+.step-indicator {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--primary-green);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.topic-tag {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.progress-track {
+  width: 100%;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #309255, #10b981);
+  border-radius: 6px;
+  transition: width 0.3s ease;
+}
+
+/* Question Card */
+.question-card {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--card-radius);
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+.source-badge {
+  display: inline-block;
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: var(--primary-green);
+  background: var(--primary-green-light);
+  padding: 4px 10px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.question-text {
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.55;
+  margin-bottom: 18px;
+}
+
+/* Diagram Container */
+.diagram-container {
+  background: #0f172a;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 20px;
+  text-align: center;
+  border: 1px solid var(--surface-border);
+}
+
+.diagram-container svg {
+  max-width: 100%;
+  height: auto;
+  display: inline-block;
+}
+
+/* Option Cards List */
+.options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.option-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: var(--surface);
+  border: 1.5px solid var(--surface-border);
+  border-radius: 12px;
+  padding: 16px 18px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.option-card:hover {
+  border-color: #86efac;
+  background: var(--surface-hover);
+}
+
+.option-card.selected {
+  background: var(--primary-green-mint);
+  border-color: var(--primary-green);
+  box-shadow: 0 4px 16px rgba(48, 146, 85, 0.12);
+}
+
+.option-letter {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: #f1f5f9;
+  color: var(--text-secondary);
+  font-weight: 800;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+
+.option-card.selected .option-letter {
+  background: var(--primary-green);
+  color: #ffffff;
+}
+
+.option-body {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  flex: 1;
+}
+
+.option-card.selected .option-body {
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+/* Navigation Footer */
+.quiz-nav-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* =========================================
+   Screen 3: Root-Cause Misconception Diagnosis (SCR-03)
+   ========================================= */
+.outcome-card {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--card-radius);
+  padding: 26px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Diagnosis Alert Banner */
+.diagnosis-alert-banner {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(48, 146, 85, 0.06));
+  border: 1.5px solid rgba(245, 158, 11, 0.35);
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.diag-alert-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.diag-alert-icon {
+  font-size: 1.6rem;
+}
+
+.diag-alert-title {
+  font-size: 1.08rem;
+  font-weight: 800;
+  color: #b45309;
+}
+
+.diag-alert-sub {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.diag-score-badge {
+  background: var(--surface);
+  border: 1.5px solid var(--amber-border);
+  color: #b45309;
+  font-size: 0.82rem;
+  font-weight: 800;
+  padding: 6px 14px;
+  border-radius: var(--pill-radius);
+  white-space: nowrap;
+}
+
+/* Multi-Gap Switcher Tabs */
+.gap-tabs-container {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.gap-tab-btn {
+  background: var(--bg);
+  border: 1px solid var(--surface-border);
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: var(--pill-radius);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.gap-tab-btn.active {
+  background: var(--amber-bg);
+  border-color: var(--amber);
+  color: #b45309;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.15);
+}
+
+/* Problem Context Box */
+.problem-context-box {
+  background: var(--surface-alt);
+  border: 1px solid var(--surface-border);
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.problem-source-tag {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--primary-green);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.problem-question-text {
+  font-size: 0.94rem;
+  font-weight: 600;
+  color: var(--text-main);
+  line-height: 1.5;
+}
+
+/* Side-by-Side Comparison Grid */
+.comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.comparison-card {
+  border-radius: 12px;
+  padding: 16px 18px;
+  border: 1.5px solid transparent;
+}
+
+.comparison-card.picked {
+  background: #fff1f2;
+  border-color: #fecdd3;
+}
+
+.comparison-card.correct {
+  background: var(--primary-green-mint);
+  border-color: var(--primary-green-border);
+}
+
+.comparison-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.comparison-tag {
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.comparison-card.picked .comparison-tag {
+  color: #e11d48;
+}
+
+.comparison-card.correct .comparison-tag {
+  color: #15803d;
+}
+
+.option-letter-pill {
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.comparison-card.picked .option-letter-pill {
+  background: rgba(225, 29, 72, 0.15);
+  color: #be123c;
+}
+
+.comparison-card.correct .option-letter-pill {
+  background: rgba(21, 128, 61, 0.15);
+  color: #15803d;
+}
+
+.comparison-text {
+  font-size: 0.9rem;
+  color: var(--text-main);
+  line-height: 1.45;
+  font-weight: 500;
+}
+
+/* Cognitive Trap Card */
+.trap-breakdown-card {
+  background: #ffffff;
+  border: 1.5px solid var(--amber-border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.08);
+}
+
+.trap-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #b45309;
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.trap-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 10px;
+}
+
+.trap-framing-statement {
+  background: var(--amber-bg);
+  border-left: 4px solid var(--amber);
+  padding: 12px 16px;
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  font-size: 0.94rem;
+  color: #92400e;
+  line-height: 1.5;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.trap-analysis {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+/* Targeted Conceptual Micro-Intervention (SCR-03 / FR-03) */
+.micro-intervention-card {
+  background: #f4fbf7;
+  border: 1.5px solid #bbf7d0;
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 18px rgba(48, 146, 85, 0.06);
+}
+
+.intervention-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.read-time-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--primary-green-light);
+  color: var(--primary-green);
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: var(--pill-radius);
+  text-transform: uppercase;
+}
+
+.intervention-headline {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 14px;
+  letter-spacing: -0.01em;
+}
+
+.intervention-body {
+  font-size: 0.94rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  margin-bottom: 20px;
+}
+
+.intervention-paragraph {
+  margin-bottom: 12px;
+}
+
+.intervention-paragraph:last-child {
+  margin-bottom: 0;
+}
+
+/* Key Takeaway Formula Box */
+.key-takeaway-box {
+  background: linear-gradient(135deg, #15803d, #166534);
+  color: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 6px 18px rgba(21, 128, 61, 0.25);
+}
+
+.takeaway-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.takeaway-rule-name {
+  font-size: 1.1rem;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.takeaway-formula {
+  font-size: 1.15rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-weight: 700;
+  color: #fef08a;
+  margin-bottom: 6px;
+}
+
+.takeaway-summary {
+  font-size: 0.88rem;
+  color: #e2e8f0;
+  line-height: 1.45;
+}
+
+/* Multilingual Voice Lesson Selector */
+.audio-lang-container {
+  margin-top: 18px;
+  margin-bottom: 12px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+
+.audio-lang-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.audio-lang-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-main);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.audio-lang-title svg {
+  color: var(--primary-green);
+}
+
+.active-lang-tag {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--primary-green);
+  background: var(--primary-green-subtle);
+  padding: 2px 8px;
+  border-radius: 9999px;
+  border: 1px solid #bbf7d0;
+}
+
+.audio-lang-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.lang-pill {
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: inherit;
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.lang-pill:hover {
+  border-color: var(--primary-green);
+  color: var(--primary-green);
+  background: #f0fdf4;
+}
+
+.lang-pill.active {
+  background: var(--primary-green);
+  color: #ffffff;
+  border-color: var(--primary-green);
+  box-shadow: 0 2px 8px rgba(48, 146, 85, 0.28);
+}
+
+/* Audio Transcript Card */
+.audio-transcript-card {
+  margin-top: 12px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 12px;
+  padding: 14px 16px;
+  animation: fadeIn 0.25s ease;
+}
+
+.transcript-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #dcfce7;
+}
+
+.transcript-tag {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--primary-green-hover);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.transcript-lang-pill {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #ffffff;
+  background: var(--primary-green);
+  padding: 2px 10px;
+  border-radius: 9999px;
+}
+
+.transcript-body {
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: #1e293b;
+  font-weight: 500;
+}
+
+/* Audio Player Widget */
+.audio-player-widget {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #ffffff;
+  border: 1px solid #bbf7d0;
+  border-radius: 12px;
+  padding: 12px 18px;
+  box-shadow: var(--shadow-sm);
+}
+
+.audio-play-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--primary-green);
+  color: #ffffff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(48, 146, 85, 0.3);
+}
+
+.audio-play-btn:hover {
+  background: var(--primary-green-hover);
+  transform: scale(1.05);
+}
+
+.audio-info {
+  flex: 1;
+}
+
+.audio-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+.audio-track-bar {
+  width: 100%;
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+
+.audio-track-fill {
+  height: 100%;
+  background: var(--primary-green);
+  border-radius: 4px;
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+.audio-meta-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+/* Collapsible Breakdown Toggle */
+.breakdown-toggle-btn {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.88rem;
+  padding: 12px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  transition: all 0.15s ease;
+}
+
+.breakdown-toggle-btn:hover {
+  background: var(--surface-hover);
+  border-color: var(--primary-green);
+  color: var(--primary-green);
+}
+
+/* Audit Review List */
+.review-item {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.review-q-title {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.review-tag {
+  font-size: 0.74rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.review-tag.correct {
+  background: var(--primary-green-light);
+  color: var(--primary-green);
+}
+
+.review-tag.incorrect {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.review-q-text {
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+
+.review-answer-line {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+/* =========================================
+   Screen 4: Explain-Back Active Recall (SCR-04)
+   ========================================= */
+.explain-back-container {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--card-radius);
+  padding: 26px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.explain-back-header {
+  margin-bottom: 20px;
+}
+
+.feynman-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--primary-green-light);
+  color: var(--primary-green);
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: var(--pill-radius);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.explain-prompt-title {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.02em;
+  margin-bottom: 6px;
+}
+
+.explain-prompt-sub {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+}
+
+/* Challenge Prompt Box */
+.challenge-prompt-box {
+  background: #f4fbf7;
+  border-left: 4px solid var(--primary-green);
+  border-radius: 0 10px 10px 0;
+  padding: 18px 20px;
+  margin-bottom: 20px;
+}
+
+.challenge-text {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: #166534;
+  line-height: 1.6;
+}
+
+/* Pinned Revision Hint Banner */
+.pinned-hint-card {
+  background: var(--amber-bg);
+  border: 1.5px solid var(--amber-border);
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 16px;
+  animation: fadeIn 0.3s ease;
+}
+
+.hint-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.hint-tag {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #b45309;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-transform: uppercase;
+}
+
+.retry-pill {
+  font-size: 0.72rem;
+  font-weight: 800;
+  background: rgba(180, 83, 9, 0.15);
+  color: #92400e;
+  padding: 2px 8px;
+  border-radius: var(--pill-radius);
+}
+
+.hint-body {
+  font-size: 0.92rem;
+  color: #78350f;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+/* Response Input Area */
+.input-area-card {
+  background: var(--surface);
+  border: 1.5px solid var(--surface-border);
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 18px;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.input-area-card:focus-within {
+  border-color: var(--primary-green);
+  box-shadow: 0 0 0 3px rgba(48, 146, 85, 0.15);
+}
+
+.explain-textarea {
+  width: 100%;
+  min-height: 140px;
+  background: transparent;
+  border: none;
+  color: var(--text-main);
+  font-family: inherit;
+  font-size: 0.96rem;
+  line-height: 1.65;
+  outline: none;
+  resize: vertical;
+}
+
+.explain-textarea::placeholder {
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
+/* Toolbar below Textarea */
+.textarea-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--surface-border-subtle);
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.word-counter-pill {
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--pill-radius);
+  transition: all 0.2s ease;
+}
+
+.word-counter-pill.needs-more {
+  background: var(--amber-bg);
+  border: 1px solid var(--amber-border);
+  color: #b45309;
+}
+
+.word-counter-pill.ready {
+  background: var(--primary-green-light);
+  border: 1px solid var(--primary-green-border);
+  color: var(--primary-green);
+}
+
+.auto-save-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.auto-save-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--primary-green);
+  display: inline-block;
+}
+
+/* Voice Dictation Button (FR-12) */
+.btn-voice-dictate {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: var(--pill-radius);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+
+.btn-voice-dictate:hover {
+  background: var(--surface-hover);
+  color: var(--primary-green);
+  border-color: var(--primary-green);
+}
+
+.btn-voice-dictate.recording {
+  background: #fee2e2;
+  border-color: #ef4444;
+  color: #dc2626;
+  animation: pulseRecording 1.5s infinite;
+}
+
+@keyframes pulseRecording {
+  0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+  70% { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+
+/* =========================================
+   Evaluation Feedback Panel (SCR-04 / FR-05)
+   ========================================= */
+.eval-feedback-panel {
+  margin-top: 24px;
+  animation: fadeIn 0.35s ease;
+}
+
+/* Primary Result Banner */
+.eval-result-banner {
+  border-radius: 12px;
+  padding: 22px;
+  margin-bottom: 18px;
+  border: 1.5px solid transparent;
+}
+
+.eval-result-banner.understood {
+  background: linear-gradient(135deg, #f0fdf4, #e8f8f0);
+  border-color: #86efac;
+}
+
+.eval-result-banner.clarification {
+  background: linear-gradient(135deg, #fffbeb, #fef3c7);
+  border-color: #fde68a;
+}
+
+.result-banner-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.result-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.eval-status-pill {
+  font-size: 0.82rem;
+  font-weight: 800;
+  padding: 5px 12px;
+  border-radius: var(--pill-radius);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.eval-result-banner.understood .eval-status-pill {
+  background: var(--primary-green);
+  color: #ffffff;
+}
+
+.eval-result-banner.clarification .eval-status-pill {
+  background: var(--amber);
+  color: #ffffff;
+}
+
+.badge-tier-pill {
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: var(--pill-radius);
+  border: 1px solid transparent;
+}
+
+.badge-tier-pill.gold {
+  background: #fef08a;
+  color: #854d0e;
+  border-color: #facc15;
+}
+
+.badge-tier-pill.silver {
+  background: #f1f5f9;
+  color: #475569;
+  border-color: #cbd5e1;
+}
+
+.badge-tier-pill.bronze {
+  background: #ffedd5;
+  color: #9a3412;
+  border-color: #fdba74;
+}
+
+.eval-composite-number {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.eval-result-title {
+  font-size: 1.18rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 6px;
+}
+
+.eval-result-desc {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Targeted Hint Callout */
+.targeted-hint-callout {
+  background: #fffbeb;
+  border: 1.5px solid #fde68a;
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-bottom: 18px;
+}
+
+.hint-callout-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #b45309;
+  font-size: 0.88rem;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.hint-callout-text {
+  font-size: 0.92rem;
+  color: #92400e;
+  line-height: 1.55;
+  font-weight: 500;
+}
+
+/* Secondary Formative Rubric Scores Card */
+.secondary-scores-card {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 22px;
+  box-shadow: var(--shadow-sm);
+}
+
+.rubric-header {
+  margin-bottom: 14px;
+}
+
+.rubric-title {
+  display: block;
+  font-size: 0.96rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.rubric-sub {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.rubric-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.rubric-metric {
+  background: #f8fafc;
+  border: 1px solid var(--surface-border);
+  border-radius: 8px;
+  padding: 12px;
+  text-align: center;
+}
+
+.rubric-metric.highlight {
+  border-color: #86efac;
+  background: var(--primary-green-mint);
+}
+
+.metric-label {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.metric-val {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 6px;
+}
+
+.metric-bar-bg {
+  width: 100%;
+  height: 5px;
+  background: #e2e8f0;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.metric-bar-fill {
+  height: 100%;
+  background: var(--primary-green);
+  border-radius: 3px;
+  transition: width 0.4s ease;
+}
+
+.rubric-metric.highlight .metric-bar-fill {
+  background: #10b981;
+}
+
+/* Feedback Actions */
+.feedback-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.revision-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #fffbeb;
+  border-color: #fde68a;
+  color: #b45309;
+  font-weight: 700;
+  padding: 14px;
+}
+
+.revision-btn:hover {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.proceed-btn {
+  width: 100%;
+  padding: 16px;
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Mastered State */
+.mastery-card {
+  background: linear-gradient(135deg, #f0fdf4, #e8f8f0);
+  border: 1.5px solid #86efac;
+  border-radius: var(--card-radius);
+  padding: 36px 24px;
+  text-align: center;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.mastery-icon {
+  font-size: 3rem;
+  margin-bottom: 12px;
+}
+
+.mastery-title {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 8px;
+}
+
+.mastery-sub {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  max-width: 540px;
+  margin: 0 auto 20px auto;
+  line-height: 1.55;
+}
+
+/* Responsive Tweaks */
+@media (max-width: 650px) {
+  .app-container { padding: 14px 10px; }
+  .top-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .user-status { width: 100%; justify-content: space-between; }
+  .quiz-nav-footer { flex-direction: column-reverse; }
+  .quiz-nav-footer button { width: 100%; }
+  .comparison-grid { grid-template-columns: 1fr; }
+  .diagnosis-alert-banner { flex-direction: column; align-items: flex-start; }
+  .rubric-grid { grid-template-columns: 1fr 1fr; }
+}
+
+</style>
 </head>
 <body>
   <!-- EduLe Style Top Announcement Bar -->
@@ -557,7 +2432,2567 @@
   </div>
 
   <!-- Data and Application Scripts -->
-  <script src="data/curriculum-data.js"></script>
-  <script src="js/app.js"></script>
+  <script id="inlined-curriculum-data">
+// TalkPDF — Official Curriculum Diagnostic Dataset
+// Conforms to data-structure.md (CurriculumObjective, DiagnosticQuestion, QuestionOption)
+// Authentic WAEC/WASSCE & JAMB UTME questions with pre-tagged cognitive misconceptions
+
+const CURRICULUM_DATA = {
+  objectives: [
+    {
+      objective_id: "PHY-EM-01",
+      exam_type: "WAEC",
+      subject: "Physics",
+      topic: "Electromagnetism",
+      subtopic_title: "Faraday's & Lenz's Laws of Electromagnetic Induction",
+      objective_statement: "Understand the conditions for electromagnetic induction, the factors affecting induced electromotive force (e.m.f.), and direction of induced current.",
+      required_understanding_points: [
+        "Magnetic flux must change relative to a conductor over time to induce e.m.f.",
+        "The magnitude of induced e.m.f. is directly proportional to the rate of change of magnetic flux linkages.",
+        "The direction of induced current opposes the change producing it (Lenz's Law)."
+      ],
+      micro_intervention: {
+        intervention_id: "INT-PHY-EM-01",
+        read_time: "60–90 sec read",
+        headline: "Here is the rule you need to know:",
+        paragraphs: [
+          "Magnetic lines of force alone do not generate electricity. If you place a wire inside the strongest magnetic field on Earth and neither moves, exactly zero volts are produced. Charges in a conductor only experience an electromotive force when the magnetic flux cutting across them is changing over time.",
+          "Faraday discovered that induced voltage depends strictly on the rate of change of magnetic flux linkages (ΔΦ/Δt). If you plunge a magnet into a coil rapidly, the pointer deflects strongly. But the instant the magnet stops moving inside the coil, the induced voltage drops to zero immediately—even though the magnetic field is at maximum strength.",
+          "For WAEC and JAMB exams, remember: presence of a magnetic field is never enough. There must be relative motion or changing current so that the change in flux with respect to time is non-zero (dΦ/dt ≠ 0)."
+        ],
+        key_takeaway: {
+          rule_name: "Faraday's Law of Electromagnetic Induction",
+          formula: "ℰ = -N · (ΔΦ / Δt)",
+          summary: "Induced electromotive force is directly proportional to the rate of change of magnetic flux linkages, NOT static magnetic field strength."
+        },
+        audio_snippet: {
+          duration: "0:45",
+          title: "Faraday's Law & Changing Flux Audio Lesson",
+          translations: {
+            en: {
+              lang_name: "English",
+              label: "English (Standard)",
+              script: "Magnetic lines of force alone do not generate electricity. If you place a wire inside the strongest magnetic field on Earth and neither moves, exactly zero volts are produced. Charges in a conductor only experience an electromotive force when the magnetic flux cutting across them is changing over time. Faraday discovered that induced voltage depends strictly on the rate of change of magnetic flux linkages. For WAEC and JAMB exams, remember: presence of a magnetic field is never enough. There must be relative motion or changing current so that the change in flux with respect to time is non-zero.",
+              spoken_phonetic: "Magnetic lines of force alone do not generate electricity. If you place a wire inside the strongest magnetic field on Earth and neither moves, exactly zero volts are produced. Charges in a conductor only experience an electromotive force when the magnetic flux cutting across them is changing over time. Faraday discovered that induced voltage depends strictly on the rate of change of magnetic flux linkages. For WAEC and JAMB exams, remember: presence of a magnetic field is never enough. There must be relative motion or changing current so that the change in flux with respect to time is non-zero."
+            },
+            pcm: {
+              lang_name: "Pidgin",
+              label: "Nigerian Pidgin",
+              script: "Make you listen well well: ordinary magnet wey just dey sit down inside wire no go ever produce any current at all! Current go only flow when the magnetic lines dey cut across the wire over time. Na that change in magnetic flux be the real secret. If the magnet dey move fast fast, the voltage go high; but the instant the magnet stop moving inside the coil, the current go drop to zero immediately! For WAEC and JAMB exam, no forget: magnet field alone no reach, relative motion or changing flux must dey!",
+              spoken_phonetic: "Make you leesen well well. Ordinary magnet wey just day seet down inside wire no go evah produce any current at all! Current go only flow when the magnetic lines day cut across the wire ovah time. Nah that change in magnetic flux bee the real secret. If the magnet day move fast fast, the voltage go high. But the instant the magnet stop moving inside the coil, the current go drop to zero immediately! For WAEC and JAMB exam, no forget: magnet field alone no reach, relative motion or changing flux must day!"
+            },
+            yo: {
+              lang_name: "Yoruba",
+              label: "Yorùbá",
+              script: "Gbọ́ dáadáa: àwọn ìlà agbára mágísìnì nìkan kò lè mú iná mànàmáná jáde. Tí o bá fi wáyà sí àárín pápá mágísìnì tí kò sì sí ìṣísẹ̀, iná kankan kò ní jáde. Ṣùgbọ́n nígbà tí mágísìnì bá ń rìn tí ó sì ń yí padà lórí okun wáyà, iná mànàmáná máa ń jáde gẹ́gẹ́ bí òfin Faraday ṣe sọ. Fún àdánwò WAEC àti JAMB, rántí pé wíwà mágísìnì nìkan kò tó, ìyípadà agbára mágísìnì nínú àkókò gbọ́dọ̀ wà!",
+              spoken_phonetic: "Boh dah dah. Ah won ee lah ag bah rah mag ee see nee nee kan, ko leh moo ee nah mah nah mah nah jah deh. Tee oh bah fee why ah see ah reen pah pah mag ee see nee tee ko see ee shee seh, ee nah kan kan ko nee jah deh. Shoog bon, neeg bah tee mag ee see nee bah n reen tee oh see n yee pah dah lor ree oh koon why ah, ee nah mah nah mah nah mah n jah deh geh geh bee oh feen Faraday sheh soh. Foon ah dahn woh WAEC ah tee JAMB, rahn tee peh wee wah mag ee see nee nee kan ko toh, ee yee pah dah ag bah rah mag ee see nee neen noo ah koh koh gboh doh wah!"
+            },
+            ha: {
+              lang_name: "Hausa",
+              label: "Hausa",
+              script: "Saurara da kyau: layukan maganadiso kadai ba sa samar da wutar lantarki. Idan ka ajiye wayar karfe a cikin babban maganadiso ba tare da motsi ba, babu wutar lantarki da za ta fito ko kadan. Wutar lantarki tana samuwa ne kawai lokacin da kwararar maganadiso ke canzawa a kan wayar a kan lokaci. Don jarrabawar WAEC da JAMB, ka tuna: kasancewar maganadiso kadai bai isa ba, dole ne a sami motsi ko canjin kwararar maganadiso!",
+              spoken_phonetic: "Sow rah rah dah kyow. Lah yoo kahn mah gah nah dee soh kah dye bah sah sah mahr dah woo tahr lahn tahr kee. Ee dahn kah ah jee yeh why yahr kahr feh ah chee keen bahb bahn mah gah nah dee soh bah tah reh dah moht see bah, bah boo woo tahr lahn tahr kee dah zah tah fee toh koh kah dahn. Woo tahr lahn tahr kee tah nah sah moo wah neh kah why loh kah cheen dah kwah rah rahr mah gah nah dee soh keh chahn zah wah ah kahn why yahr ah kahn loh kah chee. Dohn jahr rah bah wahr WAEC dah JAMB, kah too nah: kah sahn cheh wahr mah gah nah dee soh kah dye bye ee sah bah, doh leh neh ah sah mee moht see koh chahn jeen kwah rah rahr mah gah nah dee soh!"
+            },
+            ig: {
+              lang_name: "Igbo",
+              label: "Igbo",
+              script: "Nụrụ nke a nke ọma: ahịrị magnet naanị anaghị emepụta ọkụ eletrik ma ọlị. Ọ bụrụ na ị dọba waya n'ime magnet na-enweghị mmegharị, ọ nweghị ọkụ ga-apụta. Ọkụ eletrik na-apụta naanị mgbe magnet ahụ na-agagharị ma na-agbanwe n'elu waya ka oge na-aga, dịka iwu Faraday si kwuo. Maka ule WAEC na JAMB, cheta: inwe magnet naanị ezughị, a ga-enwerịrị mmegharị ma ọ bụ mgbanwe n'oge!",
+              spoken_phonetic: "Noo roo n keh ah n keh oh mah. Ah hee ree mag net nah nee ah nah hee eh meh poo tah oh koo eh leh treek mah oh lee. Oh boo roo nah ee doh bah why ah neem meh mag net nah eh nweh hee mmeh ghah ree, oh nweh hee oh koo gah ah poo tah. Oh koo eh leh treek nah ah poo tah nah nee mbeh mag net ah hoo nah ah gah ghah ree mah nah ah gbahn weh neh loo why ah kah oh geh nah ah gah, dee kah ee woo Faraday see kwoh. Mah kah oo leh WAEC nah JAMB, cheh tah: een weh mag net nah nee eh zoo hee, ah gah eh nweh ree ree mmeh ghah ree mah oh boo mgbahn weh noh geh!"
+            }
+          }
+        }
+      },
+      explain_back_prompt: "In your own simple words, explain Faraday's Law so an SS1 student could understand why a stationary magnet produces zero current while a moving magnet produces electricity.",
+      explain_back_placeholder: "Explain here: Start by explaining what happens when a magnet moves near a wire, what must change over time, and what happens when the magnet stops moving...",
+      questions: [
+        {
+          question_id: "PHY-EM-01-Q1",
+          exam_source: "WASSCE 2022 Question 14",
+          question_text: "A bar magnet is held stationary inside a tightly wound cylindrical coil of insulated copper wire connected to a sensitive center-zero galvanometer. What is observed on the galvanometer pointer?",
+          diagram_svg: `<svg viewBox="0 0 320 120" xmlns="http://www.w3.org/2000/svg" class="q-diagram">
+            <rect x="20" y="30" width="120" height="60" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+            <text x="80" y="65" fill="#f1f5f9" font-size="14" font-weight="bold" text-anchor="middle">COIL (Stationary)</text>
+            <rect x="180" y="40" width="100" height="40" fill="#ef4444" stroke="#f87171" stroke-width="2"/>
+            <rect x="230" y="40" width="50" height="40" fill="#3b82f6" stroke="#60a5fa" stroke-width="2"/>
+            <text x="205" y="65" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">N</text>
+            <text x="255" y="65" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">S</text>
+            <text x="230" y="105" fill="#94a3b8" font-size="12" text-anchor="middle">Magnet Stationary</text>
+          </svg>`,
+          correct_option: "C",
+          options: [
+            {
+              option_letter: "A",
+              option_text: "A continuous steady deflection to the right indicating steady direct current.",
+              is_correct: false,
+              likely_misconception_title: "Confusing Static Magnetic Field with Changing Flux",
+              misconception_framing_statement: "You likely assumed that simply placing a conductor inside a magnetic field continuously produces electricity, confusing static magnetic field presence with dynamic change in flux.",
+              likely_misconception_explanation: "The student believes that simply being inside a magnetic field produces electricity, missing that induction strictly requires relative motion or changing flux over time (dΦ/dt ≠ 0)."
+            },
+            {
+              option_letter: "B",
+              option_text: "A steady deflection that increases continuously as time passes.",
+              is_correct: false,
+              likely_misconception_title: "Accumulation of Charge Fallacy",
+              misconception_framing_statement: "You likely assumed that stationary magnetic fields continuously build up electrical charge over time like a battery.",
+              likely_misconception_explanation: "The student incorrectly assumes magnetic fields continuously pump electrical charge like a battery that charges up over time without mechanical work."
+            },
+            {
+              option_letter: "C",
+              option_text: "No deflection at all; the pointer remains firmly at zero.",
+              is_correct: true,
+              likely_misconception_title: null,
+              misconception_framing_statement: null,
+              likely_misconception_explanation: null
+            },
+            {
+              option_letter: "D",
+              option_text: "Rapid oscillations between left and right deflections.",
+              is_correct: false,
+              likely_misconception_title: "Confusing Alternating Current Generation with Stationary Fields",
+              misconception_framing_statement: "You likely confused the oscillating alternating current (AC) generated by rotating dynamos with the static behavior of a stationary magnet at rest.",
+              likely_misconception_explanation: "The student confuses the oscillating AC behavior of rotating dynamos with a static magnet at rest."
+            }
+          ]
+        },
+        {
+          question_id: "PHY-EM-01-Q2",
+          exam_source: "JAMB UTME 2021 Question 28",
+          question_text: "According to Faraday's law of electromagnetic induction, the magnitude of the electromotive force (e.m.f.) induced in a conductor is directly proportional to the:",
+          diagram_svg: null,
+          correct_option: "B",
+          options: [
+            {
+              option_letter: "A",
+              option_text: "Total magnetic flux density surrounding the conductor.",
+              is_correct: false,
+              likely_misconception_title: "Equating Field Strength with Induced Voltage",
+              likely_misconception_explanation: "The student conflates magnetic flux density (B) with the time rate of change of magnetic flux (dΦ/dt). A massive static magnetic field produces zero induced voltage."
+            },
+            {
+              option_letter: "B",
+              option_text: "Time rate of change of magnetic flux linkages through the circuit.",
+              is_correct: true,
+              likely_misconception_title: null,
+              likely_misconception_explanation: null
+            },
+            {
+              option_letter: "C",
+              option_text: "Electrical resistance of the wire forming the coil.",
+              is_correct: false,
+              likely_misconception_title: "Confusing Induced EMF with Ohm's Law Current Limitation",
+              likely_misconception_explanation: "The student confuses induced electromotive force (e.m.f. in volts, governed by Faraday's law) with resulting induced current (amperes, governed by Ohm's law I = E/R)."
+            },
+            {
+              option_letter: "D",
+              option_text: "Surface area of the magnetic pole faces.",
+              is_correct: false,
+              likely_misconception_title: "Geometric Area Fallacy",
+              likely_misconception_explanation: "The student focuses on pole geometry rather than the dynamic temporal rate of change of flux linkages through the coil."
+            }
+          ]
+        },
+        {
+          question_id: "PHY-EM-01-Q3",
+          exam_source: "WASSCE 2020 Question 19",
+          question_text: "Lenz's law of electromagnetic induction is an immediate manifestation of which fundamental physical conservation principle?",
+          diagram_svg: null,
+          correct_option: "A",
+          options: [
+            {
+              option_letter: "A",
+              option_text: "Conservation of Energy",
+              is_correct: true,
+              likely_misconception_title: null,
+              likely_misconception_explanation: null
+            },
+            {
+              option_letter: "B",
+              option_text: "Conservation of Electric Charge",
+              is_correct: false,
+              likely_misconception_title: "Confusing Circuit Continuity with Induction Work",
+              likely_misconception_explanation: "The student associates electrical circuits with Kirchhoff's current law (charge conservation) rather than mechanical work converting into electrical energy against opposing magnetic repulsion."
+            },
+            {
+              option_letter: "C",
+              option_text: "Conservation of Linear Momentum",
+              is_correct: false,
+              likely_misconception_title: "Confusing Newton's Collision Laws with Magnetic Induction",
+              likely_misconception_explanation: "The student recalls conservation laws from mechanics without realizing Lenz's law enforces that energy cannot be created from nothing."
+            },
+            {
+              option_letter: "D",
+              option_text: "Conservation of Mass",
+              is_correct: false,
+              likely_misconception_title: "Chemical Conservation Misattribution",
+              likely_misconception_explanation: "The student recalls Antoine Lavoisier's conservation of mass from introductory chemistry rather than energy conservation in electrodynamics."
+            }
+          ]
+        },
+        {
+          question_id: "PHY-EM-01-Q4",
+          exam_source: "JAMB UTME 2019 Question 12",
+          question_text: "A rectangular copper loop with 50 turns is placed in a magnetic field. If the magnetic flux through the coil changes uniformly from 0.08 Wb to 0.02 Wb in 0.03 seconds, what is the magnitude of the induced e.m.f.?",
+          diagram_svg: null,
+          correct_option: "D",
+          options: [
+            {
+              option_letter: "A",
+              option_text: "2.0 V",
+              is_correct: false,
+              likely_misconception_title: "Omitting Number of Turns (N) in Faraday's Formula",
+              likely_misconception_explanation: "The student calculated ΔΦ/Δt = (0.08 - 0.02)/0.03 = 2 V, completely omitting the multiplier N = 50 turns in E = -N(ΔΦ/Δt)."
+            },
+            {
+              option_letter: "B",
+              option_text: "50.0 V",
+              is_correct: false,
+              likely_misconception_title: "Adding Fluxes Instead of Finding the Differential Change",
+              likely_misconception_explanation: "The student made an arithmetic error or multiplied arbitrary numbers without calculating the true flux difference ΔΦ = 0.06 Wb."
+            },
+            {
+              option_letter: "C",
+              option_text: "0.10 V",
+              is_correct: false,
+              likely_misconception_title: "Inverting Time and Flux in Rate Formula",
+              likely_misconception_explanation: "The student inverted the rate equation, dividing time by flux (Δt/ΔΦ), demonstrating a dimensional misunderstanding of rate."
+            },
+            {
+              option_letter: "D",
+              option_text: "100.0 V",
+              is_correct: true,
+              likely_misconception_title: null,
+              likely_misconception_explanation: null
+            }
+          ]
+        },
+        {
+          question_id: "PHY-EM-01-Q5",
+          exam_source: "WASSCE 2018 Question 31",
+          question_text: "The north pole of a strong bar magnet is pushed rapidly into the open end of a solenoid. As viewed from the side facing the approaching magnet, what is the direction of the induced current in the solenoid coil?",
+          diagram_svg: `<svg viewBox="0 0 320 100" xmlns="http://www.w3.org/2000/svg" class="q-diagram">
+            <path d="M 40,50 Q 55,20 70,50 T 100,50 T 130,50 T 160,50 T 190,50" fill="none" stroke="#38bdf8" stroke-width="3"/>
+            <rect x="220" y="35" width="80" height="30" fill="#ef4444" stroke="#f87171" stroke-width="2"/>
+            <text x="240" y="55" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">N</text>
+            <text x="280" y="55" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">S</text>
+            <path d="M 215,50 L 195,50 M 200,45 L 195,50 L 200,55" fill="none" stroke="#eab308" stroke-width="2"/>
+          </svg>`,
+          correct_option: "B",
+          options: [
+            {
+              option_letter: "A",
+              option_text: "Clockwise, creating an attractive south pole to pull the magnet in faster.",
+              is_correct: false,
+              likely_misconception_title: "Direct Violation of Lenz's Law (Runaway Attraction Fallacy)",
+              likely_misconception_explanation: "The student believes the induced pole attracts the incoming magnet. If true, the magnet would accelerate perpetually without energy input, violating conservation of energy."
+            },
+            {
+              option_letter: "B",
+              option_text: "Anticlockwise, creating a repulsive north pole to oppose the magnet's entry.",
+              is_correct: true,
+              likely_misconception_title: null,
+              likely_misconception_explanation: null
+            },
+            {
+              option_letter: "C",
+              option_text: "Alternating continuously between clockwise and anticlockwise while moving.",
+              is_correct: false,
+              likely_misconception_title: "Unidirectional Motion Confusion with Periodic AC",
+              likely_misconception_explanation: "The student assumes induced current is always alternating, even when mechanical motion is purely unidirectional in one direction."
+            },
+            {
+              option_letter: "D",
+              option_text: "No current flows until the magnet is fully brought to a complete standstill inside.",
+              is_correct: false,
+              likely_misconception_title: "Inverting Motion Requirement",
+              likely_misconception_explanation: "The student fundamentally inverts the induction principle, believing voltage is induced at rest rather than during motion."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      objective_id: "CHE-ORG-01",
+      exam_type: "WAEC",
+      subject: "Chemistry",
+      topic: "Organic Chemistry",
+      subtopic_title: "Hydrocarbons — Alkenes & Electrophilic Addition Reactions",
+      objective_statement: "Understand the structure of carbon-carbon double bonds, unsaturation tests with bromine water, and Markovnikov's addition rule.",
+      required_understanding_points: [
+        "The carbon-carbon double bond contains one strong sigma (σ) bond and one exposed, reactive pi (π) bond.",
+        "Alkenes undergo addition reactions (not substitution) which decolorize reddish-brown bromine water without UV light.",
+        "In unsymmetrical alkene addition of HX, the hydrogen atom attaches to the carbon with more hydrogen atoms (Markovnikov's rule)."
+      ],
+      micro_intervention: {
+        intervention_id: "INT-CHE-ORG-01",
+        read_time: "60–90 sec read",
+        headline: "Here is the rule you need to know:",
+        paragraphs: [
+          "Alkenes are unsaturated hydrocarbons defined by their carbon-carbon double bond (C=C). This double bond consists of one strong cylindrical sigma (σ) bond and one exposed, sideways-overlapping pi (π) electron cloud that is vulnerable to electrophilic attack.",
+          "Unlike alkanes which require UV light to slowly substitute hydrogens, alkenes react instantaneously by addition. In an addition reaction, the weak pi bond breaks open, allowing two new atoms to bond to the adjacent carbons without releasing any byproduct gas.",
+          "When adding an unsymmetrical acid like HCl or HBr to an unsymmetrical alkene (like propene), follow Markovnikov's Rule: the electrophilic hydrogen atom bonds to the double-bonded carbon that already holds the greater number of hydrogen atoms, producing the more stable secondary carbocation intermediate."
+        ],
+        key_takeaway: {
+          rule_name: "Markovnikov's Addition Rule for Alkenes",
+          formula: "CH₃-CH=CH₂ + HCl ➔ CH₃-CH(Cl)-CH₃ (2-chloropropane)",
+          summary: "Addition breaks the pi bond across both carbons; hydrogen attaches to the carbon with more hydrogens already attached."
+        },
+        audio_snippet: {
+          duration: "0:45",
+          title: "Alkene Addition & Markovnikov Audio Lesson",
+          translations: {
+            en: {
+              lang_name: "English",
+              label: "English (Standard)",
+              script: "Alkenes are unsaturated hydrocarbons with a reactive carbon-carbon double bond containing an exposed pi bond. When reacting with hydrogen chloride, the pi bond breaks open in an addition reaction. Under Markovnikov's Rule, the incoming hydrogen atom always bonds to the double-bonded carbon that already holds more hydrogen atoms, producing 2-chloropropane.",
+              spoken_phonetic: "Alkenes are unsaturated hydrocarbons with a reactive carbon-carbon double bond containing an exposed pi bond. When reacting with hydrogen chloride, the pi bond breaks open in an addition reaction. Under Markovnikov's Rule, the incoming hydrogen atom always bonds to the double-bonded carbon that already holds more hydrogen atoms, producing 2-chloropropane."
+            },
+            pcm: {
+              lang_name: "Pidgin",
+              label: "Nigerian Pidgin",
+              script: "Make you understand alkenes sharp sharp: dem get double bond with one weak pi bond wey easy to break. When you add HCl, the double bond go burst open do addition reaction. Follow Markovnikov rule: the hydrogen go join the carbon wey already hold plenty hydrogen pass! The rich go get richer, so na 2-chloropropane go form!",
+              spoken_phonetic: "Make you understand alkenes sharp sharp. Dem get double bond with one weak pi bond wey easy to break. When you add H C L, the double bond go burst open do addition reaction. Follow Markovnikov rule: the hydrogen go join the carbon wey already hold plenty hydrogen pass! The reech go get reecher, so nah two chloropropane go form!"
+            },
+            yo: {
+              lang_name: "Yoruba",
+              label: "Yorùbá",
+              script: "Alkenes ni àwọn hydrocarbons tó ní àbájáde ìdè méjì pẹ̀lú ìdè pi tó rọrùn láti já. Nígbà tí o bá fi HCl kún un, ìdè náà yóò já sí ìdàpọ̀ tuntun. Gẹ́gẹ́ bí òfin Markovnikov, hydrogen yóò darapọ̀ mọ́ carbon tó ní hydrogen jùlọ tẹ́lẹ̀.",
+              spoken_phonetic: "Alkenes nee ah won hydrocarbons toh nee ah bah jah deh ee deh meh jee peh loo ee deh pi toh roh roon lah tee jah. Neeg bah tee oh bah fee H C L koon oon, ee deh nah oh yoh jah see ee dah poh toon toon. Geh geh bee oh feen Markovnikov, hydrogen yoh dah rah poh moh carbon toh nee hydrogen joo loh teh leh."
+            },
+            ha: {
+              lang_name: "Hausa",
+              label: "Hausa",
+              script: "Alkenes sun ƙunshi haɗin gwiwa biyu na carbon tare da haɗin pi mai sauƙin buɗewa. Lokacin da kake ƙara HCl, haɗin yana buɗewa a cikin martanin ƙari. Dangane da dokar Markovnikov, hydrogen yana haɗuwa da carbon ɗin da ke da ƙarin hydrogen tun farko.",
+              spoken_phonetic: "Alkenes soon koon shee hah deen gwee wah bee yoo nah carbon tah reh dah hah deen pi my sow keen boo deh wah. Loh kah cheen dah kah keh kah rah H C L, hah deen yah nah boo deh wah ah chee keen mahr tah neen kah ree. Dahn gah neh dah doh kahr Markovnikov, hydrogen yah nah hah doo wah dah carbon deen dah keh dah kah reen hydrogen toon fahr koh."
+            },
+            ig: {
+              lang_name: "Igbo",
+              label: "Igbo",
+              script: "Alkenes nwere njikọ okpukpu abụọ nwere njikọ pi na-adị mfe imeghe. Mgbe ị gbakwunyere HCl, njikọ ahụ na-emeghe. Dịka iwu Markovnikov si kwuo, hydrogen na-aga na carbon ahụ nwere ọtụtụ hydrogen mbụ.",
+              spoken_phonetic: "Alkenes nweh reh njee koh oh kpoo kpoo ah boo oh nweh reh njee koh pi nah ah dee mfeh ee meh gheh. Mbeh ee gbah kwoon yeh reh H C L, njee koh ah hoo nah ah meh gheh. Dee kah ee woo Markovnikov see kwoh, hydrogen nah ah gah nah carbon ah hoo nweh reh oh too too hydrogen mboo."
+            }
+          }
+        }
+      },
+      explain_back_prompt: "In your own simple words, explain to an SS1 student how an alkene double bond reacts and how Markovnikov's rule decides where hydrogen attaches when adding HCl.",
+      explain_back_placeholder: "Explain here: Describe the difference between the sigma and pi bond, why addition happens, and which carbon gets the hydrogen atom according to Markovnikov...",
+      questions: [
+        {
+          question_id: "CHE-ORG-01-Q1",
+          exam_source: "WASSCE 2021 Question 22",
+          question_text: "When ethene gas (C2H4) is bubbled through a solution of bromine in tetrachloromethane in the dark, the reddish-brown color rapidly discharges. The resulting organic compound formed is:",
+          diagram_svg: null,
+          correct_option: "C",
+          options: [
+            {
+              option_letter: "A",
+              option_text: "Bromoethane with evolution of hydrogen bromide gas.",
+              is_correct: false,
+              likely_misconception_title: "Confusing Addition with Free-Radical Alkane Substitution",
+              likely_misconception_explanation: "The student confuses the electrophilic addition of alkenes with the photochemical substitution reaction of alkanes (which releases HBr and requires UV light)."
+            },
+            {
+              option_letter: "B",
+              option_text: "1,1-dibromoethane.",
+              is_correct: false,
+              likely_misconception_title: "Geminal vs. Vicinal Addition Misconception",
+              likely_misconception_explanation: "The student places both bromine atoms on the same carbon (geminal) instead of across the two adjacent carbons that formerly shared the double bond (vicinal)."
+            },
+            {
+              option_letter: "C",
+              option_text: "1,2-dibromoethane.",
+              is_correct: true,
+              likely_misconception_title: null,
+              likely_misconception_explanation: null
+            },
+            {
+              option_letter: "D",
+              option_text: "Bromoethene.",
+              is_correct: false,
+              likely_misconception_title: "Retaining the Double Bond After Halogenation",
+              likely_misconception_explanation: "The student forgets that addition consumes the reactive pi bond, converting the alkene into a saturated halogenated alkane."
+            }
+          ]
+        },
+        {
+          question_id: "CHE-ORG-01-Q2",
+          exam_source: "JAMB UTME 2020 Question 34",
+          question_text: "Which of the following structural features accounts for the greater chemical reactivity of alkenes compared to alkanes?",
+          diagram_svg: null,
+          correct_option: "A",
+          options: [
+            {
+              option_letter: "A",
+              option_text: "Presence of an exposed, relatively weak pi (π) electron cloud above and below the internuclear axis.",
+              is_correct: true,
+              likely_misconception_title: null,
+              likely_misconception_explanation: null
+            },
+            {
+              option_letter: "B",
+              option_text: "The carbon-carbon bond length is significantly longer in alkenes than in alkanes.",
+              is_correct: false,
+              likely_misconception_title: "Inverting Bond Length vs. Bond Order Relationship",
+              likely_misconception_explanation: "The student erroneously believes double bonds are longer and looser than single bonds, whereas C=C (1.34 Å) is actually shorter and tighter than C-C (1.54 Å)."
+            },
+            {
+              option_letter: "C",
+              option_text: "Presence of polar covalent bonds between carbon and hydrogen atoms.",
+              is_correct: false,
+              likely_misconception_title: "Hydrocarbon Polarity Misconception",
+              likely_misconception_explanation: "The student incorrectly assumes hydrocarbons have strong polar bonds, ignoring that electronegativity difference between C (2.5) and H (2.1) is virtually nonpolar."
+            },
+            {
+              option_letter: "D",
+              option_text: "Lower percentage of carbon by mass compared to corresponding alkanes.",
+              is_correct: false,
+              likely_misconception_title: "Percent Composition Misattribution",
+              likely_misconception_explanation: "Alkenes actually have a higher carbon-to-hydrogen mass ratio than alkanes, but reactivity is governed by orbital electronics, not bulk mass percentages."
+            }
+          ]
+        },
+        {
+          question_id: "CHE-ORG-01-Q3",
+          exam_source: "WASSCE 2019 Question 18",
+          question_text: "According to Markovnikov's rule, when propene (CH3-CH=CH2) reacts with dry hydrogen chloride (HCl) gas, the major organic product formed is:",
+          diagram_svg: null,
+          correct_option: "B",
+          options: [
+            {
+              option_letter: "A",
+              option_text: "1-chloropropane",
+              is_correct: false,
+              likely_misconception_title: "Anti-Markovnikov Inversion Error",
+              likely_misconception_explanation: "The student attaches the hydrogen to the more substituted carbon and the halide to the terminal carbon, inverting Markovnikov's carbocation stability rule."
+            },
+            {
+              option_letter: "B",
+              option_text: "2-chloropropane",
+              is_correct: true,
+              likely_misconception_title: null,
+              likely_misconception_explanation: null
+            },
+            {
+              option_letter: "C",
+              option_text: "1,2-dichloropropane",
+              is_correct: false,
+              likely_misconception_title: "Confusing Hydrogen Halide Addition with Dihalogen Addition",
+              likely_misconception_explanation: "The student mistakenly adds two chlorine atoms instead of one hydrogen and one chlorine atom from HCl."
+            },
+            {
+              option_letter: "D",
+              option_text: "Propan-2-ol",
+              is_correct: false,
+              likely_misconception_title: "Confusing Acid-Catalyzed Hydration with Hydrohalogenation",
+              likely_misconception_explanation: "The student produces an alcohol, mistaking HCl gas for aqueous acid hydration (H2O / H+)."
+            }
+          ]
+        },
+        {
+          question_id: "CHE-ORG-01-Q4",
+          exam_source: "JAMB UTME 2018 Question 41",
+          question_text: "An unknown gaseous hydrocarbon decolorizes acidified potassium tetraoxomanganate(VII) (KMnO4) solution and bromine water, but does not form a precipitate with ammoniacal silver trioxonitrate(V). The gas is most likely:",
+          diagram_svg: null,
+          correct_option: "C",
+          options: [
+            {
+              option_letter: "A",
+              option_text: "Ethane",
+              is_correct: false,
+              likely_misconception_title: "Confusing Saturated with Unsaturated Hydrocarbons",
+              likely_misconception_explanation: "Ethane is a saturated alkane and does not react with or decolorize bromine water or KMnO4 under normal conditions."
+            },
+            {
+              option_letter: "B",
+              option_text: "Ethyne",
+              is_correct: false,
+              likely_misconception_title: "Terminal Alkyne Test Misidentification",
+              likely_misconception_explanation: "Terminal alkynes like ethyne DO form a yellowish-white precipitate of silver dicarbide with ammoniacal AgNO3; the problem explicitly states no precipitate was formed."
+            },
+            {
+              option_letter: "C",
+              option_text: "Ethene",
+              is_correct: true,
+              likely_misconception_title: null,
+              likely_misconception_explanation: null
+            },
+            {
+              option_letter: "D",
+              option_text: "Benzene",
+              is_correct: false,
+              likely_misconception_title: "Aromatic Stability Misconception",
+              likely_misconception_explanation: "Benzene has high aromatic resonance stability and does not readily decolorize bromine water or cold dilute KMnO4 without harsh catalysts."
+            }
+          ]
+        },
+        {
+          question_id: "CHE-ORG-01-Q5",
+          exam_source: "WASSCE 2017 Question 15",
+          question_text: "What type of hybridization is exhibited by the two carbon atoms involved in the double bond of an ethene molecule?",
+          diagram_svg: null,
+          correct_option: "A",
+          options: [
+            {
+              option_letter: "A",
+              option_text: "sp2 hybridization with trigonal planar geometry (120° bond angle).",
+              is_correct: true,
+              likely_misconception_title: null,
+              likely_misconception_explanation: null
+            },
+            {
+              option_letter: "B",
+              option_text: "sp3 hybridization with tetrahedral geometry (109.5° bond angle).",
+              is_correct: false,
+              likely_misconception_title: "Applying Alkane Tetrahedral Geometry to Alkenes",
+              likely_misconception_explanation: "The student applies the sp3 tetrahedral geometry of single-bonded alkanes (like methane or ethane) to double-bonded alkenes."
+            },
+            {
+              option_letter: "C",
+              option_text: "sp hybridization with linear geometry (180° bond angle).",
+              is_correct: false,
+              likely_misconception_title: "Confusing Alkenes with Triple-Bonded Alkynes",
+              likely_misconception_explanation: "The student attributes the linear sp hybridization of alkynes (like ethyne) to double-bonded alkenes."
+            },
+            {
+              option_letter: "D",
+              option_text: "dsp2 hybridization with square planar geometry.",
+              is_correct: false,
+              likely_misconception_title: "Transition Metal Complex Hybridization Misapplication",
+              likely_misconception_explanation: "Carbon lacks d-orbitals in its valence shell (n=2) and cannot undergo d-orbital hybridization."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      objective_id: "BIO-GEN-01",
+      exam_type: "JAMB",
+      subject: "Biology",
+      topic: "Genetics & Heredity",
+      subtopic_title: "Mendelian Genetics — Monohybrid Crosses & Allelic Segregation",
+      objective_statement: "Understand Gregor Mendel's Law of Segregation, dominant vs recessive alleles, genotype vs phenotype, and Punnett square probability.",
+      required_understanding_points: [
+        "Alleles segregate during gamete formation so each gamete carries only one allele for each gene.",
+        "Heterozygous individuals display the dominant phenotype but carry the hidden recessive allele.",
+        "A cross between two heterozygous parents (Bb × Bb) produces a 3:1 phenotypic ratio and a 1:2:1 genotypic ratio."
+      ],
+      micro_intervention: {
+        intervention_id: "INT-BIO-GEN-01",
+        read_time: "60–90 sec read",
+        headline: "Here is the rule you need to know:",
+        paragraphs: [
+          "Every normal body cell carries two alternative versions of every gene, called alleles. When gametes (sperm and egg cells) are produced during meiosis, Mendel's First Law—the Law of Segregation—ensures that the two alleles physically separate so each sex cell receives only one allele.",
+          "Dominance means that a dominant allele completely masks the physical expression of a recessive allele in the phenotype. However, the recessive allele is never destroyed; it remains intact in the heterozygous genotype (Tt). When two heterozygotes mate (Tt × Tt), the recessive allele pairs with another recessive allele in exactly 25% of offspring (1 tt out of 4).",
+          "Never confuse a monohybrid heterozygous cross (Tt × Tt) with a test cross (Tt × tt). A heterozygous cross always yields a 3:1 phenotypic ratio and a 1:2:1 genotypic ratio (1 TT : 2 Tt : 1 tt). A test cross against homozygous recessive always yields a 1:1 ratio (50% dominant, 50% recessive)."
+        ],
+        key_takeaway: {
+          rule_name: "Mendel's Law of Segregation & Monohybrid Ratios",
+          formula: "Tt × Tt ➔ 1 TT : 2 Tt : 1 tt (75% Dominant, 25% Recessive)",
+          summary: "Alleles separate during gamete formation; heterozygous crosses produce a 3:1 physical ratio and 1:2:1 genetic ratio."
+        },
+        audio_snippet: {
+          duration: "0:45",
+          title: "Mendelian Segregation & Punnett Squares Audio Lesson",
+          translations: {
+            en: {
+              lang_name: "English",
+              label: "English (Standard)",
+              script: "Gregor Mendel's Law of Segregation states that during meiosis, the two alleles for a gene separate into different gametes. Heterozygous parents carry both dominant and recessive alleles. When crossed, they yield a three to one phenotypic ratio, meaning twenty-five percent of offspring receive two recessive alleles and display the recessive trait.",
+              spoken_phonetic: "Gregor Mendel's Law of Segregation states that during meiosis, the two alleles for a gene separate into different gametes. Heterozygous parents carry both dominant and recessive alleles. When crossed, they yield a three to one phenotypic ratio, meaning twenty-five percent of offspring receive two recessive alleles and display the recessive trait."
+            },
+            pcm: {
+              lang_name: "Pidgin",
+              label: "Nigerian Pidgin",
+              script: "For Mendel law of segregation, the two alleles inside cell dey separate during meiosis so each gamete go carry only one allele. Heterozygous parents dey carry dominant and hidden recessive allele together. When dem cross, twenty-five percent of the pikin go inherit the two recessive alleles, giving that classic three to one ratio!",
+              spoken_phonetic: "For Mendel law of segregation, the two alleles inside cell day separate during meiosis so each gamete go carry only one allele. Heterozygous parents day carry dominant and hidden recessive allele together. When dem cross, twenty-five percent of the pee keen go inherit the two recessive alleles, giving that classic three to one ratio!"
+            },
+            yo: {
+              lang_name: "Yoruba",
+              label: "Yorùbá",
+              script: "Òfin ìpínyà Mendel sọ pé àwọn alleles méjì máa ń pínyà sí oríṣiríṣi gametes nígbà meiosis. Àwọn òbí heterozygous gbé àwọn àbùdá dominant àti recessive. Tí wọ́n bá parapọ̀, ìdá mẹ́rin nínú àwọn ọmọ máa jogún àbùdá recessive.",
+              spoken_phonetic: "Oh feen ee peen yah Mendel soh peh ah won alleles meh jee mah n peen yah see oh ree shee ree shee gametes neeg bah meiosis. Ah won oh bee heterozygous gbeh ah won ah boo dah dominant ah tee recessive. Tee won bah pah rah poh, ee dah meh reen neen noo ah won oh moh mah joh goon ah boo dah recessive."
+            },
+            ha: {
+              lang_name: "Hausa",
+              label: "Hausa",
+              script: "Dokar raba kwayoyin halitta ta Mendel ta bayyana cewa a lokacin meiosis, kwayoyin halitta guda biyu suna rabuwa. Iyaye masu heterozygous suna dauke da dominant da recessive. Idan sun hadu, kashi ashirin da biyar na 'ya'yan suna nuna dabi'ar recessive.",
+              spoken_phonetic: "Doh kahr rah bah kwah yoh yeen hah leet tah tah Mendel tah bye yah nah cheh wah ah loh kah cheen meiosis, kwah yoh yeen hah leet tah goo dah bee yoo soo nah rah boo wah. Ee yah yeh mah soo heterozygous soo nah dow keh dah dominant dah recessive. Ee dahn soon hah doo, kah shee ah shee reen dah bee yahr nah yah yahn soo nah noo nah dah bee ahr recessive."
+            },
+            ig: {
+              lang_name: "Igbo",
+              label: "Igbo",
+              script: "Iwu nkewa nke Mendel na-ekwu na n'oge meiosis, alleles abụọ na-ekewa. Ndị nne na nna heterozygous na-ebu ma dominant ma recessive. Mgbe ha mụrụ nwa, pasent iri abụọ na ise na-egosipụta àgwà recessive.",
+              spoken_phonetic: "Ee woo n keh wah n keh Mendel nah eh kwoo nah noh geh meiosis, alleles ah boo oh nah eh keh wah. Ndee nneh nah nnah heterozygous nah eh boo mah dominant mah recessive. Mbeh hah moo roo nwah, pah sent ee ree ah boo oh nah ee seh nah eh goh see poo tah ah gwah recessive."
+            }
+          }
+        }
+      },
+      explain_back_prompt: "In your own simple words, explain Mendel's Law of Segregation so an SS1 student understands how two tall pea plants (Tt × Tt) can produce a dwarf offspring.",
+      explain_back_placeholder: "Explain here: Explain what happens to the two alleles during meiosis, what alleles each parent carries, and how the recessive trait reappears in 25% of the offspring...",
+      questions: [
+        {
+          question_id: "BIO-GEN-01-Q1",
+          exam_source: "JAMB UTME 2022 Question 17",
+          question_text: "In garden peas, the allele for tall stem (T) is completely dominant over dwarf stem (t). If two heterozygous tall pea plants (Tt) are crossed, what percentage of the F1 offspring are expected to be phenotypically dwarf?",
+          diagram_svg: null,
+          correct_option: "B",
+          options: [
+            {
+              option_letter: "A",
+              option_text: "50%",
+              is_correct: false,
+              likely_misconception_title: "Confusing Monohybrid Cross with Test Cross (Tt × tt)",
+              likely_misconception_explanation: "The student remembers the 1:1 (50%) ratio of a heterozygous test cross instead of the 3:1 ratio of a heterozygous monohybrid cross (Tt × Tt)."
+            },
+            {
+              option_letter: "B",
+              option_text: "25%",
+              is_correct: true,
+              likely_misconception_title: null,
+              likely_misconception_explanation: null
+            },
+            {
+              option_letter: "C",
+              option_text: "75%",
+              is_correct: false,
+              likely_misconception_title: "Inverting Dominant vs Recessive Phenotype Frequencies",
+              likely_misconception_explanation: "The student calculated the 75% frequency of the dominant tall phenotype and mistakenly attributed it to the recessive dwarf phenotype."
+            },
+            {
+              option_letter: "D",
+              option_text: "0%",
+              is_correct: false,
+              likely_misconception_title: "True-Breeding Pure Line Confusion (TT × tt)",
+              likely_misconception_explanation: "The student thinks of Mendel's original P1 cross (TT × tt) where 100% of the F1 were tall and 0% were dwarf."
+            }
+          ]
+        },
+        {
+          question_id: "BIO-GEN-01-Q2",
+          exam_source: "WASSCE 2021 Question 30",
+          question_text: "Mendel's First Law of Inheritance (the Law of Segregation) fundamentally states that:",
+          diagram_svg: null,
+          correct_option: "A",
+          options: [
+            {
+              option_letter: "A",
+              option_text: "Allele pairs separate during meiosis so that each gamete carries only one allele for each gene.",
+              is_correct: true,
+              likely_misconception_title: null,
+              likely_misconception_explanation: null
+            },
+            {
+              option_letter: "B",
+              option_text: "Genes located on different chromosomes assort independently of one another during fertilization.",
+              is_correct: false,
+              likely_misconception_title: "Confusing First Law (Segregation) with Second Law (Independent Assortment)",
+              likely_misconception_explanation: "The student cites Mendel's Second Law of Independent Assortment (involving two or more genes) instead of the First Law of Segregation (single gene alleles)."
+            },
+            {
+              option_letter: "C",
+              option_text: "Dominant alleles always physically destroy recessive alleles inside the zygote.",
+              is_correct: false,
+              likely_misconception_title: "Allele Destruction Fallacy",
+              likely_misconception_explanation: "The student believes dominance means physical elimination of the recessive allele, failing to understand that recessive alleles remain intact and can reappear in subsequent generations."
+            },
+            {
+              option_letter: "D",
+              option_text: "All traits blend together like colored paints in the F1 generation.",
+              is_correct: false,
+              likely_misconception_title: "Blending Inheritance Fallacy",
+              likely_misconception_explanation: "The student defaults to pre-Mendelian blending inheritance which Mendel's particulate theory of inheritance explicitly disproved."
+            }
+          ]
+        },
+        {
+          question_id: "BIO-GEN-01-Q3",
+          exam_source: "JAMB UTME 2020 Question 25",
+          question_text: "A heterozygous black guinea pig (Bb) is crossed with a homozygous brown guinea pig (bb). What is the expected ratio of black to brown offspring?",
+          diagram_svg: null,
+          correct_option: "C",
+          options: [
+            {
+              option_letter: "A",
+              option_text: "3 : 1",
+              is_correct: false,
+              likely_misconception_title: "Blindly Applying the 3:1 Monohybrid Cross Template",
+              likely_misconception_explanation: "The student memorized the 3:1 ratio without drawing the Punnett square, failing to recognize this is a backcross/testcross (Bb × bb) rather than Bb × Bb."
+            },
+            {
+              option_letter: "B",
+              option_text: "9 : 3 : 3 : 1",
+              is_correct: false,
+              likely_misconception_title: "Applying Dihybrid Ratio to Monohybrid Cross",
+              likely_misconception_explanation: "The student applies the two-gene dihybrid F2 ratio (9:3:3:1) to a simple single-gene monohybrid backcross."
+            },
+            {
+              option_letter: "C",
+              option_text: "1 : 1 (or 50% Black, 50% Brown)",
+              is_correct: true,
+              likely_misconception_title: null,
+              likely_misconception_explanation: null
+            },
+            {
+              option_letter: "D",
+              option_text: "1 : 2 : 1",
+              is_correct: false,
+              likely_misconception_title: "Confusing Genotypic Ratio of Bb × Bb with Testcross Phenotypes",
+              likely_misconception_explanation: "The student remembers the 1:2:1 ratio (which is the genotypic ratio of TT:Tt:tt in a Bb × Bb cross) and misapplies it here."
+            }
+          ]
+        },
+        {
+          question_id: "BIO-GEN-01-Q4",
+          exam_source: "WASSCE 2019 Question 33",
+          question_text: "An organism with genotype Rr has the exact same outward appearance as an organism with genotype RR for that trait. This observation proves that:",
+          diagram_svg: null,
+          correct_option: "D",
+          options: [
+            {
+              option_letter: "A",
+              option_text: "The allele 'r' has mutated into 'R'.",
+              is_correct: false,
+              likely_misconception_title: "Mutation Misattribution",
+              likely_misconception_explanation: "The student attributes phenotypic dominance to spontaneous somatic mutation rather than the biochemical masking of recessive alleles."
+            },
+            {
+              option_letter: "B",
+              option_text: "The trait is governed by incomplete codominance.",
+              is_correct: false,
+              likely_misconception_title: "Confusing Complete Dominance with Codominance",
+              likely_misconception_explanation: "In codominance or incomplete dominance, the heterozygote has a distinct intermediate or blended phenotype, not the identical dominant phenotype."
+            },
+            {
+              option_letter: "C",
+              option_text: "Genotype and phenotype are always identical numerical terms.",
+              is_correct: false,
+              likely_misconception_title: "Equating Genotype with Phenotype",
+              likely_misconception_explanation: "The student fails to distinguish between genotype (genetic allelic makeup: RR vs Rr) and phenotype (expressed physical appearance)."
+            },
+            {
+              option_letter: "D",
+              option_text: "The allele 'R' exhibits complete dominance over the recessive allele 'r'.",
+              is_correct: true,
+              likely_misconception_title: null,
+              likely_misconception_explanation: null
+            }
+          ]
+        },
+        {
+          question_id: "BIO-GEN-01-Q5",
+          exam_source: "JAMB UTME 2018 Question 29",
+          question_text: "What procedure is performed by an agricultural geneticist to determine whether an individual showing a dominant phenotype is homozygous dominant or heterozygous?",
+          diagram_svg: null,
+          correct_option: "B",
+          options: [
+            {
+              option_letter: "A",
+              option_text: "Crossing the individual with a homozygous dominant (TT) plant.",
+              is_correct: false,
+              likely_misconception_title: "Dominant Tester Fallacy",
+              likely_misconception_explanation: "Crossing with a homozygous dominant individual always yields 100% dominant offspring regardless of whether the parent is TT or Tt, giving zero diagnostic information."
+            },
+            {
+              option_letter: "B",
+              option_text: "Performing a test cross by breeding the individual with a homozygous recessive (tt) mate.",
+              is_correct: true,
+              likely_misconception_title: null,
+              likely_misconception_explanation: null
+            },
+            {
+              option_letter: "C",
+              option_text: "Self-pollinating the plant and immediately discarding all dwarf progeny.",
+              is_correct: false,
+              likely_misconception_title: "Discarding Evidence Fallacy",
+              likely_misconception_explanation: "Discarding dwarf progeny removes the exact empirical evidence needed to detect the presence of the recessive allele."
+            },
+            {
+              option_letter: "D",
+              option_text: "Counting the number of chromosomes under a basic optical hand lens.",
+              is_correct: false,
+              likely_misconception_title: "Microscopic Allele Viewing Fallacy",
+              likely_misconception_explanation: "Specific gene alleles cannot be visually read by counting macroscopic chromosome numbers with a hand lens."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      objective_id: "MTH-ALG-01",
+      exam_type: "WAEC",
+      subject: "Mathematics",
+      topic: "Algebra",
+      subtopic_title: "Quadratic Equations — Discriminant & Nature of Roots",
+      objective_statement: "Determine the nature of roots of quadratic equations ax² + bx + c = 0 using the discriminant Δ = b² - 4ac without explicitly solving for x.",
+      required_understanding_points: [
+        "The discriminant is given by Δ = b² - 4ac.",
+        "If b² - 4ac > 0, the roots are real and unequal (two distinct real roots).",
+        "If b² - 4ac = 0, the roots are real and equal (one repeated real root).",
+        "If b² - 4ac < 0, the equation has no real roots (roots are complex/imaginary)."
+      ],
+      micro_intervention: {
+        intervention_id: "INT-MTH-ALG-01",
+        read_time: "60–90 sec read",
+        headline: "Here is the rule you need to know:",
+        paragraphs: [
+          "To determine whether the roots of a quadratic equation ax² + bx + c = 0 are real, equal, or imaginary, you never need to calculate the actual values of x. The quantity inside the square root of the quadratic formula, Δ = b² - 4ac, is called the discriminant, and its sign alone controls root behavior.",
+          "If the discriminant is positive (b² - 4ac > 0), the square root produces a real number, yielding two distinct real roots (rational if a perfect square, irrational if not). If the discriminant is exactly zero (b² - 4ac = 0), adding and subtracting zero gives identical answers, resulting in one repeated real root.",
+          "If the discriminant is negative (b² - 4ac < 0), taking the square root of a negative real number is impossible on the real number line, which means there are NO real roots (the roots are complex conjugates). When an exam question says 'roots are equal', immediately set b² - 4ac = 0."
+        ],
+        key_takeaway: {
+          rule_name: "The Discriminant Rule (Nature of Roots)",
+          formula: "Δ = b² - 4ac   (Δ > 0: 2 Real • Δ = 0: Equal • Δ < 0: Complex/No Real)",
+          summary: "Equal roots require b² - 4ac = 0; distinct real roots require b² - 4ac > 0; negative values mean no real roots."
+        },
+        audio_snippet: {
+          duration: "0:45",
+          title: "Quadratic Discriminant & Nature of Roots Audio Lesson",
+          translations: {
+            en: {
+              lang_name: "English",
+              label: "English (Standard)",
+              script: "To determine the nature of roots of ax squared plus bx plus c equals zero, use the discriminant b squared minus 4ac. When the discriminant is positive, the equation has two distinct real roots. When it equals zero, the roots are real and equal. When negative, the equation has no real roots, only complex roots.",
+              spoken_phonetic: "To determine the nature of roots of ax squared plus bx plus c equals zero, use the discriminant b squared minus 4ac. When the discriminant is positive, the equation has two distinct real roots. When it equals zero, the roots are real and equal. When negative, the equation has no real roots, only complex roots."
+            },
+            pcm: {
+              lang_name: "Pidgin",
+              label: "Nigerian Pidgin",
+              script: "To know the kind roots wey quadratic equation get, just check the discriminant b squared minus 4ac. If e positive pass zero, you go get two separate real roots. If e balance at exactly zero, the two roots go dey equal. If e enter negative, no real roots dey at all, na complex roots!",
+              spoken_phonetic: "To know the kind roots wey quadratic equation get, just check the discriminant b squared minus four a c. If ee positive pass zero, you go get two separate real roots. If ee balance at exactly zero, the two roots go day equal. If ee enter negative, no real roots day at all, nah complex roots!"
+            },
+            yo: {
+              lang_name: "Yoruba",
+              label: "Yorùbá",
+              script: "Láti mọ irú àwọn gbòǹgbò tí quadratic equation ní, lo discriminant b squared minus 4ac. Tí ó bá jẹ́ rere (positive), àwọn gbòǹgbò méjì ọ̀tọ̀ọ̀tọ̀ ló wà. Tí ó bá jẹ́ odo (zero), wọ́n dọ́gba. Tí ó bá jẹ́ odi (negative), kò sí gbòǹgbò gidi, àfi complex roots.",
+              spoken_phonetic: "Lah tee moh ee roo ah won gbohn gboh tee quadratic equation nee, loh discriminant b squared minus four a c. Tee oh bah jeh reh reh (positive), ah won gbohn gboh meh jee oh toh oh toh loh wah. Tee oh bah jeh oh doh (zero), won doh gbah. Tee oh bah jeh oh dee (negative), ko see gbohn gboh gee dee, ah fee complex roots."
+            },
+            ha: {
+              lang_name: "Hausa",
+              label: "Hausa",
+              script: "Don sanin asalin tushen quadratic equation, yi amfani da discriminant b squared minus 4ac. Idan ya fi sifili girma (positive), akwai tushe guda biyu na hakika. Idan ya zama sifili daidai, tushen biyu suna daidai. Idan ya zama negative, babu tushe na hakika sai dai complex roots.",
+              spoken_phonetic: "Dohn sah neen ah sah leen too sheen quadratic equation, yee ahm fah nee dah discriminant b squared minus four a c. Ee dahn yah fee see fee lee geer mah (positive), ah kwye too sheh goo dah bee yoo nah hah kee kah. Ee dahn yah zah mah see fee lee dye dye, too sheen bee yoo soo nah dye dye. Ee dahn yah zah mah negative, bah boo too sheh nah hah kee kah sy dye complex roots."
+            },
+            ig: {
+              lang_name: "Igbo",
+              label: "Igbo",
+              script: "Iji mara ụdị mgbọrọgwụ quadratic equation nwere, jiri discriminant b squared minus 4ac. Ọ bụrụ na ọ dị mma (positive), o nwere mgbọrọgwụ abụọ dị iche. Ọ bụrụ na ọ bụ efu (zero), ha hà nhata. Ọ bụrụ na ọ bụ negative, ọ nweghị mgbọrọgwụ n'ezie ma e wezụga complex roots.",
+              spoken_phonetic: "Ee jee mah rah oo dee mgbaw raw gwoo quadratic equation nweh reh, jee ree discriminant b squared minus four a c. Oh boo roo nah oh dee mmah (positive), oh nweh reh mgbaw raw gwoo ah boo oh dee cheh. Oh boo roo nah oh boo eh foo (zero), hah hah n-hah tah. Oh boo roo nah oh boo negative, oh nweh hee mgbaw raw gwoo neh zee mah eh weh zoo gbah complex roots."
+            }
+          }
+        }
+      },
+      explain_back_prompt: "In your own simple words, explain how the discriminant (b² - 4ac) tells you the nature of roots without solving the quadratic equation, and what it means when b² - 4ac = 0.",
+      explain_back_placeholder: "Explain here: Explain what the discriminant is, why its sign matters under the square root, and what happens to the roots when b² - 4ac is positive, zero, or negative...",
+      questions: [
+        {
+          question_id: "MTH-ALG-01-Q1",
+          exam_source: "WASSCE 2022 Question 9",
+          question_text: "For what value of k will the quadratic equation 2x² - 8x + k = 0 have equal (repeated) real roots?",
+          diagram_svg: null,
+          correct_option: "C",
+          options: [
+            {
+              option_letter: "A",
+              option_text: "k = 4",
+              is_correct: false,
+              likely_misconception_title: "Dividing by 4 Instead of 4a in Discriminant Equation",
+              likely_misconception_explanation: "The student computed 64 - 16 = 4 or divided by 4 without multiplying by coefficient a = 2, using b² - 4c = 0 instead of b² - 4ac = 0."
+            },
+            {
+              option_letter: "B",
+              option_text: "k = 16",
+              is_correct: false,
+              likely_misconception_title: "Forgetting the Factor of 4 in 4ac",
+              likely_misconception_explanation: "The student set b² - ac = 0, giving 64 - 2k = 0 → k = 32 or halved 64 incorrectly to 16."
+            },
+            {
+              option_letter: "C",
+              option_text: "k = 8",
+              is_correct: true,
+              likely_misconception_title: null,
+              likely_misconception_explanation: null
+            },
+            {
+              option_letter: "D",
+              option_text: "k = -8",
+              is_correct: false,
+              likely_misconception_title: "Sign Error in Discriminant Formulation",
+              likely_misconception_explanation: "The student made a sign error when transposing -4ac across the equals sign, arriving at k = -8."
+            }
+          ]
+        },
+        {
+          question_id: "MTH-ALG-01-Q2",
+          exam_source: "JAMB UTME 2021 Question 14",
+          question_text: "What is the nature of the roots of the quadratic equation 3x² + 5x + 4 = 0?",
+          diagram_svg: null,
+          correct_option: "D",
+          options: [
+            {
+              option_letter: "A",
+              option_text: "Real, rational and unequal.",
+              is_correct: false,
+              likely_misconception_title: "Positive Discriminant Assumption",
+              likely_misconception_explanation: "The student assumes all quadratic equations with positive coefficients have real roots without calculating b² - 4ac = 25 - 48 = -23."
+            },
+            {
+              option_letter: "B",
+              option_text: "Real, irrational and unequal.",
+              is_correct: false,
+              likely_misconception_title: "Non-Square Number Confusion with Negative Discriminant",
+              likely_misconception_explanation: "The student saw that 23 is not a perfect square and thought of irrational roots, ignoring the negative sign (-23) which makes the roots non-real."
+            },
+            {
+              option_letter: "C",
+              option_text: "Real and equal.",
+              is_correct: false,
+              likely_misconception_title: "Equating Non-Zero Discriminant to Zero",
+              likely_misconception_explanation: "The student guessed equal roots without evaluating the discriminant."
+            },
+            {
+              option_letter: "D",
+              option_text: "No real roots (complex or imaginary roots).",
+              is_correct: true,
+              likely_misconception_title: null,
+              likely_misconception_explanation: null
+            }
+          ]
+        },
+        {
+          question_id: "MTH-ALG-01-Q3",
+          exam_source: "WASSCE 2020 Question 11",
+          question_text: "If the discriminant (b² - 4ac) of a quadratic equation with integer coefficients is equal to +49, the roots of the equation must be:",
+          diagram_svg: null,
+          correct_option: "A",
+          options: [
+            {
+              option_letter: "A",
+              option_text: "Real, rational and unequal.",
+              is_correct: true,
+              likely_misconception_title: null,
+              likely_misconception_explanation: null
+            },
+            {
+              option_letter: "B",
+              option_text: "Real, irrational and unequal.",
+              is_correct: false,
+              likely_misconception_title: "Failing to Recognize Perfect Square in Discriminant",
+              likely_misconception_explanation: "Because 49 is a perfect square (7²), the square root is a whole rational integer, so the roots are rational, not irrational."
+            },
+            {
+              option_letter: "C",
+              option_text: "Real and equal.",
+              is_correct: false,
+              likely_misconception_title: "Confusing Discriminant > 0 with Discriminant = 0",
+              likely_misconception_explanation: "Roots are only equal when the discriminant equals zero; any positive value produces two distinct unequal roots."
+            },
+            {
+              option_letter: "D",
+              option_text: "Non-real and imaginary.",
+              is_correct: false,
+              likely_misconception_title: "Inverting Real vs Imaginary Discriminant Condition",
+              likely_misconception_explanation: "The student confused the condition for non-real roots (< 0) with a positive number (> 0)."
+            }
+          ]
+        },
+        {
+          question_id: "MTH-ALG-01-Q4",
+          exam_source: "JAMB UTME 2019 Question 8",
+          question_text: "Find the discriminant of the quadratic equation x² - 6x + 9 = 0 and deduce the nature of its roots.",
+          diagram_svg: null,
+          correct_option: "B",
+          options: [
+            {
+              option_letter: "A",
+              option_text: "Δ = 72; roots are real and unequal.",
+              is_correct: false,
+              likely_misconception_title: "Adding Instead of Subtracting 4ac (b² + 4ac)",
+              likely_misconception_explanation: "The student calculated (-6)² + 4(1)(9) = 36 + 36 = 72, accidentally adding instead of subtracting 4ac."
+            },
+            {
+              option_letter: "B",
+              option_text: "Δ = 0; roots are real and equal (a repeated root x = 3).",
+              is_correct: true,
+              likely_misconception_title: null,
+              likely_misconception_explanation: null
+            },
+            {
+              option_letter: "C",
+              option_text: "Δ = -72; no real roots.",
+              is_correct: false,
+              likely_misconception_title: "Squaring Negative Sign Error",
+              likely_misconception_explanation: "The student evaluated (-6)² as -36, giving -36 - 36 = -72, failing to know that the square of any real number is positive."
+            },
+            {
+              option_letter: "D",
+              option_text: "Δ = 18; roots are irrational.",
+              is_correct: false,
+              likely_misconception_title: "Incomplete Multiplication Error",
+              likely_misconception_explanation: "The student computed 36 - 18 = 18 by omitting the factor of 4 or 2."
+            }
+          ]
+        },
+        {
+          question_id: "MTH-ALG-01-Q5",
+          exam_source: "WASSCE 2018 Question 16",
+          question_text: "If a quadratic equation ax² + bx + c = 0 has roots α and β, which of the following expressions represents the sum of the roots (α + β)?",
+          diagram_svg: null,
+          correct_option: "A",
+          options: [
+            {
+              option_letter: "A",
+              option_text: "-b / a",
+              is_correct: true,
+              likely_misconception_title: null,
+              likely_misconception_explanation: null
+            },
+            {
+              option_letter: "B",
+              option_text: "b / a",
+              is_correct: false,
+              likely_misconception_title: "Missing Negative Sign in Vieta's Formula for Sum of Roots",
+              likely_misconception_explanation: "The student forgot the critical negative sign in Vieta's formula; α + β = -b/a, whereas c/a is the product αβ."
+            },
+            {
+              option_letter: "C",
+              option_text: "c / a",
+              is_correct: false,
+              likely_misconception_title: "Confusing Sum of Roots with Product of Roots",
+              likely_misconception_explanation: "c/a is the product of roots (α × β), not the sum of roots."
+            },
+            {
+              option_letter: "D",
+              option_text: "-c / a",
+              is_correct: false,
+              likely_misconception_title: "Double Confusion of Sign and Formula Type",
+              likely_misconception_explanation: "The student inverted the sign of the product of roots instead of using the linear coefficient b."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+};
+
+// CommonJS export if running in Node.js
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = { CURRICULUM_DATA };
+}
+
+</script>
+  <script id="inlined-app-js">
+// TalkPDF — Core Diagnostic Assessment & Misconception Diagnosis Logic
+// Implements Feature #1 (Curriculum-Linked Diagnostic Assessment: SCR-01 & SCR-02)
+// and Feature #2 (Root-Cause Misconception Diagnosis: FR-02 & SCR-03)
+
+(function () {
+  'use strict';
+
+  // State
+  const state = {
+    student: {
+      name: "Samuel Okon",
+      exam: "WAEC",
+      streak: 3
+    },
+    activeExam: "WAEC",
+    activeSubject: "Physics",
+    searchQuery: "",
+    selectedObjectiveId: "PHY-EM-01",
+    audioLanguage: "en", // en, pcm, yo, ha, ig
+    lowDataMode: false,
+    session: {
+      active: false,
+      stage: "SETUP", // SETUP, QUIZ, DIAGNOSIS, MASTERY
+      objective: null,
+      currentIndex: 0,
+      responses: [], // { question_id, selected_option, is_correct, gap_title, gap_explanation }
+      diagnosedGaps: [], // Array of isolated misconception objects
+      activeGapIndex: 0,
+      startTime: null
+    }
+  };
+
+  const STORAGE_KEY = "talkpdf_active_diagnostic_session";
+
+  // DOM Elements
+  const el = typeof document !== "undefined" ? {
+    // Top Bar
+    studentName: document.getElementById("studentName"),
+    streakCount: document.getElementById("streakCount"),
+    lowDataToggle: document.getElementById("lowDataToggle"),
+    lowDataText: document.getElementById("lowDataText"),
+
+    // Views
+    viewSetup: document.getElementById("viewSetup"),
+    viewQuiz: document.getElementById("viewQuiz"),
+    viewDiagnosis: document.getElementById("viewDiagnosis"),
+    viewExplainBack: document.getElementById("viewExplainBack"),
+    viewMastery: document.getElementById("viewMastery"),
+
+    // Setup (SCR-01)
+    tabWaec: document.getElementById("tabWaec"),
+    tabJamb: document.getElementById("tabJamb"),
+    subjectSelect: document.getElementById("subjectSelect"),
+    topicSearchInput: document.getElementById("topicSearchInput"),
+    topicList: document.getElementById("topicList"),
+    btnStartDiagnostic: document.getElementById("btnStartDiagnostic"),
+
+    // Quiz (SCR-02)
+    stepIndicator: document.getElementById("stepIndicator"),
+    quizTopicTag: document.getElementById("quizTopicTag"),
+    progressFill: document.getElementById("progressFill"),
+    sourceBadge: document.getElementById("sourceBadge"),
+    questionText: document.getElementById("questionText"),
+    diagramContainer: document.getElementById("diagramContainer"),
+    optionsList: document.getElementById("optionsList"),
+    btnPrevQuestion: document.getElementById("btnPrevQuestion"),
+    btnNextQuestion: document.getElementById("btnNextQuestion"),
+
+    // Diagnosis (SCR-03 / FR-02)
+    diagAlertSub: document.getElementById("diagAlertSub"),
+    diagScoreBadge: document.getElementById("diagScoreBadge"),
+    gapTabsContainer: document.getElementById("gapTabsContainer"),
+    diagSourceTag: document.getElementById("diagSourceTag"),
+    diagQuestionText: document.getElementById("diagQuestionText"),
+    diagDiagramContainer: document.getElementById("diagDiagramContainer"),
+    pickedLetterPill: document.getElementById("pickedLetterPill"),
+    pickedOptionText: document.getElementById("pickedOptionText"),
+    correctLetterPill: document.getElementById("correctLetterPill"),
+    correctOptionText: document.getElementById("correctOptionText"),
+    trapTitle: document.getElementById("trapTitle"),
+    trapFraming: document.getElementById("trapFraming"),
+    trapAnalysis: document.getElementById("trapAnalysis"),
+    btnToggleReview: document.getElementById("btnToggleReview"),
+    toggleChevron: document.getElementById("toggleChevron"),
+    reviewListContainer: document.getElementById("reviewListContainer"),
+    questionsReviewList: document.getElementById("questionsReviewList"),
+    btnExplainBack: document.getElementById("btnExplainBack"),
+    btnDiagRetake: document.getElementById("btnDiagRetake"),
+    btnDiagNewTopic: document.getElementById("btnDiagNewTopic"),
+
+    // Targeted Conceptual Micro-Intervention (FR-03)
+    microInterventionCard: document.getElementById("microInterventionCard"),
+    readTimeText: document.getElementById("readTimeText"),
+    interventionHeadline: document.getElementById("interventionHeadline"),
+    interventionParagraphs: document.getElementById("interventionParagraphs"),
+    takeawayRuleName: document.getElementById("takeawayRuleName"),
+    takeawayFormula: document.getElementById("takeawayFormula"),
+    takeawaySummary: document.getElementById("takeawaySummary"),
+    btnAudioPlay: document.getElementById("btnAudioPlay"),
+    audioIconPlay: document.getElementById("audioIconPlay"),
+    audioIconPause: document.getElementById("audioIconPause"),
+    audioTitle: document.getElementById("audioTitle"),
+    audioTrackFill: document.getElementById("audioTrackFill"),
+    audioTime: document.getElementById("audioTime"),
+    audioLangPills: document.getElementById("audioLangPills"),
+    activeLangTag: document.getElementById("activeLangTag"),
+    audioLangIndicator: document.getElementById("audioLangIndicator"),
+    audioTranscriptCard: document.getElementById("audioTranscriptCard"),
+    transcriptLangPill: document.getElementById("transcriptLangPill"),
+    audioTranscriptText: document.getElementById("audioTranscriptText"),
+
+    // Explain-Back Active Recall Input (SCR-04 / FR-04)
+    explainBackChallengePrompt: document.getElementById("explainBackChallengePrompt"),
+    explainBackInput: document.getElementById("explainBackInput"),
+    wordCounterPill: document.getElementById("wordCounterPill"),
+    autoSavePill: document.getElementById("autoSavePill"),
+    btnVoiceDictate: document.getElementById("btnVoiceDictate"),
+    dictateBtnText: document.getElementById("dictateBtnText"),
+    btnCheckExplanation: document.getElementById("btnCheckExplanation"),
+    btnBackToLesson: document.getElementById("btnBackToLesson"),
+
+    // Explain-Back Evaluation & Feedback Panel (FR-05)
+    pinnedHintBanner: document.getElementById("pinnedHintBanner"),
+    pinnedHintText: document.getElementById("pinnedHintText"),
+    explainInitialActions: document.getElementById("explainInitialActions"),
+    evaluationFeedbackPanel: document.getElementById("evaluationFeedbackPanel"),
+    evalResultBanner: document.getElementById("evalResultBanner"),
+    evalStatusPill: document.getElementById("evalStatusPill"),
+    evalBadgeTier: document.getElementById("evalBadgeTier"),
+    evalScoreOverall: document.getElementById("evalScoreOverall"),
+    evalResultTitle: document.getElementById("evalResultTitle"),
+    evalResultSummary: document.getElementById("evalResultSummary"),
+    targetedHintBox: document.getElementById("targetedHintBox"),
+    targetedHintText: document.getElementById("targetedHintText"),
+    scoreSimplicity: document.getElementById("scoreSimplicity"),
+    barSimplicity: document.getElementById("barSimplicity"),
+    scoreAccuracy: document.getElementById("scoreAccuracy"),
+    barAccuracy: document.getElementById("barAccuracy"),
+    scoreAnalogies: document.getElementById("scoreAnalogies"),
+    barAnalogies: document.getElementById("barAnalogies"),
+    scoreComposite: document.getElementById("scoreComposite"),
+    barComposite: document.getElementById("barComposite"),
+    btnTryRevision: document.getElementById("btnTryRevision"),
+    btnProceedToVerification: document.getElementById("btnProceedToVerification"),
+
+    // Mastery View
+    masteryStudentName: document.getElementById("masteryStudentName"),
+    btnMasteryNextTopic: document.getElementById("btnMasteryNextTopic"),
+    btnMasteryRetake: document.getElementById("btnMasteryRetake")
+  } : {};
+
+  // Audio Playback State (FR-03 - Real Speech & Web Audio Sound)
+  let audioTimer = null;
+  let audioCurrentSec = 0;
+  const audioTotalSec = 45;
+  let isAudioPlaying = false;
+  let speechUtterance = null;
+
+  // Explain-Back Voice Dictation State (FR-12)
+  let speechRecognizer = null;
+  let isDictating = false;
+
+  // -------------------------------------------------------------
+  // Initialization & Local Storage Session Recovery (FR-10)
+  // -------------------------------------------------------------
+  function init() {
+    loadSavedSession();
+    renderSetupView();
+    bindEvents();
+  }
+
+  function loadSavedSession() {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed && parsed.objective) {
+          state.session = parsed;
+          state.selectedObjectiveId = parsed.objective.objective_id;
+          state.activeExam = parsed.objective.exam_type;
+          state.activeSubject = parsed.objective.subject;
+          state.lowDataMode = !!parsed.lowDataMode;
+          updateLowDataUI();
+
+          if (parsed.stage === "QUIZ" && parsed.active) {
+            showView("quiz");
+            renderQuizQuestion();
+            return;
+          } else if (parsed.stage === "DIAGNOSIS") {
+            showView("diagnosis");
+            renderDiagnosisView();
+            return;
+          } else if (parsed.stage === "EXPLAIN_BACK") {
+            showView("explainBack");
+            renderExplainBackView();
+            return;
+          } else if (parsed.stage === "MASTERY") {
+            showView("mastery");
+            renderMasteryView();
+            return;
+          }
+        }
+      }
+    } catch (err) {
+      console.warn("Could not parse saved session from localStorage:", err);
+    }
+    showView("setup");
+  }
+
+  function saveSessionToStorage() {
+    try {
+      if (state.session.stage !== "SETUP") {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          ...state.session,
+          lowDataMode: state.lowDataMode
+        }));
+      } else {
+        localStorage.removeItem(STORAGE_KEY);
+      }
+    } catch (err) {
+      console.warn("Failed to persist session to localStorage:", err);
+    }
+  }
+
+  // -------------------------------------------------------------
+  // View Routing
+  // -------------------------------------------------------------
+  function showView(viewName) {
+    el.viewSetup.classList.remove("active");
+    el.viewQuiz.classList.remove("active");
+    el.viewDiagnosis.classList.remove("active");
+    el.viewExplainBack.classList.remove("active");
+    el.viewMastery.classList.remove("active");
+
+    if (viewName === "setup") {
+      el.viewSetup.classList.add("active");
+    } else if (viewName === "quiz") {
+      el.viewQuiz.classList.add("active");
+    } else if (viewName === "diagnosis") {
+      el.viewDiagnosis.classList.add("active");
+    } else if (viewName === "explainBack") {
+      el.viewExplainBack.classList.add("active");
+    } else if (viewName === "mastery") {
+      el.viewMastery.classList.add("active");
+    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  // -------------------------------------------------------------
+  // SCR-01: Setup & Topic Selection Rendering & Logic
+  // -------------------------------------------------------------
+  function renderSetupView() {
+    el.tabWaec.classList.toggle("active", state.activeExam === "WAEC");
+    el.tabJamb.classList.toggle("active", state.activeExam === "JAMB");
+
+    const query = state.searchQuery.toLowerCase().trim();
+    const filtered = CURRICULUM_DATA.objectives.filter(obj => {
+      const matchesExam = obj.exam_type === state.activeExam;
+      const matchesSubject = obj.subject === state.activeSubject;
+      const matchesSearch = !query ||
+        obj.subtopic_title.toLowerCase().includes(query) ||
+        obj.topic.toLowerCase().includes(query) ||
+        obj.objective_id.toLowerCase().includes(query);
+      return matchesExam && matchesSubject && matchesSearch;
+    });
+
+    el.topicList.innerHTML = "";
+
+    if (filtered.length === 0) {
+      el.topicList.innerHTML = `
+        <div style="padding: 24px; text-align: center; color: var(--text-muted); font-size: 0.9rem;">
+          No syllabus objectives found matching "${state.searchQuery}" for ${state.activeExam} ${state.activeSubject}.
+        </div>
+      `;
+      el.btnStartDiagnostic.disabled = true;
+      return;
+    }
+
+    const hasCurrent = filtered.some(o => o.objective_id === state.selectedObjectiveId);
+    if (!hasCurrent) {
+      state.selectedObjectiveId = filtered[0].objective_id;
+    }
+
+    filtered.forEach(obj => {
+      const card = document.createElement("div");
+      const isSelected = obj.objective_id === state.selectedObjectiveId;
+      card.className = `topic-card ${isSelected ? "selected" : ""}`;
+      card.dataset.id = obj.objective_id;
+
+      card.innerHTML = `
+        <div class="topic-card-header">
+          <span class="code-pill">${obj.objective_id}</span>
+          <span class="exam-pill">${obj.exam_type} • ${obj.subject}</span>
+        </div>
+        <div class="topic-title">${obj.subtopic_title}</div>
+        <div class="topic-statement">${obj.objective_statement}</div>
+        <div class="topic-meta-row">
+          <div class="topic-meta-left">
+            <span>⏱️ 5 Questions • ~8 mins</span>
+            <span>🎯 100% Syllabus Aligned</span>
+          </div>
+          <span class="badge-free">Free Diagnostic</span>
+        </div>
+      `;
+
+      card.addEventListener("click", () => {
+        state.selectedObjectiveId = obj.objective_id;
+        document.querySelectorAll(".topic-card").forEach(c => c.classList.remove("selected"));
+        card.classList.add("selected");
+        el.btnStartDiagnostic.disabled = false;
+      });
+
+      el.topicList.appendChild(card);
+    });
+
+    el.btnStartDiagnostic.disabled = !state.selectedObjectiveId;
+  }
+
+  function startDiagnosticQuiz() {
+    const targetObj = CURRICULUM_DATA.objectives.find(o => o.objective_id === state.selectedObjectiveId);
+    if (!targetObj) return;
+
+    state.session = {
+      active: true,
+      stage: "QUIZ",
+      objective: targetObj,
+      currentIndex: 0,
+      responses: new Array(targetObj.questions.length).fill(null),
+      diagnosedGaps: [],
+      activeGapIndex: 0,
+      startTime: Date.now()
+    };
+
+    saveSessionToStorage();
+    showView("quiz");
+    renderQuizQuestion();
+  }
+
+  // -------------------------------------------------------------
+  // SCR-02: 5-Question Diagnostic Quiz Rendering & Logic
+  // -------------------------------------------------------------
+  function renderQuizQuestion() {
+    const session = state.session;
+    const qIndex = session.currentIndex;
+    const question = session.objective.questions[qIndex];
+    const totalQuestions = session.objective.questions.length;
+
+    el.stepIndicator.textContent = `Question ${qIndex + 1} of ${totalQuestions}`;
+    el.quizTopicTag.textContent = `${session.objective.subject}: ${session.objective.topic}`;
+    const percent = Math.round(((qIndex + 1) / totalQuestions) * 100);
+    el.progressFill.style.width = `${percent}%`;
+
+    el.sourceBadge.textContent = question.exam_source;
+    el.questionText.textContent = question.question_text;
+
+    // Diagram / Low-Data Fallback (FR-08)
+    if (question.diagram_svg) {
+      el.diagramContainer.style.display = "block";
+      if (state.lowDataMode) {
+        el.diagramContainer.innerHTML = `
+          <div class="low-data-omitted-notice">
+            [Low-Data Mode Active: Circuit schematic diagram hidden to conserve data]
+          </div>
+        `;
+      } else {
+        el.diagramContainer.innerHTML = question.diagram_svg;
+      }
+    } else {
+      el.diagramContainer.style.display = "none";
+      el.diagramContainer.innerHTML = "";
+    }
+
+    // Options (A, B, C, D)
+    el.optionsList.innerHTML = "";
+    const savedResponse = session.responses[qIndex];
+
+    question.options.forEach(opt => {
+      const optCard = document.createElement("div");
+      const isSelected = savedResponse && savedResponse.selected_option === opt.option_letter;
+      optCard.className = `option-card ${isSelected ? "selected" : ""}`;
+      optCard.dataset.letter = opt.option_letter;
+
+      optCard.innerHTML = `
+        <div class="option-letter">${opt.option_letter}</div>
+        <div class="option-body">${opt.option_text}</div>
+      `;
+
+      optCard.addEventListener("click", () => {
+        handleOptionSelected(opt);
+      });
+
+      el.optionsList.appendChild(optCard);
+    });
+
+    el.btnPrevQuestion.disabled = (qIndex === 0);
+    const hasSelection = !!session.responses[qIndex];
+    el.btnNextQuestion.disabled = !hasSelection;
+
+    if (qIndex === totalQuestions - 1) {
+      el.btnNextQuestion.innerHTML = `
+        <span>Submit Final Answer</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      `;
+    } else {
+      el.btnNextQuestion.innerHTML = `
+        <span>Next Question</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      `;
+    }
+  }
+
+  function handleOptionSelected(option) {
+    const session = state.session;
+    const qIndex = session.currentIndex;
+    const question = session.objective.questions[qIndex];
+
+    session.responses[qIndex] = {
+      question_id: question.question_id,
+      selected_option: option.option_letter,
+      is_correct: option.is_correct,
+      gap_title: option.likely_misconception_title,
+      gap_framing: option.misconception_framing_statement || (option.likely_misconception_title ? `You likely confused ${option.likely_misconception_title.toLowerCase()}.` : null),
+      gap_explanation: option.likely_misconception_explanation
+    };
+
+    saveSessionToStorage();
+
+    document.querySelectorAll(".option-card").forEach(c => {
+      const match = c.dataset.letter === option.option_letter;
+      c.classList.toggle("selected", match);
+    });
+
+    el.btnNextQuestion.disabled = false;
+  }
+
+  function handleNextQuestion() {
+    const session = state.session;
+    const totalQuestions = session.objective.questions.length;
+
+    if (session.currentIndex < totalQuestions - 1) {
+      session.currentIndex++;
+      saveSessionToStorage();
+      renderQuizQuestion();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      finalizeDiagnostic();
+    }
+  }
+
+  function handlePrevQuestion() {
+    const session = state.session;
+    if (session.currentIndex > 0) {
+      session.currentIndex--;
+      saveSessionToStorage();
+      renderQuizQuestion();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }
+
+  // -------------------------------------------------------------
+  // SCR-03: Root-Cause Misconception Diagnosis Engine (FR-02)
+  // -------------------------------------------------------------
+  function finalizeDiagnostic() {
+    const session = state.session;
+    const total = session.objective.questions.length;
+    let correctCount = 0;
+    const gaps = [];
+
+    session.responses.forEach((resp, i) => {
+      const q = session.objective.questions[i];
+      if (resp && resp.is_correct) {
+        correctCount++;
+      } else if (resp && !resp.is_correct) {
+        const chosenOpt = q.options.find(o => o.option_letter === resp.selected_option);
+        const correctOpt = q.options.find(o => o.option_letter === q.correct_option);
+
+        gaps.push({
+          question_index: i,
+          question: q,
+          response: resp,
+          chosenOpt: chosenOpt,
+          correctOpt: correctOpt,
+          title: resp.gap_title || chosenOpt.likely_misconception_title || "Conceptual Misunderstanding",
+          framing: resp.gap_framing || chosenOpt.misconception_framing_statement || `You likely confused ${chosenOpt.likely_misconception_title || "the core concept"}.`,
+          explanation: resp.gap_explanation || chosenOpt.likely_misconception_explanation || "The selected choice indicates confusion with fundamental syllabus rules."
+        });
+      }
+    });
+
+    session.diagnosedGaps = gaps;
+    session.activeGapIndex = 0;
+    session.active = false;
+
+    if (gaps.length === 0) {
+      session.stage = "MASTERY";
+      saveSessionToStorage();
+      renderMasteryView(correctCount, total);
+      showView("mastery");
+    } else {
+      session.stage = "DIAGNOSIS";
+      saveSessionToStorage();
+      renderDiagnosisView(correctCount, total);
+      showView("diagnosis");
+    }
+  }
+
+  function renderDiagnosisView(passedCount, total) {
+    const session = state.session;
+    const gaps = session.diagnosedGaps;
+    const totalQuestions = total || (session.objective ? session.objective.questions.length : 5);
+    const score = passedCount !== undefined ? passedCount : (totalQuestions - gaps.length);
+
+    el.diagScoreBadge.textContent = `Score: ${score}/${totalQuestions}`;
+    el.diagAlertSub.textContent = `Diagnostic detected ${gaps.length} conceptual learning gap${gaps.length > 1 ? 's' : ''} in ${session.objective.subject}: ${session.objective.topic}.`;
+
+    // Multi-gap tabs
+    if (gaps.length > 1) {
+      el.gapTabsContainer.style.display = "flex";
+      el.gapTabsContainer.innerHTML = "";
+      gaps.forEach((g, idx) => {
+        const tab = document.createElement("button");
+        tab.className = `gap-tab-btn ${idx === session.activeGapIndex ? "active" : ""}`;
+        tab.textContent = `Gap ${idx + 1}: ${g.question.exam_source.split(' ')[0]} Q${g.question_index + 1}`;
+        tab.addEventListener("click", () => {
+          session.activeGapIndex = idx;
+          saveSessionToStorage();
+          renderActiveGapDetails();
+        });
+        el.gapTabsContainer.appendChild(tab);
+      });
+    } else {
+      el.gapTabsContainer.style.display = "none";
+    }
+
+    renderActiveGapDetails();
+    renderAuditReviewList();
+  }
+
+  function renderActiveGapDetails() {
+    const session = state.session;
+    const gaps = session.diagnosedGaps;
+    if (!gaps || gaps.length === 0) return;
+
+    const currentGap = gaps[session.activeGapIndex] || gaps[0];
+    const q = currentGap.question;
+    const chosen = currentGap.chosenOpt;
+    const correct = currentGap.correctOpt;
+
+    // Update gap tab highlight
+    document.querySelectorAll(".gap-tab-btn").forEach((b, idx) => {
+      b.classList.toggle("active", idx === session.activeGapIndex);
+    });
+
+    // Problem context
+    el.diagSourceTag.textContent = `${q.exam_source} • ${session.objective.subtopic_title}`;
+    el.diagQuestionText.textContent = q.question_text;
+
+    if (q.diagram_svg && !state.lowDataMode) {
+      el.diagDiagramContainer.style.display = "block";
+      el.diagDiagramContainer.innerHTML = q.diagram_svg;
+    } else {
+      el.diagDiagramContainer.style.display = "none";
+      el.diagDiagramContainer.innerHTML = "";
+    }
+
+    // Side-by-side contrast
+    el.pickedLetterPill.textContent = `Option ${chosen ? chosen.option_letter : '?'}`;
+    el.pickedOptionText.textContent = chosen ? chosen.option_text : 'No option chosen';
+
+    el.correctLetterPill.textContent = `Option ${correct ? correct.option_letter : '?'}`;
+    el.correctOptionText.textContent = correct ? correct.option_text : 'N/A';
+
+    // Cognitive Trap Breakdown
+    el.trapTitle.textContent = currentGap.title;
+    el.trapFraming.textContent = `“${currentGap.framing}”`;
+    el.trapAnalysis.textContent = currentGap.explanation;
+
+    // Targeted Conceptual Micro-Intervention (FR-03 / SCR-03)
+    renderMicroIntervention(session.objective, currentGap);
+  }
+
+  function renderMicroIntervention(objective, currentGap) {
+    resetAudioPlayback();
+    const intervention = objective.micro_intervention;
+    if (!intervention) return;
+
+    el.readTimeText.textContent = intervention.read_time || "60–90s Read";
+    el.interventionHeadline.textContent = intervention.headline || "Here is the rule you need to know:";
+
+    // Render 3 plain-English paragraphs
+    el.interventionParagraphs.innerHTML = "";
+    if (intervention.paragraphs && intervention.paragraphs.length > 0) {
+      intervention.paragraphs.forEach(pText => {
+        const p = document.createElement("p");
+        p.className = "intervention-paragraph";
+        p.textContent = pText;
+        el.interventionParagraphs.appendChild(p);
+      });
+    }
+
+    // Render Key Takeaway formula box
+    if (intervention.key_takeaway) {
+      el.takeawayRuleName.textContent = intervention.key_takeaway.rule_name || objective.subtopic_title;
+      el.takeawayFormula.textContent = intervention.key_takeaway.formula || "";
+      el.takeawaySummary.textContent = intervention.key_takeaway.summary || "";
+    }
+
+    // Audio Snippet Information & Multilingual Sync
+    if (intervention.audio_snippet) {
+      el.audioTitle.textContent = intervention.audio_snippet.title || `${currentGap.title} Audio Lesson`;
+      el.audioTime.textContent = `0:00 / ${intervention.audio_snippet.duration || "0:45"}`;
+    }
+    updateAudioLanguageUI();
+  }
+
+  // -------------------------------------------------------------
+  // Real Audio Sound & Multilingual Nigerian Speech Synthesis (FR-03)
+  // -------------------------------------------------------------
+  function setAudioLanguage(langCode) {
+    state.audioLanguage = langCode;
+    const wasPlaying = isAudioPlaying;
+    if (wasPlaying) {
+      resetAudioPlayback();
+    }
+
+    if (el.audioLangPills) {
+      const pills = el.audioLangPills.querySelectorAll(".lang-pill");
+      pills.forEach(btn => {
+        if (btn.getAttribute("data-lang") === langCode) {
+          btn.classList.add("active");
+        } else {
+          btn.classList.remove("active");
+        }
+      });
+    }
+
+    updateAudioLanguageUI();
+
+    if (wasPlaying) {
+      startAudioPlayback();
+    }
+  }
+
+  function updateAudioLanguageUI() {
+    const objective = state.session && state.session.objective;
+    const lang = state.audioLanguage || "en";
+    const snippet = objective && objective.micro_intervention && objective.micro_intervention.audio_snippet;
+    const translations = snippet && snippet.translations;
+    const translation = translations && translations[lang];
+
+    const langLabels = {
+      en: { name: "English", label: "English (Standard)" },
+      pcm: { name: "Pidgin", label: "Nigerian Pidgin" },
+      yo: { name: "Yorùbá", label: "Yorùbá" },
+      ha: { name: "Hausa", label: "Hausa" },
+      ig: { name: "Igbo", label: "Igbo" }
+    };
+
+    const currentMeta = (translation && { name: translation.lang_name, label: translation.label }) || langLabels[lang] || langLabels.en;
+
+    if (el.activeLangTag) {
+      el.activeLangTag.textContent = currentMeta.label || currentMeta.name;
+    }
+    if (el.audioLangIndicator) {
+      el.audioLangIndicator.textContent = `Voice Lesson (${currentMeta.name})`;
+    }
+    if (el.transcriptLangPill) {
+      el.transcriptLangPill.textContent = currentMeta.name;
+    }
+    if (el.audioTranscriptText) {
+      el.audioTranscriptText.textContent = (translation && translation.script) || getInterventionSpokenText(objective, lang);
+    }
+  }
+
+  function playChime() {
+    try {
+      if (typeof window === "undefined") return;
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+      if (ctx.state === 'suspended') {
+        ctx.resume();
+      }
+      const now = ctx.currentTime;
+      const osc1 = ctx.createOscillator();
+      const osc2 = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      osc1.type = 'sine';
+      osc1.frequency.setValueAtTime(523.25, now); // C5
+      osc2.type = 'sine';
+      osc2.frequency.setValueAtTime(659.25, now + 0.1); // E5
+
+      gain.gain.setValueAtTime(0.12, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+
+      osc1.connect(gain);
+      osc2.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc1.start(now);
+      osc1.stop(now + 0.12);
+      osc2.start(now + 0.1);
+      osc2.stop(now + 0.5);
+    } catch (e) {
+      console.warn("Chime playback error:", e);
+    }
+  }
+
+  function getInterventionSpokenText(objective, langCode) {
+    const lang = langCode || state.audioLanguage || "en";
+    if (objective && objective.micro_intervention && objective.micro_intervention.audio_snippet) {
+      const translations = objective.micro_intervention.audio_snippet.translations;
+      if (translations && translations[lang]) {
+        // Use phonetically tuned pronunciation script for speech synthesis so it sounds natural without spelling letters
+        if (translations[lang].spoken_phonetic) {
+          return translations[lang].spoken_phonetic;
+        }
+        if (translations[lang].script) {
+          return translations[lang].script;
+        }
+      }
+      if (translations && translations.en) {
+        return translations.en.spoken_phonetic || translations.en.script;
+      }
+    }
+    if (!objective || !objective.micro_intervention) {
+      return "Here is the key scientific rule you need to know for your exam.";
+    }
+    const intervention = objective.micro_intervention;
+    let parts = [];
+    if (intervention.headline) parts.push(intervention.headline);
+    if (intervention.paragraphs && intervention.paragraphs.length > 0) {
+      parts.push(...intervention.paragraphs);
+    }
+    if (intervention.key_takeaway && intervention.key_takeaway.summary) {
+      parts.push("Remember: " + intervention.key_takeaway.summary);
+    }
+    return parts.join(" ");
+  }
+
+  function playAudioLesson(text, langCode) {
+    if (typeof window === "undefined" || !('speechSynthesis' in window)) return;
+
+    try {
+      window.speechSynthesis.cancel();
+
+      speechUtterance = new SpeechSynthesisUtterance(text);
+
+      // Anglophone phonetic syllable tuning: Steady, rhythmic cadence for Nigerian African phonetics
+      if (langCode === 'yo' || langCode === 'ig' || langCode === 'ha') {
+        speechUtterance.rate = 0.88; // Deliberate phonetic pacing for African phonemes
+        speechUtterance.pitch = 1.02;
+      } else if (langCode === 'pcm') {
+        speechUtterance.rate = 0.92; // Natural Nigerian Pidgin conversational rhythm
+        speechUtterance.pitch = 1.0;
+      } else {
+        speechUtterance.rate = 0.96;
+        speechUtterance.pitch = 1.0;
+      }
+
+      const voices = window.speechSynthesis.getVoices();
+      let voice = null;
+      if (langCode === 'yo') {
+        voice = voices.find(v => v.lang.toLowerCase().includes('yo')) ||
+                voices.find(v => v.lang.includes('en-NG')) ||
+                voices.find(v => v.lang.includes('en-GB')) ||
+                voices.find(v => v.lang.startsWith('en'));
+      } else if (langCode === 'ha') {
+        voice = voices.find(v => v.lang.toLowerCase().includes('ha')) ||
+                voices.find(v => v.lang.includes('en-NG')) ||
+                voices.find(v => v.lang.includes('en-GB')) ||
+                voices.find(v => v.lang.startsWith('en'));
+      } else if (langCode === 'ig') {
+        voice = voices.find(v => v.lang.toLowerCase().includes('ig')) ||
+                voices.find(v => v.lang.includes('en-NG')) ||
+                voices.find(v => v.lang.includes('en-GB')) ||
+                voices.find(v => v.lang.startsWith('en'));
+      } else if (langCode === 'pcm') {
+        // Nigerian English voice delivers authentic Pidgin rhythm
+        voice = voices.find(v => v.lang.includes('en-NG')) ||
+                voices.find(v => v.lang.includes('en-GB')) ||
+                voices.find(v => v.lang.startsWith('en'));
+      } else {
+        voice = voices.find(v => v.lang.includes('en-NG')) ||
+                voices.find(v => v.lang.includes('en-GB')) ||
+                voices.find(v => v.lang.includes('en-US')) ||
+                voices.find(v => v.lang.startsWith('en'));
+      }
+
+      if (voice) {
+        speechUtterance.voice = voice;
+      }
+
+      speechUtterance.onend = () => {
+        resetAudioPlayback();
+      };
+
+      speechUtterance.onerror = (e) => {
+        console.warn("Speech synthesis notice:", e);
+        resetAudioPlayback();
+      };
+
+      window.speechSynthesis.speak(speechUtterance);
+    } catch (err) {
+      console.warn("Failed to speak audio lesson:", err);
+    }
+  }
+
+  function toggleAudioPlayback() {
+    if (isAudioPlaying) {
+      pauseAudioPlayback();
+    } else {
+      startAudioPlayback();
+    }
+  }
+
+  function startAudioPlayback() {
+    isAudioPlaying = true;
+    if (el.btnAudioPlay) el.btnAudioPlay.classList.add("playing");
+    if (el.audioIconPlay) el.audioIconPlay.style.display = "none";
+    if (el.audioIconPause) el.audioIconPause.style.display = "block";
+
+    // Produce real audible start chime
+    playChime();
+
+    // Produce real audible spoken voice lesson in selected Nigerian language
+    const objective = state.session.objective;
+    const lang = state.audioLanguage || "en";
+    const spokenText = getInterventionSpokenText(objective, lang);
+
+    if (typeof window !== "undefined" && 'speechSynthesis' in window) {
+      if (window.speechSynthesis.paused && speechUtterance) {
+        window.speechSynthesis.resume();
+      } else {
+        playAudioLesson(spokenText, lang);
+      }
+    }
+
+    if (audioCurrentSec >= audioTotalSec) {
+      audioCurrentSec = 0;
+    }
+
+    clearInterval(audioTimer);
+    audioTimer = setInterval(() => {
+      audioCurrentSec++;
+      const percent = Math.min(100, Math.round((audioCurrentSec / audioTotalSec) * 100));
+      if (el.audioTrackFill) el.audioTrackFill.style.width = `${percent}%`;
+      const mins = Math.floor(audioCurrentSec / 60);
+      const secs = audioCurrentSec % 60;
+      const formatted = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+      if (el.audioTime) el.audioTime.textContent = `${formatted} / 0:45`;
+
+      if (audioCurrentSec >= audioTotalSec) {
+        resetAudioPlayback();
+      }
+    }, 1000);
+  }
+
+  function pauseAudioPlayback() {
+    isAudioPlaying = false;
+    clearInterval(audioTimer);
+    if (typeof window !== "undefined" && 'speechSynthesis' in window) {
+      window.speechSynthesis.pause();
+    }
+    if (el.btnAudioPlay) el.btnAudioPlay.classList.remove("playing");
+    if (el.audioIconPlay) el.audioIconPlay.style.display = "block";
+    if (el.audioIconPause) el.audioIconPause.style.display = "none";
+  }
+
+  function resetAudioPlayback() {
+    isAudioPlaying = false;
+    clearInterval(audioTimer);
+    if (typeof window !== "undefined" && 'speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+    }
+    speechUtterance = null;
+    audioCurrentSec = 0;
+    if (el.btnAudioPlay) el.btnAudioPlay.classList.remove("playing");
+    if (el.audioIconPlay) el.audioIconPlay.style.display = "block";
+    if (el.audioIconPause) el.audioIconPause.style.display = "none";
+    if (el.audioTrackFill) el.audioTrackFill.style.width = "0%";
+    if (el.audioTime) el.audioTime.textContent = "0:00 / 0:45";
+  }
+
+  function renderAuditReviewList() {
+    el.questionsReviewList.innerHTML = "";
+    const session = state.session;
+
+    session.objective.questions.forEach((question, idx) => {
+      const resp = session.responses[idx];
+      const isCorrect = resp && resp.is_correct;
+      const chosenLetter = resp ? resp.selected_option : "None";
+
+      const item = document.createElement("div");
+      item.className = "review-item";
+      item.innerHTML = `
+        <div class="review-header">
+          <span class="review-q-title">Q${idx + 1}: ${question.exam_source}</span>
+          <span class="review-tag ${isCorrect ? 'correct' : 'incorrect'}">
+            ${isCorrect ? 'Correct ✓' : 'Likely Gap ✗'}
+          </span>
+        </div>
+        <div class="review-q-text">${question.question_text}</div>
+        <div class="review-answer-line">
+          Your choice: <strong>Option ${chosenLetter}</strong>
+          ${!isCorrect ? ` • Correct: <strong style="color: #6ee7b7;">Option ${question.correct_option}</strong>` : ''}
+        </div>
+      `;
+      el.questionsReviewList.appendChild(item);
+    });
+  }
+
+  // -------------------------------------------------------------
+  // SCR-04: Explain-Back Active Recall Input (FR-04)
+  // -------------------------------------------------------------
+  function countWords(text) {
+    if (!text || typeof text !== "string") return 0;
+    const trimmed = text.trim();
+    if (!trimmed) return 0;
+    return trimmed.split(/\s+/).filter(Boolean).length;
+  }
+
+  function getSampleSpokenRecall(objective) {
+    if (!objective) return "";
+    switch (objective.objective_id) {
+      case "PHY-EM-01":
+        return "According to Faraday and Lenz, a static magnetic field produces zero current in a stationary coil. Current is only induced when the magnetic flux cutting across the conductor changes over time, and the induced electromotive force acts in a direction that opposes the flux change.";
+      case "CHE-ORG-01":
+        return "Geometric isomerism occurs in alkenes because the carbon-carbon double bond has restricted rotation, preventing free twisting. Furthermore, each carbon in the double bond must be attached to two different atoms or groups, producing distinct cis and trans stereoisomers.";
+      case "BIO-GEN-01":
+        return "In monohybrid inheritance, heterozygous parents carry both dominant and recessive alleles. When crossed, the phenotypic ratio is three dominant to one recessive, but the underlying genotypic ratio is one homozygous dominant, two heterozygous, and one homozygous recessive.";
+      case "MTH-ALG-01":
+        return "When solving quadratic equations with complex roots, the discriminant b squared minus 4ac is less than zero, so the square root produces an imaginary term i. The resulting quadratic roots form a complex conjugate pair.";
+      default:
+        return "The fundamental concept requires understanding the underlying scientific principles, avoiding common misconceptions, and recognizing that rates of change dictate the observed experimental outcomes.";
+    }
+  }
+
+  function renderExplainBackView() {
+    const session = state.session;
+    const objective = session.objective;
+    if (!objective) return;
+
+    // Reset voice dictation if active
+    if (isDictating && speechRecognizer) {
+      speechRecognizer.stop();
+      isDictating = false;
+      el.btnVoiceDictate.classList.remove("recording");
+      el.dictateBtnText.textContent = "Record Voice Note";
+    }
+
+    // Contextual Challenge Prompt
+    const currentGap = session.diagnosedGaps && session.diagnosedGaps.length > 0
+      ? (session.diagnosedGaps[session.activeGapIndex] || session.diagnosedGaps[0])
+      : null;
+
+    const challengeText = objective.explain_back_prompt || 
+      `In your own simple words, explain the core rule of ${objective.subtopic_title} and how to avoid the misconception: "${currentGap ? currentGap.title : 'the typical trap'}".`;
+
+    el.explainBackChallengePrompt.textContent = challengeText;
+
+    if (objective.explain_back_placeholder) {
+      el.explainBackInput.placeholder = objective.explain_back_placeholder;
+    }
+
+    // Restore cached draft from localStorage (FR-10)
+    const draftKey = `talkpdf_explain_back_draft_${objective.objective_id}`;
+    const savedDraft = localStorage.getItem(draftKey);
+    if (savedDraft !== null && savedDraft !== undefined) {
+      el.explainBackInput.value = savedDraft;
+    } else {
+      el.explainBackInput.value = "";
+    }
+
+    // Reset or restore evaluation & revision UI state
+    if (session.explainBackEvaluation) {
+      renderEvaluationFeedback(session.explainBackEvaluation);
+    } else {
+      if (el.evaluationFeedbackPanel) el.evaluationFeedbackPanel.style.display = "none";
+    }
+
+    if (session.explainBackRetries === 1 && session.explainBackEvaluation && session.explainBackEvaluation.primary_evaluation_result === "NEEDS_CLARIFICATION" && el.evaluationFeedbackPanel.style.display === "none") {
+      el.pinnedHintBanner.style.display = "block";
+      el.pinnedHintText.textContent = session.explainBackEvaluation.targeted_hint_issued;
+      el.btnCheckExplanation.querySelector("span").textContent = "Check Revised Explanation";
+    } else if (!session.explainBackRetries) {
+      if (el.pinnedHintBanner) el.pinnedHintBanner.style.display = "none";
+      if (el.btnCheckExplanation) el.btnCheckExplanation.querySelector("span").textContent = "Check My Explanation";
+    }
+
+    updateWordCount();
+  }
+
+  function updateWordCount() {
+    const text = el.explainBackInput.value || "";
+    const words = countWords(text);
+    const objective = state.session.objective;
+
+    // Word counter pill status (20-word threshold)
+    if (words >= 20) {
+      el.wordCounterPill.textContent = `${words} / 20 words (Requirement met ✓)`;
+      el.wordCounterPill.className = "word-counter-pill ready";
+      el.btnCheckExplanation.disabled = false;
+    } else {
+      const remaining = 20 - words;
+      el.wordCounterPill.textContent = `${words} / 20 words (${remaining} more needed)`;
+      el.wordCounterPill.className = "word-counter-pill needs-more";
+      el.btnCheckExplanation.disabled = true;
+    }
+
+    // Auto-save to localStorage on keystroke (FR-10)
+    if (objective && objective.objective_id) {
+      try {
+        const draftKey = `talkpdf_explain_back_draft_${objective.objective_id}`;
+        localStorage.setItem(draftKey, text);
+        el.autoSavePill.style.opacity = "1";
+      } catch (err) {
+        console.warn("Failed to auto-save explain-back draft:", err);
+      }
+    }
+  }
+
+  function toggleVoiceDictation() {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      // Fallback simulation for unsupported browsers/environments
+      const sampleSpoken = getSampleSpokenRecall(state.session.objective);
+      if (!el.explainBackInput.value.trim()) {
+        el.explainBackInput.value = sampleSpoken;
+      } else {
+        el.explainBackInput.value += " " + sampleSpoken;
+      }
+      updateWordCount();
+      alert("Microphone Speech Recognition is not supported by this browser. A realistic voice transcription sample has been inserted for testing.");
+      return;
+    }
+
+    if (isDictating) {
+      if (speechRecognizer) {
+        speechRecognizer.stop();
+      }
+      isDictating = false;
+      el.btnVoiceDictate.classList.remove("recording");
+      el.dictateBtnText.textContent = "Record Voice Note";
+      return;
+    }
+
+    try {
+      speechRecognizer = new SpeechRecognition();
+      speechRecognizer.continuous = true;
+      speechRecognizer.interimResults = false;
+      speechRecognizer.lang = "en-NG"; // West African English or browser default
+
+      speechRecognizer.onstart = () => {
+        isDictating = true;
+        el.btnVoiceDictate.classList.add("recording");
+        el.dictateBtnText.textContent = "Listening... (tap to finish)";
+      };
+
+      speechRecognizer.onresult = (event) => {
+        let transcript = "";
+        for (let i = event.resultIndex; i < event.results.length; ++i) {
+          if (event.results[i].isFinal) {
+            transcript += event.results[i][0].transcript + " ";
+          }
+        }
+        if (transcript.trim()) {
+          const prev = el.explainBackInput.value.trim();
+          el.explainBackInput.value = prev ? `${prev} ${transcript.trim()}` : transcript.trim();
+          updateWordCount();
+        }
+      };
+
+      speechRecognizer.onerror = (err) => {
+        console.warn("Speech recognition error:", err);
+        isDictating = false;
+        el.btnVoiceDictate.classList.remove("recording");
+        el.dictateBtnText.textContent = "Record Voice Note";
+      };
+
+      speechRecognizer.onend = () => {
+        isDictating = false;
+        el.btnVoiceDictate.classList.remove("recording");
+        el.dictateBtnText.textContent = "Record Voice Note";
+      };
+
+      speechRecognizer.start();
+    } catch (e) {
+      console.warn("Could not start speech recognition:", e);
+      isDictating = false;
+      el.btnVoiceDictate.classList.remove("recording");
+      el.dictateBtnText.textContent = "Record Voice Note";
+    }
+  }
+
+  // -------------------------------------------------------------
+  // SCR-04 / FR-05: AI Explain-Back Evaluation & 1-Retry Loop
+  // -------------------------------------------------------------
+  function evaluateExplainBack(text, objective) {
+    if (!text || !objective) return null;
+
+    const lower = text.toLowerCase();
+    const words = countWords(text);
+    const objId = objective.objective_id;
+
+    let pointsCovered = 0;
+    const totalPoints = (objective.required_understanding_points && objective.required_understanding_points.length) || 3;
+    let missingPointIndex = -1;
+    let targetedHint = null;
+
+    if (objId === "PHY-EM-01") {
+      // Point 1: Flux changing over time / relative motion
+      const p1 = /(flux.*(chang|var|motion|relat|mov)|(chang|var|motion|relat|mov).*flux|rate of change|d\u03a6\/dt|delta\s*phi)/i.test(lower);
+      // Point 2: Induced emf / current / voltage proportional to rate of change
+      const p2 = /(induc.*(emf|e\.m\.f|volt|current)|(emf|e\.m\.f|volt|current).*induc|proport|speed|rate)/i.test(lower);
+      // Point 3: Opposes the change (Lenz's Law)
+      const p3 = /(oppos|resist|lenz|counter|against|direction)/i.test(lower);
+
+      if (p1) pointsCovered++; else if (missingPointIndex === -1) missingPointIndex = 0;
+      if (p2) pointsCovered++; else if (missingPointIndex === -1) missingPointIndex = 1;
+      if (p3) pointsCovered++; else if (missingPointIndex === -1) missingPointIndex = 2;
+
+      if (missingPointIndex === 0) {
+        targetedHint = "Hint: Remember what must happen to the magnetic field over time. A static magnet produces zero current—there must be relative motion or changing magnetic flux (ΔΦ/Δt).";
+      } else if (missingPointIndex === 1) {
+        targetedHint = "Hint: Clarify how moving the magnet faster changes the result—the magnitude of induced electromotive force is directly proportional to the rate of change of flux.";
+      } else if (missingPointIndex === 2) {
+        targetedHint = "Hint: Mention Lenz's Law—explain that the induced current always flows in a direction that opposes the change producing it (like energy conservation).";
+      }
+    } else if (objId === "CHE-ORG-01") {
+      // Point 1: Carbon-carbon double bond with sigma and pi bond
+      const p1 = /(double bond|pi bond|\bpi\b|sigma|\bc=c\b|unsaturat)/i.test(lower);
+      // Point 2: Addition reaction (breaking pi bond) vs substitution
+      const p2 = /(addit|break|open|decolor|react|substitut)/i.test(lower);
+      // Point 3: Markovnikov's rule (hydrogen to carbon with more H)
+      const p3 = /(markov|hydrogen|rich.*richer|more hydrogen|2-chloropropan)/i.test(lower);
+
+      if (p1) pointsCovered++; else if (missingPointIndex === -1) missingPointIndex = 0;
+      if (p2) pointsCovered++; else if (missingPointIndex === -1) missingPointIndex = 1;
+      if (p3) pointsCovered++; else if (missingPointIndex === -1) missingPointIndex = 2;
+
+      if (missingPointIndex === 0) {
+        targetedHint = "Hint: Mention the nature of the double bond—the exposed, weaker pi (π) electron bond that makes alkenes far more reactive than alkanes.";
+      } else if (missingPointIndex === 1) {
+        targetedHint = "Hint: Emphasize that alkenes undergo addition reactions (the double bond opens up across two carbons) rather than substitution.";
+      } else if (missingPointIndex === 2) {
+        targetedHint = "Hint: Explain Markovnikov's Rule explicitly—when adding HCl, which carbon atom receives the incoming hydrogen atom?";
+      }
+    } else if (objId === "BIO-GEN-01") {
+      // Point 1: Alleles segregate during gamete formation
+      const p1 = /(segreg|separat|meiosis|gamete|sex cell|one allele)/i.test(lower);
+      // Point 2: Heterozygous carries hidden recessive allele
+      const p2 = /(heterozyg|dominant|recessiv|mask|hide|hidden|carrier|\btt\b)/i.test(lower);
+      // Point 3: 3:1 phenotypic and 1:2:1 genotypic ratio
+      const p3 = /(3\s*:\s*1|3 to 1|1\s*:\s*2\s*:\s*1|25%|75%|ratio|punnett)/i.test(lower);
+
+      if (p1) pointsCovered++; else if (missingPointIndex === -1) missingPointIndex = 0;
+      if (p2) pointsCovered++; else if (missingPointIndex === -1) missingPointIndex = 1;
+      if (p3) pointsCovered++; else if (missingPointIndex === -1) missingPointIndex = 2;
+
+      if (missingPointIndex === 0) {
+        targetedHint = "Hint: Explain Mendel's Law of Segregation—how homologous alleles physically separate during meiosis so each gamete gets only one copy.";
+      } else if (missingPointIndex === 1) {
+        targetedHint = "Hint: Explain why heterozygous parents (Tt) look dominant but can still produce recessive dwarf offspring.";
+      } else if (missingPointIndex === 2) {
+        targetedHint = "Hint: Mention the resulting 3:1 physical ratio and how 25% of offspring inherit both recessive alleles (tt).";
+      }
+    } else if (objId === "MTH-ALG-01") {
+      // Point 1: Discriminant b^2 - 4ac
+      const p1 = /(discriminant|b\^?2\s*-\s*4ac|b squared minus 4ac)/i.test(lower);
+      // Point 2: b^2 - 4ac > 0 distinct real roots
+      const p2 = /(positive|greater than zero|> ?0|two real|distinct)/i.test(lower);
+      // Point 3: b^2 - 4ac = 0 equal roots
+      const p3 = /(equal to zero|= ?0|equal roots|repeated|one real)/i.test(lower);
+      // Point 4: b^2 - 4ac < 0 complex/no real
+      const p4 = /(negative|less than zero|< ?0|no real|complex|imaginar)/i.test(lower);
+
+      if (p1) pointsCovered++; else if (missingPointIndex === -1) missingPointIndex = 0;
+      if (p2) pointsCovered++; else if (missingPointIndex === -1) missingPointIndex = 1;
+      if (p3) pointsCovered++; else if (missingPointIndex === -1) missingPointIndex = 2;
+      if (p4) pointsCovered++; else if (missingPointIndex === -1) missingPointIndex = 3;
+
+      if (missingPointIndex === 0) {
+        targetedHint = "Hint: Name the discriminant formula (Δ = b² - 4ac) under the quadratic square root.";
+      } else if (missingPointIndex === 1) {
+        targetedHint = "Hint: Explain the root behavior when the discriminant is positive (> 0).";
+      } else if (missingPointIndex === 2) {
+        targetedHint = "Hint: Explicitly describe what condition produces equal or repeated roots (when b² - 4ac = 0).";
+      } else if (missingPointIndex === 3) {
+        targetedHint = "Hint: Explain why a negative discriminant (< 0) yields no real roots on the real number line.";
+      }
+    } else {
+      // Fallback
+      pointsCovered = words >= 30 ? 2 : 1;
+      targetedHint = "Hint: Expand on the core scientific law and explain how changing conditions alter the outcome.";
+    }
+
+    // Determine primary evaluation result
+    const minRequired = Math.ceil(totalPoints * 0.6); // 2 out of 3, or 3 out of 4
+    const isUnderstood = pointsCovered >= minRequired;
+    const primaryResult = isUnderstood ? "UNDERSTOOD" : "NEEDS_CLARIFICATION";
+
+    // Secondary Formative Rubric Scores (FR-05, data-structure.md)
+    const accuracyScore = Math.max(3, Math.min(10, Math.round((pointsCovered / totalPoints) * 10)));
+
+    const avgWordLength = text.replace(/[^a-zA-Z]/g, '').length / Math.max(1, words);
+    let simplicityScore = 8;
+    if (words >= 25 && words <= 80 && avgWordLength < 6.5) {
+      simplicityScore = 9;
+    } else if (words > 120 || avgWordLength > 7.5) {
+      simplicityScore = 7;
+    }
+
+    const hasAnalogy = /(like|as if|for example|such as|imagine|think of|water|coin|battery|wire|pointer|deflect|magnet)/i.test(lower);
+    const analogiesScore = hasAnalogy ? 9 : 7;
+
+    const overallScore = Math.min(100, Math.round((accuracyScore * 5) + (simplicityScore * 3) + (analogiesScore * 2)));
+
+    let badgeTier = "Bronze";
+    if (overallScore >= 85) badgeTier = "Gold";
+    else if (overallScore >= 70) badgeTier = "Silver";
+
+    return {
+      primary_evaluation_result: primaryResult,
+      targeted_hint_issued: isUnderstood ? null : (targetedHint || "Hint: Add more detail on how the physical condition produces the observed result."),
+      points_covered: pointsCovered,
+      total_points: totalPoints,
+      secondary_simplicity_score: simplicityScore,
+      secondary_accuracy_score: accuracyScore,
+      secondary_analogies_score: analogiesScore,
+      secondary_overall_score: overallScore,
+      badge_tier: badgeTier
+    };
+  }
+
+  function handleExplainBackSubmission() {
+    const text = (el.explainBackInput.value || "").trim();
+    const words = countWords(text);
+    if (words < 20) {
+      alert("Your explanation must be at least 20 words so we can evaluate your conceptual grasp. Please add a bit more detail!");
+      return;
+    }
+
+    const evaluation = evaluateExplainBack(text, state.session.objective);
+    state.session.explainBackText = text;
+    state.session.explainBackEvaluation = evaluation;
+    state.session.explainBackRetries = state.session.explainBackRetries || 0;
+    saveSessionToStorage();
+
+    renderEvaluationFeedback(evaluation);
+  }
+
+  function renderEvaluationFeedback(evaluation) {
+    if (!evaluation) return;
+
+    el.evaluationFeedbackPanel.style.display = "block";
+    const retries = state.session.explainBackRetries || 0;
+    const isUnderstood = evaluation.primary_evaluation_result === "UNDERSTOOD";
+
+    // Primary Result Banner
+    el.evalResultBanner.className = `eval-result-banner ${isUnderstood ? "understood" : "clarification"}`;
+    el.evalStatusPill.textContent = isUnderstood ? "UNDERSTOOD ✓" : "NEEDS CLARIFICATION";
+    el.evalBadgeTier.className = `badge-tier-pill ${evaluation.badge_tier.toLowerCase()}`;
+    el.evalBadgeTier.textContent = `${evaluation.badge_tier === "Gold" ? "🏆 Gold" : evaluation.badge_tier === "Silver" ? "🥈 Silver" : "🥉 Bronze"} Tier`;
+    el.evalScoreOverall.textContent = `${evaluation.secondary_overall_score}/100`;
+
+    if (isUnderstood) {
+      el.evalResultTitle.textContent = "Strong Conceptual Grasp!";
+      el.evalResultSummary.textContent = "Your explanation accurately captures the required syllabus principles in simple, clear language.";
+      el.targetedHintBox.style.display = "none";
+    } else {
+      el.evalResultTitle.textContent = retries >= 1 
+        ? "Evaluation Updated — Ready for Final Verification" 
+        : "Almost There — One Key Rule Missing";
+      el.evalResultSummary.textContent = retries >= 1
+        ? "You have completed your 1 revision attempt. Proceed to the verification question to test your understanding."
+        : "Your explanation has a good foundation, but missed a core requirement from the syllabus.";
+      
+      el.targetedHintBox.style.display = "block";
+      el.targetedHintText.textContent = evaluation.targeted_hint_issued || "Remember to explain all key physical conditions.";
+    }
+
+    // Secondary Rubric Scores
+    el.scoreSimplicity.textContent = `${evaluation.secondary_simplicity_score}/10`;
+    el.barSimplicity.style.width = `${evaluation.secondary_simplicity_score * 10}%`;
+
+    el.scoreAccuracy.textContent = `${evaluation.secondary_accuracy_score}/10`;
+    el.barAccuracy.style.width = `${evaluation.secondary_accuracy_score * 10}%`;
+
+    el.scoreAnalogies.textContent = `${evaluation.secondary_analogies_score}/10`;
+    el.barAnalogies.style.width = `${evaluation.secondary_analogies_score * 10}%`;
+
+    el.scoreComposite.textContent = `${evaluation.secondary_overall_score}/100`;
+    el.barComposite.style.width = `${evaluation.secondary_overall_score}%`;
+
+    // Strict 1-retry progression control (SCR-04 / FR-05)
+    if (!isUnderstood && retries === 0) {
+      el.btnTryRevision.style.display = "flex";
+      el.btnProceedToVerification.style.display = "none";
+    } else {
+      el.btnTryRevision.style.display = "none";
+      el.btnProceedToVerification.style.display = "flex";
+    }
+
+    // Smooth scroll down to feedback panel
+    el.evaluationFeedbackPanel.scrollIntoView({ behavior: "smooth" });
+  }
+
+  function handleTryRevision() {
+    const evaluation = state.session.explainBackEvaluation;
+    state.session.explainBackRetries = 1;
+    saveSessionToStorage();
+
+    // Hide feedback panel
+    el.evaluationFeedbackPanel.style.display = "none";
+
+    // Show pinned hint banner right above textarea
+    el.pinnedHintBanner.style.display = "block";
+    el.pinnedHintText.textContent = evaluation ? evaluation.targeted_hint_issued : "Review your explanation and incorporate the missing conceptual point.";
+
+    // Update CTA text
+    el.btnCheckExplanation.querySelector("span").textContent = "Check Revised Explanation";
+
+    // Focus textarea and scroll to it
+    el.explainBackInput.focus();
+    el.pinnedHintBanner.scrollIntoView({ behavior: "smooth" });
+  }
+
+  function handleProceedToVerification() {
+    state.session.stage = "REASSESSMENT";
+    saveSessionToStorage();
+
+    const evaluation = state.session.explainBackEvaluation;
+    const scoreText = evaluation ? `${evaluation.secondary_overall_score}/100 (${evaluation.badge_tier} Tier)` : "Passed";
+
+    alert(`[Active Recall Evaluation Complete ✓]\n\nEvaluation Result: ${evaluation ? evaluation.primary_evaluation_result : 'UNDERSTOOD'}\nComposite Score: ${scoreText}\n\nProceeding to Feature #6: Parallel Reassessment Question (SCR-05)!`);
+  }
+
+  // -------------------------------------------------------------
+  // Topic Mastery Verified View
+  // -------------------------------------------------------------
+  function renderMasteryView() {
+    el.masteryStudentName.textContent = state.student.name.split(' ')[0];
+  }
+
+  // -------------------------------------------------------------
+  // Low-Data Mode Toggle (FR-08)
+  // -------------------------------------------------------------
+  function toggleLowDataMode() {
+    state.lowDataMode = !state.lowDataMode;
+    updateLowDataUI();
+    if (state.session.stage === "QUIZ" && state.session.active) {
+      renderQuizQuestion();
+    } else if (state.session.stage === "DIAGNOSIS") {
+      renderActiveGapDetails();
+    }
+    saveSessionToStorage();
+  }
+
+  function updateLowDataUI() {
+    el.lowDataToggle.classList.toggle("active", state.lowDataMode);
+    el.lowDataText.textContent = state.lowDataMode ? "Low-Data: ON" : "Low-Data: OFF";
+  }
+
+  // -------------------------------------------------------------
+  // Event Listeners
+  // -------------------------------------------------------------
+  function bindEvents() {
+    el.lowDataToggle.addEventListener("click", toggleLowDataMode);
+
+    // Exam Tabs
+    el.tabWaec.addEventListener("click", () => {
+      state.activeExam = "WAEC";
+      renderSetupView();
+    });
+
+    el.tabJamb.addEventListener("click", () => {
+      state.activeExam = "JAMB";
+      renderSetupView();
+    });
+
+    // Subject Selector
+    el.subjectSelect.addEventListener("change", (e) => {
+      state.activeSubject = e.target.value;
+      renderSetupView();
+    });
+
+    // Topic Search
+    el.topicSearchInput.addEventListener("input", (e) => {
+      state.searchQuery = e.target.value;
+      renderSetupView();
+    });
+
+    // Start Button
+    el.btnStartDiagnostic.addEventListener("click", startDiagnosticQuiz);
+
+    // Quiz Navigation
+    el.btnNextQuestion.addEventListener("click", handleNextQuestion);
+    el.btnPrevQuestion.addEventListener("click", handlePrevQuestion);
+
+    // Diagnosis Actions
+    el.btnToggleReview.addEventListener("click", () => {
+      const isHidden = el.reviewListContainer.style.display === "none";
+      el.reviewListContainer.style.display = isHidden ? "block" : "none";
+      el.btnToggleReview.querySelector("span").textContent = isHidden ?
+        "Hide 5-Question Audit Breakdown (▲)" :
+        "Show Full 5-Question Audit Breakdown (▼)";
+    });
+
+    // Audio Player Toggle & Multilingual Switcher
+    if (el.btnAudioPlay) {
+      el.btnAudioPlay.addEventListener("click", toggleAudioPlayback);
+    }
+
+    if (el.audioLangPills) {
+      el.audioLangPills.addEventListener("click", (e) => {
+        const btn = e.target.closest(".lang-pill");
+        if (btn && btn.dataset.lang) {
+          setAudioLanguage(btn.dataset.lang);
+        }
+      });
+    }
+
+    // Progression CTA: Explain-Back Active Recall (SCR-03 -> SCR-04)
+    if (el.btnExplainBack) {
+      el.btnExplainBack.addEventListener("click", () => {
+        state.session.stage = "EXPLAIN_BACK";
+        saveSessionToStorage();
+        showView("explainBack");
+        renderExplainBackView();
+      });
+    }
+
+    // Explain-Back Input Listeners (SCR-04 / FR-04 / FR-12)
+    if (el.explainBackInput) {
+      el.explainBackInput.addEventListener("input", updateWordCount);
+    }
+
+    if (el.btnVoiceDictate) {
+      el.btnVoiceDictate.addEventListener("click", toggleVoiceDictation);
+    }
+
+    if (el.btnCheckExplanation) {
+      el.btnCheckExplanation.addEventListener("click", handleExplainBackSubmission);
+    }
+
+    if (el.btnTryRevision) {
+      el.btnTryRevision.addEventListener("click", handleTryRevision);
+    }
+
+    if (el.btnProceedToVerification) {
+      el.btnProceedToVerification.addEventListener("click", handleProceedToVerification);
+    }
+
+    if (el.btnBackToLesson) {
+      el.btnBackToLesson.addEventListener("click", () => {
+        state.session.stage = "DIAGNOSIS";
+        saveSessionToStorage();
+        showView("diagnosis");
+        renderDiagnosisView();
+      });
+    }
+
+    el.btnDiagRetake.addEventListener("click", startDiagnosticQuiz);
+    el.btnDiagNewTopic.addEventListener("click", () => {
+      state.session.stage = "SETUP";
+      saveSessionToStorage();
+      showView("setup");
+      renderSetupView();
+    });
+
+    // Mastery Actions
+    el.btnMasteryNextTopic.addEventListener("click", () => {
+      state.session.stage = "SETUP";
+      saveSessionToStorage();
+      showView("setup");
+      renderSetupView();
+    });
+
+    el.btnMasteryRetake.addEventListener("click", startDiagnosticQuiz);
+  }
+
+  // Run on DOM ready
+  if (typeof document !== "undefined") {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init);
+    } else {
+      init();
+    }
+  }
+
+  // Global and CommonJS Exports for Testing
+  if (typeof window !== "undefined") {
+    window.TalkPDF = {
+      evaluateExplainBack,
+      countWords
+    };
+  }
+
+  if (typeof module !== "undefined" && module.exports) {
+    module.exports = {
+      evaluateExplainBack,
+      countWords
+    };
+  }
+})();
+
+</script>
 </body>
 </html>
